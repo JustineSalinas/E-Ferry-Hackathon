@@ -1,0 +1,12 @@
+{
+  "cooperativeId": "c-101",
+  "dailyStats": [
+    {"date": "2026-04-01", "passengerVolume": 1200, "ticketRevenue": 60000, "routeConsistency": 98},
+    {"date": "2026-04-02", "passengerVolume": 1250, "ticketRevenue": 62500, "routeConsistency": 99},
+    {"date": "2026-04-03", "passengerVolume": 1100, "ticketRevenue": 55000, "routeConsistency": 95},
+    {"date": "2026-04-04", "passengerVolume": 1300, "ticketRevenue": 65000, "routeConsistency": 100},
+    {"date": "2026-04-05", "passengerVolume": 1400, "ticketRevenue": 70000, "routeConsistency": 97},
+    {"date": "2026-04-06", "passengerVolume": 1420, "ticketRevenue": 71000, "routeConsistency": 98},
+    {"date": "2026-04-07", "passengerVolume": 1380, "ticketRevenue": 69000, "routeConsistency": 96}
+  ]
+}

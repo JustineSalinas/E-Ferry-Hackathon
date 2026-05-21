@@ -1,0 +1,41 @@
+[
+  {
+    "id": "c-101",
+    "name": "Iloilo-Guimaras Ferry Association",
+    "status": "In Review",
+    "vessels": 12,
+    "bankabilityScore": 780,
+    "requestedLoanAmount": 1500000,
+    "projectedDSCR": 1.45,
+    "esgImpact": {
+      "carbonSavedTons": 520,
+      "fuelReductionPercent": 35
+    }
+  },
+  {
+    "id": "c-102",
+    "name": "Boracay Transport Cooperative",
+    "status": "Pending",
+    "vessels": 8,
+    "bankabilityScore": 620,
+    "requestedLoanAmount": 800000,
+    "projectedDSCR": 1.1,
+    "esgImpact": {
+      "carbonSavedTons": 310,
+      "fuelReductionPercent": 28
+    }
+  },
+  {
+    "id": "c-103",
+    "name": "Cebu Maritime Eco-Fleet",
+    "status": "Approved",
+    "vessels": 20,
+    "bankabilityScore": 850,
+    "requestedLoanAmount": 3000000,
+    "projectedDSCR": 1.8,
+    "esgImpact": {
+      "carbonSavedTons": 1200,
+      "fuelReductionPercent": 42
+    }
+  }
+]
