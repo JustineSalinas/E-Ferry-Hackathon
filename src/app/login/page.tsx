@@ -14,6 +14,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
+import { Anchor, Ship, Landmark, Lock } from 'lucide-react';
 
 type Role = 'operator' | 'institution' | null;
 
@@ -44,7 +45,7 @@ export default function LoginPage() {
         <div className="relative z-10 animate-in slide-in-from-left-8 fade-in duration-1000">
           <div className="flex items-center gap-3 mb-2">
             <div className="w-10 h-10 rounded-xl bg-primary-foreground/20 flex items-center justify-center backdrop-blur-sm">
-              <span className="text-primary-foreground text-xl">⚓</span>
+              <Anchor className="w-6 h-6 text-primary-foreground" />
             </div>
             <span className="text-primary-foreground text-2xl font-bold tracking-tight">
               MarineSync
@@ -113,7 +114,7 @@ export default function LoginPage() {
           {/* Mobile brand mark */}
           <div className="flex lg:hidden items-center gap-2">
             <div className="w-7 h-7 rounded-lg bg-primary flex items-center justify-center">
-              <span className="text-primary-foreground text-sm">⚓</span>
+              <Anchor className="w-4 h-4 text-primary-foreground" />
             </div>
             <span className="text-primary font-bold text-sm">MarineSync</span>
           </div>
@@ -166,7 +167,7 @@ export default function LoginPage() {
                       </svg>
                     </span>
                   )}
-                  <span className="text-2xl">⛵</span>
+                  <Ship className="w-8 h-8 text-primary" />
                   <div>
                     <p
                       className={`text-sm font-semibold leading-tight ${
@@ -210,7 +211,7 @@ export default function LoginPage() {
                       </svg>
                     </span>
                   )}
-                  <span className="text-2xl">🏦</span>
+                  <Landmark className="w-8 h-8 text-primary" />
                   <div>
                     <p
                       className={`text-sm font-semibold leading-tight ${
@@ -308,7 +309,7 @@ export default function LoginPage() {
             {/* Trust Section */}
             <div className="flex flex-col items-center gap-2 pt-4 border-t border-border/50">
               <p className="text-xs text-muted-foreground flex items-center gap-1.5">
-                <span>🔒</span>
+                <Lock className="w-3.5 h-3.5" />
                 <span>Secured by 256-bit TLS encryption</span>
               </p>
               <div className="flex items-center gap-2">

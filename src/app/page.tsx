@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/mode-toggle";
+import { Anchor, Sun, Radio, BarChart2, Layers, Activity, Leaf } from "lucide-react";
 
 export default function LandingPage() {
   useEffect(() => {
@@ -35,7 +36,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center gap-2">
-            <span className="text-2xl">⚓</span>
+            <Anchor className="w-6 h-6 text-primary" />
             <span className="text-foreground font-bold text-xl tracking-tight">
               MarineSync
             </span>
@@ -151,10 +152,9 @@ export default function LandingPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
               {
                 step: "01",
-                icon: "☀️💨",
+                icon: <Sun className="w-8 h-8" />,
                 title: "Hardware Layer",
                 subtitle: "Hybrid Solar-Wind Controller",
                 description:
@@ -162,7 +162,7 @@ export default function LandingPage() {
               },
               {
                 step: "02",
-                icon: "📡",
+                icon: <Radio className="w-8 h-8" />,
                 title: "Telemetry Engine",
                 subtitle: "Real-Time Data Ingestion",
                 description:
@@ -170,7 +170,7 @@ export default function LandingPage() {
               },
               {
                 step: "03",
-                icon: "📊",
+                icon: <BarChart2 className="w-8 h-8" />,
                 title: "Marine Bankability Score",
                 subtitle: "Credit Score · 0 – 1,000",
                 description:
@@ -186,7 +186,7 @@ export default function LandingPage() {
                     <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-primary/20 text-primary text-xs font-bold group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
                       {step}
                     </span>
-                    <span className="text-2xl group-hover:scale-110 transition-transform duration-300">{icon}</span>
+                    <span className="text-primary group-hover:scale-110 transition-transform duration-300">{icon}</span>
                   </div>
                   <CardTitle className="text-foreground text-lg font-bold">
                     {title}
@@ -333,17 +333,17 @@ export default function LandingPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-14">
             {[
               {
-                icon: "🗂️",
+                icon: <Layers className="w-8 h-8" />,
                 title: "Kanban Credit Portal",
                 body: "Visualise your entire pipeline from Application → In Review → Approved → Disbursed with real-time status synced to operator telemetry.",
               },
               {
-                icon: "📉",
+                icon: <Activity className="w-8 h-8" />,
                 title: "Live DSCR Metrics",
                 body: "Debt Service Coverage Ratios are not modelled — they are back-tested against 90 days of actual vessel revenue and fuel-cost data.",
               },
               {
-                icon: "🌿",
+                icon: <Leaf className="w-8 h-8" />,
                 title: "ESG Quota Tracking",
                 body: "Each approved loan is tagged with verified CO₂ reduction tonnage, helping institutions meet green-portfolio mandates and regulatory ESG targets.",
               },
@@ -353,7 +353,7 @@ export default function LandingPage() {
                 className="bg-card/60 backdrop-blur-md border border-border/50 rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
               >
                 <CardHeader className="pb-2">
-                  <span className="text-3xl mb-2 block group-hover:scale-110 transition-transform duration-300 origin-left">{icon}</span>
+                  <span className="text-primary mb-2 block group-hover:scale-110 transition-transform duration-300 origin-left">{icon}</span>
                   <CardTitle className="text-foreground text-base font-bold">
                     {title}
                   </CardTitle>
@@ -463,7 +463,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="text-center md:text-left">
             <div className="flex items-center gap-2 justify-center md:justify-start mb-2">
-              <span className="text-xl">⚓</span>
+              <Anchor className="w-5 h-5 text-primary" />
               <span className="text-foreground font-bold text-lg tracking-tight">
                 MarineSync
               </span>

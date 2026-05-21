@@ -16,6 +16,7 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { ModeToggle } from '@/components/mode-toggle'
+import { Home, Radio, BarChart3, Banknote, Settings, Anchor } from 'lucide-react'
 
 // ─── Mock Data ────────────────────────────────────────────────────────────────
 
@@ -64,11 +65,11 @@ const routes = [
 ]
 
 const navItems = [
-  { icon: '🏠', label: 'Overview', key: 'overview' },
-  { icon: '📡', label: 'Telemetry', key: 'telemetry' },
-  { icon: '📊', label: 'Bankability Score', key: 'bankability' },
-  { icon: '💰', label: 'Subsidies & Loans', key: 'subsidies' },
-  { icon: '⚙️', label: 'Settings', key: 'settings' },
+  { icon: <Home className="w-5 h-5" />, label: 'Overview', key: 'overview' },
+  { icon: <Radio className="w-5 h-5" />, label: 'Telemetry', key: 'telemetry' },
+  { icon: <BarChart3 className="w-5 h-5" />, label: 'Bankability Score', key: 'bankability' },
+  { icon: <Banknote className="w-5 h-5" />, label: 'Subsidies & Loans', key: 'subsidies' },
+  { icon: <Settings className="w-5 h-5" />, label: 'Settings', key: 'settings' },
 ]
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
@@ -135,6 +136,7 @@ export default function OperatorDashboard() {
       {/* ── Top Navigation ── */}
       <header className="fixed top-0 left-0 right-0 z-30 bg-background/80 backdrop-blur-md h-14 flex items-center px-6 shadow-sm border-b border-border/40">
         <div className="flex items-center gap-3 flex-1">
+          <Anchor className="w-5 h-5 text-primary" />
           <span className="text-foreground font-extrabold text-xl tracking-tight">
             Marine<span className="text-primary">Sync</span>
           </span>
@@ -238,8 +240,8 @@ export default function OperatorDashboard() {
           <Card className="bg-card/50 backdrop-blur-md border border-border/40 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
             <CardHeader className="pb-2 border-b border-border/40">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-foreground text-lg font-bold">
-                  📊 Marine Bankability Score
+                <CardTitle className="text-foreground text-lg font-bold flex items-center gap-2">
+                  <BarChart3 className="w-5 h-5 text-primary" /> Marine Bankability Score
                 </CardTitle>
                 <Badge className="bg-green-500/10 text-green-700 dark:text-green-400 border border-green-500/30 font-semibold tracking-wide text-xs px-3 py-1">
                   ✓ ELIGIBLE FOR FINANCING
@@ -300,8 +302,8 @@ export default function OperatorDashboard() {
                 </div>
               </div>
 
-              <p className="text-xs text-muted-foreground mt-6 border-t border-border/40 pt-4">
-                ⏱ Score updated daily based on 30-day telemetry average · Next update in 14 hours
+              <p className="text-xs text-muted-foreground mt-6 border-t border-border/40 pt-4 flex items-center gap-2">
+                <Settings className="w-3.5 h-3.5" /> Score updated daily based on 30-day telemetry average · Next update in 14 hours
               </p>
             </CardContent>
           </Card>
@@ -415,8 +417,8 @@ export default function OperatorDashboard() {
               {/* Left: Info */}
               <div className="flex-1 space-y-4">
                 <div>
-                  <p className="text-primary-foreground/80 text-xs uppercase tracking-widest font-semibold mb-1">
-                    🎯 Matched Subsidy Opportunity
+                  <p className="text-primary-foreground/80 text-xs uppercase tracking-widest font-semibold mb-1 flex items-center gap-2">
+                    Matched Subsidy Opportunity
                   </p>
                   <h2 className="text-primary-foreground text-2xl font-bold">
                     Iloilo Green Maritime Fund
@@ -466,8 +468,8 @@ export default function OperatorDashboard() {
           {/* ── 5. Route Telemetry Table ── */}
           <Card className="bg-card/50 backdrop-blur-md border border-border/40 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
             <CardHeader className="pb-2 border-b border-border/40">
-              <CardTitle className="text-foreground font-bold text-base">
-                📡 Route Telemetry — Live Feed
+              <CardTitle className="text-foreground font-bold text-base flex items-center gap-2">
+                <Radio className="w-5 h-5 text-primary" /> Route Telemetry — Live Feed
               </CardTitle>
             </CardHeader>
             <CardContent className="p-0">
