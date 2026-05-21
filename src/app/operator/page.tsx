@@ -198,9 +198,19 @@ export default function OperatorDashboard() {
           {/* Page Header */}
           <div className="flex items-center justify-between pt-2">
             <div>
-              <h1 className="text-2xl font-bold text-foreground">Operations Overview</h1>
+              <h1 className="text-2xl font-bold text-foreground">
+                {activeNav === 'overview' && 'Operations Overview'}
+                {activeNav === 'telemetry' && 'Fleet Telemetry'}
+                {activeNav === 'bankability' && 'Bankability Score'}
+                {activeNav === 'subsidies' && 'Subsidies & Loans'}
+                {activeNav === 'settings' && 'Account Settings'}
+              </h1>
               <p className="text-muted-foreground text-sm mt-0.5">
-                Wednesday, 21 May 2026 · Fleet performance summary
+                {activeNav === 'overview' && 'Wednesday, 21 May 2026 · Fleet performance summary'}
+                {activeNav === 'telemetry' && 'Real-time vessel tracking and route performance'}
+                {activeNav === 'bankability' && 'Live credit scoring for ESG financing'}
+                {activeNav === 'subsidies' && 'Matched green maritime funds and loans'}
+                {activeNav === 'settings' && 'Manage your operator profile and preferences'}
               </p>
             </div>
             <Badge className="bg-green-500/10 text-green-700 dark:text-green-400 border border-green-500/30 text-xs px-3 py-1">
@@ -208,8 +218,10 @@ export default function OperatorDashboard() {
             </Badge>
           </div>
 
-          {/* ── 1. Overview Stat Cards ── */}
-          <div className="grid grid-cols-2 xl:grid-cols-4 gap-4">
+          {activeNav === 'overview' && (
+            <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              {/* ── 1. Overview Stat Cards ── */}
+              <div className="grid grid-cols-2 xl:grid-cols-4 gap-4">
             <StatCard
               title="Today's Passengers"
               value="1,342"
@@ -236,8 +248,14 @@ export default function OperatorDashboard() {
             />
           </div>
 
-          {/* ── 2. Bankability Score Widget ── */}
-          <Card className="bg-card/50 backdrop-blur-md border border-border/40 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+
+            </div>
+          )}
+
+          {activeNav === 'bankability' && (
+            <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              {/* ── 2. Bankability Score Widget ── */}
+              <Card className="bg-card/50 backdrop-blur-md border border-border/40 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
             <CardHeader className="pb-2 border-b border-border/40">
               <div className="flex items-center justify-between">
                 <CardTitle className="text-foreground text-lg font-bold flex items-center gap-2">
@@ -308,8 +326,21 @@ export default function OperatorDashboard() {
             </CardContent>
           </Card>
 
-          {/* ── 3. Charts Row ── */}
-          <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
+
+
+              {/* Placeholder for Bankability History */}
+              <Card className="bg-card/50 backdrop-blur-md border border-border/40 shadow-lg p-8 text-center flex flex-col items-center justify-center opacity-60">
+                <BarChart3 className="w-8 h-8 text-muted-foreground mb-3" />
+                <p className="text-foreground font-semibold">Historical Trend Analysis</p>
+                <p className="text-sm text-muted-foreground mt-1">Unlock 6-month predictive scoring in Pro plan</p>
+              </Card>
+            </div>
+          )}
+
+          {activeNav === 'overview' && (
+            <div className="space-y-6 mt-6 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-100">
+              {/* ── 3. Charts Row ── */}
+              <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
             {/* Passenger Volume Area Chart */}
             <Card className="bg-card/50 backdrop-blur-md border border-border/40 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
               <CardHeader className="pb-1">
@@ -411,8 +442,14 @@ export default function OperatorDashboard() {
             </Card>
           </div>
 
-          {/* ── 4. Subsidy Matcher Card ── */}
-          <div className="rounded-xl bg-gradient-to-r from-primary to-primary/80 p-6 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+
+            </div>
+          )}
+
+          {activeNav === 'subsidies' && (
+            <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              {/* ── 4. Subsidy Matcher Card ── */}
+              <div className="rounded-xl bg-gradient-to-r from-primary to-primary/80 p-6 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
             <div className="flex flex-col lg:flex-row lg:items-center gap-6">
               {/* Left: Info */}
               <div className="flex-1 space-y-4">
@@ -465,8 +502,35 @@ export default function OperatorDashboard() {
             </div>
           </div>
 
-          {/* ── 5. Route Telemetry Table ── */}
-          <Card className="bg-card/50 backdrop-blur-md border border-border/40 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+
+
+              {/* Available Grants Placeholder */}
+              <Card className="bg-card/50 backdrop-blur-md border border-border/40 shadow-lg">
+                <CardHeader className="pb-2 border-b border-border/40">
+                  <CardTitle className="text-foreground font-bold text-base flex items-center gap-2">
+                    <Banknote className="w-5 h-5 text-primary" /> Other Available Grants
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="p-8 text-center opacity-60">
+                  <p className="text-foreground font-semibold">No other matching grants found at this time.</p>
+                  <p className="text-sm text-muted-foreground mt-1">We continuously scan the DBP and LandBank databases for new programs.</p>
+                </CardContent>
+              </Card>
+            </div>
+          )}
+
+          {activeNav === 'telemetry' && (
+            <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              {/* Live Map Placeholder */}
+              <Card className="bg-card/50 backdrop-blur-md border border-border/40 shadow-lg h-[300px] flex flex-col items-center justify-center relative overflow-hidden group">
+                <div className="absolute inset-0 bg-blue-500/5 dark:bg-blue-500/10 topo-watermark opacity-20" />
+                <Anchor className="w-10 h-10 text-primary mb-3 relative z-10 animate-bounce" />
+                <p className="text-foreground font-semibold relative z-10">Live Vessel Tracking Map</p>
+                <p className="text-sm text-muted-foreground mt-1 relative z-10">Connecting to AIS receiver...</p>
+              </Card>
+
+              {/* ── 5. Route Telemetry Table ── */}
+              <Card className="bg-card/50 backdrop-blur-md border border-border/40 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
             <CardHeader className="pb-2 border-b border-border/40">
               <CardTitle className="text-foreground font-bold text-base flex items-center gap-2">
                 <Radio className="w-5 h-5 text-primary" /> Route Telemetry — Live Feed
@@ -544,7 +608,39 @@ export default function OperatorDashboard() {
                 </table>
               </div>
             </CardContent>
-          </Card>
+              </Card>
+            </div>
+          )}
+
+          {activeNav === 'settings' && (
+            <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <Card className="bg-card/50 backdrop-blur-md border border-border/40 shadow-lg max-w-2xl mx-auto">
+                <CardHeader className="pb-4 border-b border-border/40">
+                  <CardTitle className="text-foreground font-bold text-lg flex items-center gap-2">
+                    <Settings className="w-5 h-5 text-primary" /> Profile & Preferences
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="p-6 space-y-6">
+                  <div className="space-y-2">
+                    <label className="text-sm font-semibold text-foreground">Operator Name</label>
+                    <input type="text" disabled value="Iloilo Ferry Co." className="w-full bg-secondary/50 border border-border rounded-md px-3 py-2 text-sm text-muted-foreground" />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-semibold text-foreground">Email Address</label>
+                    <input type="email" disabled value="admin@iloiloferry.ph" className="w-full bg-secondary/50 border border-border rounded-md px-3 py-2 text-sm text-muted-foreground" />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-semibold text-foreground">Alert Preferences</label>
+                    <div className="flex items-center justify-between p-3 border border-border rounded-md bg-background">
+                      <span className="text-sm">Receive email when Bankability Score changes</span>
+                      <input type="checkbox" defaultChecked className="accent-primary w-4 h-4" />
+                    </div>
+                  </div>
+                  <Button className="w-full font-bold">Save Preferences</Button>
+                </CardContent>
+              </Card>
+            </div>
+          )}
 
           {/* Bottom padding */}
           <div className="h-8" />
