@@ -387,7 +387,7 @@ export default function OperatorDashboard() {
                       tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))' }}
                       axisLine={false}
                       tickLine={false}
-                      tickFormatter={(v: number) => \`₱\${(v / 1000).toFixed(0)}k\`}
+                      tickFormatter={(v: number) => `₱${(v / 1000).toFixed(0)}k`}
                     />
                     <Tooltip
                       cursor={{ fill: 'hsl(var(--secondary))', opacity: 0.4 }}
@@ -398,7 +398,7 @@ export default function OperatorDashboard() {
                         color: 'hsl(var(--card-foreground))',
                         fontSize: '12px',
                       }}
-                      formatter={(value: number) => [\`₱\${value.toLocaleString()}\`, 'Revenue']}
+                      formatter={(value: number) => [`₱${value.toLocaleString()}`, 'Revenue']}
                     />
                     <Bar
                       dataKey="revenue"
