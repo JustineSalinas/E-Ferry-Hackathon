@@ -346,7 +346,7 @@ export default function OperatorDashboard() {
                         color: 'hsl(var(--card-foreground))',
                         fontSize: '12px',
                       }}
-                      formatter={(value: number) => [value.toLocaleString(), 'Passengers']}
+                      formatter={(value: any) => [Number(value).toLocaleString(), 'Passengers']}
                     />
                     <Area
                       type="monotone"
@@ -398,7 +398,7 @@ export default function OperatorDashboard() {
                         color: 'hsl(var(--card-foreground))',
                         fontSize: '12px',
                       }}
-                      formatter={(value: number) => [`₱${value.toLocaleString()}`, 'Revenue']}
+                      formatter={(value: any) => [`₱${Number(value).toLocaleString()}`, 'Revenue']}
                     />
                     <Bar
                       dataKey="revenue"
