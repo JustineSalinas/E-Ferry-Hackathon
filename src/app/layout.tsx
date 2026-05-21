@@ -32,7 +32,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col font-body bg-[var(--color-bg)] text-[var(--color-text)] selection:bg-teal-500/20">
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >

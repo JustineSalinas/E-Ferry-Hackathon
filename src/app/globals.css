@@ -7,23 +7,18 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
+  --font-sans: var(--font-dm-sans);
   --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
+  --font-heading: var(--font-fraunces);
+  
+  /* Standard Shadcn */
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
   --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
   --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-secondary: var(--secondary);
   --color-primary-foreground: var(--primary-foreground);
@@ -32,6 +27,22 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+
+  /* MarineSync Custom Theme Colors */
+  --color-bg: var(--color-bg);
+  --color-surface: var(--color-surface);
+  --color-surface-2: var(--color-surface-2);
+  --color-border-custom: var(--color-border-custom);
+  --color-text: var(--color-text);
+  --color-muted-custom: var(--color-muted-custom);
+  --color-accent-custom: var(--color-accent-custom);
+  --color-accent-mid: var(--color-accent-mid);
+  --color-accent-light: var(--color-accent-light);
+  --color-teal: var(--color-teal);
+  --color-success: var(--color-success);
+  --color-warning: var(--color-warning);
+  --color-pending: var(--color-pending);
+
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -42,95 +53,83 @@
 }
 
 :root {
-  /* Premium Light Mode */
-  --background: oklch(0.985 0.002 247);
-  --foreground: oklch(0.145 0.005 247);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0.005 247);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0.005 247);
-  
-  /* Deep Navy as Primary in Light Mode */
-  --primary: oklch(0.205 0.03 247);
-  --primary-foreground: oklch(0.985 0 0);
-  
-  --secondary: oklch(0.96 0.01 247);
-  --secondary-foreground: oklch(0.205 0.03 247);
-  --muted: oklch(0.96 0.01 247);
-  --muted-foreground: oklch(0.55 0.02 247);
-  --accent: oklch(0.96 0.01 247);
-  --accent-foreground: oklch(0.205 0.03 247);
-  
-  --destructive: oklch(0.6 0.2 20);
-  --destructive-foreground: oklch(0.985 0 0);
-  
-  --border: oklch(0.92 0.01 247);
-  --input: oklch(0.92 0.01 247);
-  
-  /* Electric Teal for Focus Rings */
-  --ring: oklch(0.6 0.1 220);
-  
-  --chart-1: oklch(0.55 0.1 220);
-  --chart-2: oklch(0.6 0.15 150);
-  --chart-3: oklch(0.3 0.08 240);
-  --chart-4: oklch(0.7 0.15 40);
-  --chart-5: oklch(0.5 0.18 20);
-  
+  /* ── MarineSync Institutional Light Mode ── */
+  --background: #F7F6F3;
+  --foreground: #1A1A2E;
+  --card: #FFFFFF;
+  --card-foreground: #1A1A2E;
+  --popover: #FFFFFF;
+  --popover-foreground: #1A1A2E;
+  --primary: #0C4A6E;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F0EEE9;
+  --secondary-foreground: #1A1A2E;
+  --muted: #F0EEE9;
+  --muted-foreground: #6B7280;
+  --accent: #E0F2FE;
+  --accent-foreground: #0C4A6E;
+  --destructive: #dc2626;
+  --destructive-foreground: #FFFFFF;
+  --border: #E2DED6;
+  --input: #E2DED6;
+  --ring: #0C4A6E;
   --radius: 0.75rem;
 
-  /* MarineSync Custom Tokens (Orange, White, Black Palette) */
-  --color-bg: #ffffff; /* white background */
-  --color-surface: #ffffff; /* surface same as bg */
-  --color-teal: #ff6600; /* primary orange */
-  --color-teal-mid: #e65500; /* slightly darker orange */
-  --color-accent: #ff6600; /* accent orange */
-  --color-text: #000000; /* black text */
-  --color-muted: #555555; /* muted gray */
+  /* ── Custom Semantic Tokens (Light) ── */
+  --color-bg:           #F7F6F3;
+  --color-surface:      #FFFFFF;
+  --color-surface-2:    #F0EEE9;
+  --color-border-custom:#E2DED6;
+  --color-text:         #1A1A2E;
+  --color-muted-custom: #6B7280;
+  --color-accent-custom:#0C4A6E;
+  --color-accent-mid:   #0369A1;
+  --color-accent-light: #E0F2FE;
+  --color-teal:         #0D9488;
+  --color-success:      #15803D;
+  --color-warning:      #B45309;
+  --color-pending:      #6B7280;
+
   --font-display: var(--font-fraunces), serif;
   --font-body: var(--font-dm-sans), sans-serif;
 }
 
 .dark {
-  /* Premium Dark Mode */
-  --background: oklch(0.13 0.01 247);
-  --foreground: oklch(0.985 0.002 247);
-  --card: oklch(0.16 0.01 247);
-  --card-foreground: oklch(0.985 0.002 247);
-  --popover: oklch(0.16 0.01 247);
-  --popover-foreground: oklch(0.985 0.002 247);
-  
-  /* Electric Teal as Primary in Dark Mode */
-  --primary: oklch(0.7 0.12 220);
-  --primary-foreground: oklch(0.13 0.01 247);
-  
-  --secondary: oklch(0.2 0.01 247);
-  --secondary-foreground: oklch(0.985 0.002 247);
-  --muted: oklch(0.2 0.01 247);
-  --muted-foreground: oklch(0.7 0.02 247);
-  --accent: oklch(0.2 0.01 247);
-  --accent-foreground: oklch(0.985 0.002 247);
-  
-  --destructive: oklch(0.6 0.2 20);
-  --destructive-foreground: oklch(0.985 0 0);
-  
-  --border: oklch(0.25 0.01 247);
-  --input: oklch(0.25 0.01 247);
-  --ring: oklch(0.7 0.12 220);
-  
-  --chart-1: oklch(0.7 0.12 220);
-  --chart-2: oklch(0.65 0.15 150);
-  --chart-3: oklch(0.8 0.1 240);
-  --chart-4: oklch(0.75 0.15 40);
-  --chart-5: oklch(0.65 0.18 20);
+  /* ── MarineSync Institutional Dark Mode ── */
+  --background: #0F111A;
+  --foreground: #F0F6FC;
+  --card: #161B22;
+  --card-foreground: #F0F6FC;
+  --popover: #161B22;
+  --popover-foreground: #F0F6FC;
+  --primary: #38BDF8;
+  --primary-foreground: #0F111A;
+  --secondary: #1E242C;
+  --secondary-foreground: #F0F6FC;
+  --muted: #1E242C;
+  --muted-foreground: #8B949E;
+  --accent: #0369A1;
+  --accent-foreground: #38BDF8;
+  --destructive: #EF4444;
+  --destructive-foreground: #FFFFFF;
+  --border: #30363D;
+  --input: #30363D;
+  --ring: #38BDF8;
 
-  /* Override dark mode background to match redesign if desired */
-  --color-bg: #000000; /* black background */
-  --color-surface: #111111; /* dark surface */
-  --color-teal: #ff6600; /* orange primary */
-  --color-teal-mid: #e65500; /* darker orange */
-  --color-accent: #ff6600; /* NEX Orange */
-  --color-text: #ffffff;
-  --color-muted: #dad0ec;
+  /* ── Custom Semantic Tokens (Dark) ── */
+  --color-bg:           #0F111A;
+  --color-surface:      #161B22;
+  --color-surface-2:    #1E242C;
+  --color-border-custom:#30363D;
+  --color-text:         #F0F6FC;
+  --color-muted-custom: #8B949E;
+  --color-accent-custom:#38BDF8;
+  --color-accent-mid:   #0284C7;
+  --color-accent-light: rgba(14, 165, 233, 0.15);
+  --color-teal:         #2DD4BF;
+  --color-success:      #4ADE80;
+  --color-warning:      #FBBF24;
+  --color-pending:      #9CA3AF;
 }
 
 @layer base {
@@ -138,18 +137,21 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-[var(--color-bg)] text-[var(--color-text)] transition-colors duration-300;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body);
   }
   html {
-    @apply font-sans;
+    font-family: var(--font-body);
   }
 }
 
 @layer utilities {
-  .noise-overlay {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    opacity: 0.03;
-    pointer-events: none;
+  .topo-watermark {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cg fill='none' stroke='currentColor' stroke-width='1'%3E%3Cellipse cx='200' cy='200' rx='180' ry='80' opacity='0.08'/%3E%3Cellipse cx='200' cy='200' rx='140' ry='60' opacity='0.08'/%3E%3Cellipse cx='200' cy='200' rx='100' ry='40' opacity='0.08'/%3E%3Cellipse cx='200' cy='200' rx='60' ry='22' opacity='0.08'/%3E%3Cellipse cx='200' cy='200' rx='220' ry='100' opacity='0.08'/%3E%3Cellipse cx='200' cy='200' rx='260' ry='120' opacity='0.08'/%3E%3Cellipse cx='200' cy='200' rx='300' ry='140' opacity='0.08'/%3E%3C/g%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 400px 400px;
+    color: var(--color-accent-custom);
   }
 
   .animate-pulse-glow {
@@ -159,12 +161,12 @@
   .animate-blink-pulse {
     animation: blink-pulse 2s infinite;
   }
-  
+
   .shimmer-button {
     position: relative;
     overflow: hidden;
   }
-  
+
   .shimmer-button::after {
     content: '';
     position: absolute;
@@ -172,30 +174,22 @@
     right: 100%;
     width: 50%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
     transform: skewX(-20deg);
     transition: right 0.6s ease;
   }
-  
+
   .shimmer-button:hover::after {
     right: -50%;
   }
 
   @keyframes pulse-glow {
-    0%, 100% {
-      box-shadow: 0 0 0px rgba(45,212,191,0);
-    }
-    50% {
-      box-shadow: 0 0 20px rgba(45,212,191,0.5);
-    }
+    0%, 100% { box-shadow: 0 0 0px transparent; }
+    50%       { box-shadow: 0 0 20px var(--color-accent-light); }
   }
 
   @keyframes blink-pulse {
-    0%, 100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.3;
-    }
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.3; }
   }
 }

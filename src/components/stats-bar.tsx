@@ -41,10 +41,10 @@ function useCountUp(end: number, duration: number = 2000) {
       if (!startTime) startTime = timestamp;
       const progress = timestamp - startTime;
       const percentage = Math.min(progress / duration, 1);
-      
+
       // Easing function (easeOutExpo)
       const easeOut = percentage === 1 ? 1 : 1 - Math.pow(2, -10 * percentage);
-      
+
       setCount(Math.floor(end * easeOut));
 
       if (percentage < 1) {
@@ -70,11 +70,11 @@ function StatItem({ endValue, suffix = "", unit, icon, duration = 2000 }: StatIt
         {icon}
       </div>
       <div className="flex items-baseline gap-1">
-        <span className="text-4xl md:text-5xl font-display font-bold text-[var(--color-teal)] group-hover:scale-105 transition-transform duration-300">
+        <span className="text-4xl md:text-5xl font-display font-bold text-[var(--color-accent-custom)] group-hover:scale-105 transition-transform duration-300">
           {formattedCount}{suffix}
         </span>
       </div>
-      <span className="text-[var(--color-muted)] font-body text-xs font-semibold uppercase tracking-widest text-center">
+      <span className="text-[var(--color-muted-custom)] font-body text-xs font-semibold uppercase tracking-widest text-center">
         {unit}
       </span>
     </div>
@@ -84,41 +84,41 @@ function StatItem({ endValue, suffix = "", unit, icon, duration = 2000 }: StatIt
 export function StatsBar() {
   return (
     <div className="w-full max-w-4xl mx-auto mt-20 relative z-10">
-      <div 
-        className="backdrop-blur-md rounded-2xl p-8 md:px-12 md:py-8 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-0"
+      <div
+        className="rounded-2xl p-8 md:px-12 md:py-8 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-0 transition-colors duration-300"
         style={{
-          background: "rgba(255,255,255,0.04)",
-          border: "1px solid rgba(255,255,255,0.08)",
-          borderTop: "1px solid rgba(45,212,191,0.3)",
-          borderRadius: "16px"
+          background: "var(--color-surface)",
+          border: "1px solid var(--color-border-custom)",
+          boxShadow: "0 2px 12px rgba(0,0,0,0.06)",
+          borderRadius: "16px",
         }}
       >
-        <StatItem 
+        <StatItem
           icon={<Anchor className="w-6 h-6" />}
-          endValue={50000} 
-          suffix="+" 
-          unit="Tons CO₂ Saved" 
+          endValue={50000}
+          suffix="+"
+          unit="Tons CO₂ Saved"
         />
-        
-        {/* Divider */}
-        <div className="hidden md:block w-px h-16 bg-white/10" />
-        <div className="block md:hidden w-16 h-px bg-white/10" />
 
-        <StatItem 
+        {/* Divider */}
+        <div className="hidden md:block w-px h-16 bg-[var(--color-border-custom)]" />
+        <div className="block md:hidden w-16 h-px bg-[var(--color-border-custom)]" />
+
+        <StatItem
           icon={<Zap className="w-6 h-6" />}
-          endValue={35} 
-          suffix="%" 
-          unit="Fuel Reduction" 
+          endValue={35}
+          suffix="%"
+          unit="Fuel Reduction"
         />
-        
-        {/* Divider */}
-        <div className="hidden md:block w-px h-16 bg-white/10" />
-        <div className="block md:hidden w-16 h-px bg-white/10" />
 
-        <StatItem 
+        {/* Divider */}
+        <div className="hidden md:block w-px h-16 bg-[var(--color-border-custom)]" />
+        <div className="block md:hidden w-16 h-px bg-[var(--color-border-custom)]" />
+
+        <StatItem
           icon={<MapPin className="w-6 h-6" />}
-          endValue={12} 
-          unit="Routes Optimized" 
+          endValue={12}
+          unit="Routes Optimized"
         />
       </div>
     </div>
