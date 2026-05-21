@@ -152,6 +152,7 @@ export default function LandingPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
               {
                 step: "01",
                 icon: <Sun className="w-8 h-8" />,
