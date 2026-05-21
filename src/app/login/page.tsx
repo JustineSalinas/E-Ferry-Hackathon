@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Anchor, Ship, Landmark, Lock, Shield } from 'lucide-react';
-import { ModeToggle } from '@/components/mode-toggle';
+
 
 type Role = 'operator' | 'institution' | null;
 
@@ -110,7 +110,7 @@ export default function LoginPage() {
             <span>Back to home</span>
           </Link>
           <div className="flex items-center gap-4">
-            <ModeToggle />
+
             {/* Mobile brand mark */}
             <div className="flex lg:hidden items-center gap-2">
               <div className="w-7 h-7 rounded-lg bg-[var(--color-accent-custom)] flex items-center justify-center">

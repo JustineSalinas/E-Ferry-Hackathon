@@ -2,7 +2,6 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
@@ -94,43 +93,6 @@
   --font-body: var(--font-dm-sans), sans-serif;
 }
 
-.dark {
-  /* ── MarineSync Institutional Dark Mode ── */
-  --background: #0F111A;
-  --foreground: #F0F6FC;
-  --card: #161B22;
-  --card-foreground: #F0F6FC;
-  --popover: #161B22;
-  --popover-foreground: #F0F6FC;
-  --primary: #38BDF8;
-  --primary-foreground: #0F111A;
-  --secondary: #1E242C;
-  --secondary-foreground: #F0F6FC;
-  --muted: #1E242C;
-  --muted-foreground: #8B949E;
-  --accent: #0369A1;
-  --accent-foreground: #38BDF8;
-  --destructive: #EF4444;
-  --destructive-foreground: #FFFFFF;
-  --border: #30363D;
-  --input: #30363D;
-  --ring: #38BDF8;
-
-  /* ── Custom Semantic Tokens (Dark) ── */
-  --color-bg:           #0F111A;
-  --color-surface:      #161B22;
-  --color-surface-2:    #1E242C;
-  --color-border-custom:#30363D;
-  --color-text:         #F0F6FC;
-  --color-muted-custom: #8B949E;
-  --color-accent-custom:#38BDF8;
-  --color-accent-mid:   #0284C7;
-  --color-accent-light: rgba(14, 165, 233, 0.15);
-  --color-teal:         #2DD4BF;
-  --color-success:      #4ADE80;
-  --color-warning:      #FBBF24;
-  --color-pending:      #9CA3AF;
-}
 
 @layer base {
   * {

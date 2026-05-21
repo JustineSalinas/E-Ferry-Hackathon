@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { ModeToggle } from "@/components/mode-toggle";
+
 import { Anchor, Sun, Radio, BarChart2, Layers, Activity, Leaf, ArrowRight, ArrowDown, Ship, Users, Target, ShieldCheck, Landmark } from "lucide-react";
 import { AnimatedBackground } from "@/components/animated-background";
 import { StatsBar } from "@/components/stats-bar";
@@ -89,7 +89,7 @@ export default function LandingPage() {
 
           {/* CTA Buttons */}
           <div className="flex items-center gap-3">
-            <ModeToggle />
+
             <Link
               href="/login"
               className={cn(buttonVariants({ variant: "outline" }), "border-none text-[var(--color-text)] bg-transparent hover:bg-black/5 dark:hover:bg-white/5 text-sm hidden sm:inline-flex")}

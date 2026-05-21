@@ -15,7 +15,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
-import { ModeToggle } from '@/components/mode-toggle'
+
 import { Home, Radio, BarChart3, Banknote, Settings, Anchor } from 'lucide-react'
 
 // ─── Mock Data ────────────────────────────────────────────────────────────────
@@ -146,7 +146,7 @@ export default function OperatorDashboard() {
           </span>
         </div>
         <div className="flex items-center gap-4">
-          <ModeToggle />
+
           <span className="text-muted-foreground text-xs hidden md:block">
             Last updated: {new Date().toLocaleTimeString()}
           </span>

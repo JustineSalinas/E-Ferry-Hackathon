@@ -8,7 +8,7 @@ import {
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
-import { ModeToggle } from '@/components/mode-toggle'
+
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -316,7 +316,7 @@ export default function PortalPage() {
             </div>
           </div>
           <div className="h-5 w-px bg-border/60" />
-          <ModeToggle />
+
           <div className="h-5 w-px bg-border/60" />
           <Link
             href="/login"
