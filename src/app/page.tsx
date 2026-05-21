@@ -4,9 +4,10 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { ModeToggle } from "@/components/mode-toggle";
-import { Anchor, Sun, Radio, BarChart2, Layers, Activity, Leaf, ArrowRight, ArrowDown } from "lucide-react";
+import { Anchor, Sun, Radio, BarChart2, Layers, Activity, Leaf, ArrowRight, ArrowDown, Ship } from "lucide-react";
 import { AnimatedBackground } from "@/components/animated-background";
 import { StatsBar } from "@/components/stats-bar";
 
@@ -59,13 +60,13 @@ export default function LandingPage() {
           </div>
 
           {/* Nav Links */}
-          <nav className="hidden md:flex items-center gap-8">
-            {["How It Works", "Impact", "For Operators", "For Banks"].map(
+          <nav className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
+            {["How It Works", "For Operators", "For Banks", "Product", "About Us"].map(
               (label) => (
                 <a
                   key={label}
                   href={`#${label.toLowerCase().replace(/\s+/g, "-")}`}
-                  className="text-muted-foreground hover:text-[var(--color-text)] text-sm font-medium transition-colors duration-150 relative group pb-1"
+                  className="text-muted-foreground hover:text-[var(--color-text)] text-sm font-medium transition-colors duration-150 relative group pb-1 whitespace-nowrap"
                 >
                   {label}
                   <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[var(--color-teal)] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
@@ -77,19 +78,18 @@ export default function LandingPage() {
           {/* CTA Buttons */}
           <div className="flex items-center gap-3">
             <ModeToggle />
-            <Button
-              asChild
-              variant="outline"
-              className="border-border text-[var(--color-text)] bg-transparent hover:bg-secondary/80 text-sm hidden sm:inline-flex"
+            <Link
+              href="/login"
+              className={cn(buttonVariants({ variant: "outline" }), "border-border text-[var(--color-text)] bg-transparent hover:bg-secondary/80 text-sm hidden sm:inline-flex")}
             >
-              <Link href="/login">Operator Login</Link>
-            </Button>
-            <Button
-              asChild
-              className="bg-[var(--color-teal)] hover:bg-[var(--color-teal)]/90 text-[var(--color-bg)] font-semibold text-sm transition-all hover:-translate-y-0.5 animate-pulse-glow border-none"
+              Operator Login
+            </Link>
+            <Link
+              href="/login"
+              className={cn(buttonVariants(), "bg-[var(--color-teal)] hover:bg-[var(--color-teal)]/90 text-[var(--color-bg)] font-semibold text-sm transition-all hover:-translate-y-0.5 animate-pulse-glow border-none")}
             >
-              <Link href="/login">Bank Portal</Link>
-            </Button>
+              Bank Portal
+            </Link>
           </div>
         </div>
       </header>
@@ -104,11 +104,11 @@ export default function LandingPage() {
         {/* Soft teal radial glow behind text */}
         <div 
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] pointer-events-none z-0" 
-          style={{ background: "radial-gradient(circle, rgba(45,212,191,0.06) 0%, transparent 70%)" }} 
+          style={{ background: "radial-gradient(circle, rgba(255,102,0,0.06) 0%, transparent 70%)" }} 
         />
 
         <div className="max-w-4xl mx-auto relative z-10">
-          <Badge className="mb-8 bg-gradient-to-br from-[rgba(8,145,178,0.2)] to-[rgba(45,212,191,0.1)] text-[var(--color-text)] border border-[rgba(45,212,191,0.35)] shadow-[0_0_20px_rgba(45,212,191,0.15)] rounded-full text-[0.7rem] font-semibold tracking-[0.12em] uppercase hover:bg-transparent px-4 py-1.5 flex items-center gap-2 w-fit mx-auto transition-all">
+          <Badge className="mb-8 bg-gradient-to-br from-[rgba(255,133,51,0.2)] to-[rgba(255,102,0,0.1)] text-[var(--color-text)] border border-[rgba(255,102,0,0.35)] shadow-[0_0_20px_rgba(255,102,0,0.15)] rounded-full text-[0.7rem] font-semibold tracking-[0.12em] uppercase hover:bg-transparent px-4 py-1.5 flex items-center gap-2 w-fit mx-auto transition-all">
             <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-teal)] animate-blink-pulse inline-block" />
             Institutional-Grade Maritime Finance
           </Badge>
@@ -126,23 +126,20 @@ export default function LandingPage() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button
-              asChild
-              className="bg-gradient-to-br from-[#0891b2] to-[#2dd4bf] text-white h-auto px-[32px] py-[14px] rounded-[10px] text-base font-semibold border-none hover:shadow-[0_8px_30px_rgba(45,212,191,0.4)] hover:-translate-y-1 transition-all duration-300 shimmer-button"
+            <Link
+              href="/login"
+              className={cn(buttonVariants(), "bg-gray-100 text-[var(--color-text)] h-auto px-[32px] py-[14px] rounded-[10px] text-base font-semibold border-none hover:shadow-[0_8px_30px_rgba(255,102,0,0.4)] hover:-translate-y-1 transition-all duration-300 shimmer-button")}
             >
-              <Link href="/login">Get Your Bankability Score</Link>
-            </Button>
+              Get Your Bankability Score
+            </Link>
             
-            <Button
-              asChild
-              variant="outline"
-              className="group border border-[rgba(45,212,191,0.5)] text-[var(--color-text)] bg-transparent hover:bg-[rgba(45,212,191,0.08)] hover:border-[#2dd4bf] h-auto px-[32px] py-[14px] rounded-[10px] text-base font-semibold hover:-translate-y-1 transition-all duration-300"
+            <Link
+              href="/login"
+              className={cn(buttonVariants({ variant: "outline" }), "group border border-[rgba(255,102,0,0.5)] text-[var(--color-text)] bg-transparent hover:bg-[rgba(255,102,0,0.08)] hover:border-[#ff6600] h-auto px-[32px] py-[14px] rounded-[10px] text-base font-semibold hover:-translate-y-1 transition-all duration-300 flex items-center")}
             >
-              <Link href="/login" className="flex items-center">
-                View Pre-Vetted Portfolios
-                <ArrowRight className="w-4 h-4 ml-2 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
-              </Link>
-            </Button>
+              View Pre-Vetted Portfolios
+              <ArrowRight className="w-4 h-4 ml-2 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+            </Link>
           </div>
         </div>
 
@@ -168,7 +165,7 @@ export default function LandingPage() {
           {/* Cards with connector line */}
           <div className="relative">
             {/* Horizontal dashed connector line */}
-            <div className="absolute top-[20px] left-[calc(16.67%)] right-[calc(16.67%)] h-0 border-t border-dashed border-[rgba(45,212,191,0.2)] hidden md:block z-0" />
+            <div className="absolute top-[20px] left-[calc(16.67%)] right-[calc(16.67%)] h-0 border-t border-dashed border-[rgba(255,102,0,0.2)] hidden md:block z-0" />
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
@@ -199,11 +196,11 @@ export default function LandingPage() {
               ].map(({ step, icon, title, subtitle, description }) => (
                 <Card
                   key={step}
-                  className="bg-card/60 backdrop-blur-md border border-border/50 shadow-lg hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(0,0,0,0.4)] hover:border-[rgba(45,212,191,0.4)] transition-all duration-300 rounded-2xl group"
+                  className="bg-card/60 backdrop-blur-md border border-border/50 shadow-lg hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(0,0,0,0.4)] hover:border-[rgba(255,102,0,0.4)] transition-all duration-300 rounded-2xl group"
                 >
                   <CardHeader className="pb-2">
                     <div className="flex items-center gap-3 mb-3">
-                      <span className="relative z-10 inline-flex items-center justify-center w-10 h-10 rounded-full bg-primary/20 text-primary font-display text-xs font-bold shadow-[0_0_0_4px_rgba(45,212,191,0.15)] group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
+                      <span className="relative z-10 inline-flex items-center justify-center w-10 h-10 rounded-full bg-primary/20 text-primary font-display text-xs font-bold shadow-[0_0_0_4px_rgba(255,102,0,0.15)] group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
                         {step}
                       </span>
                       <span className="text-primary group-hover:scale-110 transition-transform duration-300">{icon}</span>
@@ -211,7 +208,7 @@ export default function LandingPage() {
                     <CardTitle className="text-foreground text-lg font-bold">
                       {title}
                     </CardTitle>
-                    <span className="inline-block mt-1 bg-[rgba(45,212,191,0.1)] border border-[rgba(45,212,191,0.25)] rounded-full px-2.5 py-0.5 text-[0.72rem] text-[var(--color-teal)] font-medium">
+                    <span className="inline-block mt-1 bg-[rgba(255,102,0,0.1)] border border-[rgba(255,102,0,0.25)] rounded-full px-2.5 py-0.5 text-[0.72rem] text-[var(--color-teal)] font-medium">
                       {subtitle}
                     </span>
                   </CardHeader>
@@ -264,7 +261,7 @@ export default function LandingPage() {
                   <span className="font-display text-[var(--color-teal)] text-sm font-bold flex-shrink-0 mt-0.5">
                     {String(index + 1).padStart(2, "0")}
                   </span>
-                  <div className="border-l-2 border-[rgba(45,212,191,0.2)] pl-5 hover:border-[var(--color-teal)] transition-colors duration-300">
+                  <div className="border-l-2 border-[rgba(255,102,0,0.2)] pl-5 hover:border-[var(--color-teal)] transition-colors duration-300">
                     <p className="text-foreground font-semibold text-sm mb-1">
                       {heading}
                     </p>
@@ -293,8 +290,8 @@ export default function LandingPage() {
                   {/* SVG Circular Gauge */}
                   <div className="relative w-[180px] h-[180px] mx-auto">
                     <svg className="w-full h-full -rotate-90" viewBox="0 0 180 180">
-                      <circle cx="90" cy="90" r="80" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="8" />
-                      <circle cx="90" cy="90" r="80" fill="none" stroke="#2dd4bf" strokeWidth="8" strokeLinecap="round" strokeDasharray={`${(780/1000) * 502.65} 502.65`} className="transition-all duration-[1.5s] ease-out" />
+                      <circle cx="90" cy="90" r="80" fill="none" className="stroke-muted/30" strokeWidth="8" />
+                      <circle cx="90" cy="90" r="80" fill="none" stroke="#ff6600" strokeWidth="8" strokeLinecap="round" strokeDasharray={`${(780/1000) * 502.65} 502.65`} className="transition-all duration-[1.5s] ease-out" />
                     </svg>
                     <div className="absolute inset-0 flex flex-col items-center justify-center">
                       <span className="font-display text-[3.5rem] font-extrabold text-[var(--color-teal)] leading-none">780</span>
@@ -316,24 +313,24 @@ export default function LandingPage() {
                           className="flex justify-between items-center py-1.5 border-b border-border/30 last:border-0 hover:bg-muted/30 px-2 rounded transition-colors"
                         >
                           <span className="text-muted-foreground text-xs">{label}</span>
-                          <span className={`text-xs font-semibold ${isReduction ? "text-[var(--color-teal)]" : "text-foreground"}`}>
+                          <span className={`text-xs font-semibold ${isReduction ? "text-[var(--color-teal)]" : "text-[var(--color-text)]"}`}>
                             {isReduction && <ArrowDown className="w-3 h-3 inline" />}
                             {isReduction ? ` ${value}` : value}
                           </span>
                         </div>
-                        <div className="mt-1.5 h-[3px] w-full rounded-full bg-[rgba(255,255,255,0.06)]">
+                        <div className="mt-1.5 h-[3px] w-full rounded-full bg-muted/30">
                           <div className="h-full rounded-full bg-[var(--color-teal)]" style={{ width: `${progress}%` }} />
                         </div>
                       </div>
                     ))}
                   </div>
 
-                  <Button
-                    asChild
-                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-sm font-semibold shadow-md hover:shadow-lg transition-all"
+                  <Link
+                    href="/login"
+                    className={cn(buttonVariants(), "w-full bg-primary hover:bg-primary/90 text-primary-foreground text-sm font-semibold shadow-md hover:shadow-lg transition-all")}
                   >
-                    <Link href="/login">View Full Report →</Link>
-                  </Button>
+                    View Full Report →
+                  </Link>
                 </CardContent>
               </Card>
             </div>
@@ -362,17 +359,17 @@ export default function LandingPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-14">
             {[
               {
-                icon: <Layers className="w-8 h-8" style={{ filter: 'drop-shadow(0 0 8px rgba(45,212,191,0.4))' }} />,
+                icon: <Layers className="w-8 h-8" style={{ filter: 'drop-shadow(0 0 8px rgba(255,102,0,0.4))' }} />,
                 title: "Kanban Credit Portal",
                 body: "Visualise your entire pipeline from Application → In Review → Approved → Disbursed with real-time status synced to operator telemetry.",
               },
               {
-                icon: <Activity className="w-8 h-8" style={{ filter: 'drop-shadow(0 0 8px rgba(45,212,191,0.4))' }} />,
+                icon: <Activity className="w-8 h-8" style={{ filter: 'drop-shadow(0 0 8px rgba(255,102,0,0.4))' }} />,
                 title: "Live DSCR Metrics",
                 body: "Debt Service Coverage Ratios are not modelled — they are back-tested against 90 days of actual vessel revenue and fuel-cost data.",
               },
               {
-                icon: <Leaf className="w-8 h-8" style={{ filter: 'drop-shadow(0 0 8px rgba(45,212,191,0.4))' }} />,
+                icon: <Leaf className="w-8 h-8" style={{ filter: 'drop-shadow(0 0 8px rgba(255,102,0,0.4))' }} />,
                 title: "ESG Quota Tracking",
                 body: "Each approved loan is tagged with verified CO₂ reduction tonnage, helping institutions meet green-portfolio mandates and regulatory ESG targets.",
               },
@@ -412,7 +409,7 @@ export default function LandingPage() {
             <CardContent className="p-0 overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="bg-[rgba(255,255,255,0.03)] border-b border-[rgba(255,255,255,0.08)]">
+                  <tr className="bg-muted/20 border-b border-border/50">
                     <th className="text-left px-6 py-4 text-muted-foreground text-xs font-semibold uppercase tracking-wider">
                       Cooperative
                     </th>
@@ -462,7 +459,7 @@ export default function LandingPage() {
                     return (
                       <tr
                         key={coop}
-                        className="border-b border-border/30 last:border-0 hover:bg-[rgba(45,212,191,0.04)] transition-colors duration-200"
+                        className="border-b border-border/30 last:border-0 hover:bg-[rgba(255,102,0,0.04)] transition-colors duration-200"
                       >
                         <td className="px-6 py-4 font-medium text-foreground">
                           {coop}
@@ -486,11 +483,93 @@ export default function LandingPage() {
                   })}
                 </tbody>
               </table>
-              <div className="flex justify-end px-6 py-3 border-t border-[rgba(255,255,255,0.06)]">
+              <div className="flex justify-end px-6 py-3 border-t border-border/50">
                 <a href="#" className="text-[var(--color-teal)] text-sm font-medium hover:underline">View All →</a>
               </div>
             </CardContent>
           </Card>
+        </div>
+      </section>
+
+      {/* ─────────────────────────── PRODUCT: E-BANGKA ─────────────────────────── */}
+      <section id="product" className="py-[clamp(80px,10vw,140px)] px-6 fade-in-section opacity-0 translate-y-8 transition-all duration-1000 ease-out delay-100 bg-muted/5 relative">
+        <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-border/50 to-transparent" />
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.15em] text-[var(--color-teal)] mb-2">
+              Our Flagship Product
+            </p>
+            <h2 className="font-display text-[clamp(2rem,4vw,3.2rem)] font-bold text-[var(--color-text)]">
+              The E-Bangka System
+            </h2>
+            <p className="text-muted-foreground mt-3 max-w-2xl mx-auto leading-relaxed">
+              A fully integrated hardware and software ecosystem designed to modernize inter-island transport with zero emissions, real-time telemetry, and uncompromising safety.
+            </p>
+          </div>
+
+          <div className="space-y-24">
+            {/* Feature 1: The Vessel */}
+            <div className="flex flex-col md:flex-row items-center gap-12">
+              <div className="w-full md:w-1/2 flex justify-center">
+                <div className="relative w-full max-w-lg aspect-video rounded-2xl overflow-hidden border border-border/50 shadow-2xl group bg-muted/20">
+                  <div className="absolute inset-0 bg-gradient-to-tr from-[#f5f5f5]/10 to-transparent mix-blend-overlay z-10 pointer-events-none" />
+                  <img src="/boat.png" alt="E-Bangka Vessel" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                </div>
+              </div>
+              <div className="w-full md:w-1/2 space-y-6">
+                <div className="inline-flex items-center justify-center p-3 bg-primary/10 border border-primary/20 rounded-xl mb-2">
+                  <Ship className="w-6 h-6 text-primary" />
+                </div>
+                <h3 className="font-display text-2xl md:text-3xl font-bold text-foreground">
+                  Next-Generation Electric Vessel
+                </h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  The E-Bangka replaces traditional, heavily polluting diesel engines with a state-of-the-art electric propulsion system. Built with composite materials for weight reduction and hydrodynamically optimized hulls, it delivers a smooth, silent, and zero-emission ride for passengers.
+                </p>
+                <ul className="space-y-3">
+                  {["Zero carbon emissions during operation", "Significant reduction in noise and vibration", "Lower maintenance costs compared to diesel equivalents"].map((item, i) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <div className="mt-1 w-5 h-5 rounded-full bg-[rgba(255,102,0,0.15)] flex items-center justify-center flex-shrink-0">
+                        <div className="w-2 h-2 rounded-full bg-[var(--color-teal)]" />
+                      </div>
+                      <span className="text-sm font-medium text-foreground">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* Feature 2: The System */}
+            <div className="flex flex-col md:flex-row-reverse items-center gap-12">
+              <div className="w-full md:w-1/2 flex justify-center">
+                <div className="relative w-full max-w-lg aspect-video rounded-2xl overflow-hidden border border-border/50 shadow-2xl group bg-muted/20">
+                  <div className="absolute inset-0 bg-gradient-to-tr from-[#ff8533]/10 to-transparent mix-blend-overlay z-10 pointer-events-none" />
+                  <img src="/system.png" alt="MarineSync System" className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700" />
+                </div>
+              </div>
+              <div className="w-full md:w-1/2 space-y-6">
+                <div className="inline-flex items-center justify-center p-3 bg-primary/10 border border-primary/20 rounded-xl mb-2">
+                  <Activity className="w-6 h-6 text-primary" />
+                </div>
+                <h3 className="font-display text-2xl md:text-3xl font-bold text-foreground">
+                  MarineSync Telemetry & Control
+                </h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Every E-Bangka is connected to our centralized MarineSync platform. IoT sensors continuously stream critical data—from battery state-of-charge and motor temperature to GPS location and passenger manifest—ensuring peak operational efficiency and absolute passenger safety.
+                </p>
+                <ul className="space-y-3">
+                  {["Real-time GPS tracking and geofencing", "Predictive maintenance alerts based on motor telemetry", "Automated compliance reporting for maritime authorities"].map((item, i) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <div className="mt-1 w-5 h-5 rounded-full bg-[rgba(255,102,0,0.15)] flex items-center justify-center flex-shrink-0">
+                        <div className="w-2 h-2 rounded-full bg-[var(--color-teal)]" />
+                      </div>
+                      <span className="text-sm font-medium text-foreground">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 

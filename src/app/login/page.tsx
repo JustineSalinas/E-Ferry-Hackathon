@@ -26,9 +26,9 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex font-sans bg-[#050d1a] animate-in fade-in duration-700">
+    <div className="min-h-screen flex font-sans bg-background animate-in fade-in duration-700">
       {/* ── Left Panel ─────────────────────────────────────────────── */}
-      <div className="hidden lg:flex lg:w-1/2 bg-[#050d1a] flex-col justify-between p-12 relative overflow-hidden">
+      <div className="hidden lg:flex lg:w-1/2 bg-[#020381] flex-col justify-between p-12 relative overflow-hidden">
         {/* Animated background */}
         <AnimatedBackground />
 
@@ -36,7 +36,7 @@ export default function LoginPage() {
         <Anchor className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] text-white opacity-[0.04]" />
 
         {/* Teal radial glow */}
-        <div className="absolute inset-0" style={{ background: 'radial-gradient(circle at 30% 60%, rgba(45,212,191,0.08), transparent 60%)' }} />
+        <div className="absolute inset-0" style={{ background: 'radial-gradient(circle at 30% 60%, rgba(255,102,0,0.08), transparent 60%)' }} />
 
         {/* Branding */}
         <div className="relative z-10 animate-in slide-in-from-left-8 fade-in duration-1000">
@@ -97,7 +97,7 @@ export default function LoginPage() {
       </div>
 
       {/* ── Right Panel ────────────────────────────────────────────── */}
-      <div className="flex-1 bg-[#070f1e] border-l border-[rgba(255,255,255,0.06)] flex flex-col min-h-screen relative">
+      <div className="flex-1 bg-background border-l border-border/50 flex flex-col min-h-screen relative">
         {/* Top nav */}
         <div className="flex items-center justify-between px-8 pt-7 pb-4">
           <Link
@@ -144,8 +144,8 @@ export default function LoginPage() {
                   onClick={() => setSelectedRole('operator')}
                   className={`relative flex flex-col items-start gap-2 rounded-xl border p-4 text-left hover:-translate-y-1 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
                     selectedRole === 'operator'
-                      ? 'border-[var(--color-teal)] bg-[rgba(45,212,191,0.08)] shadow-[0_0_0_3px_rgba(45,212,191,0.15)]'
-                      : 'border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)] hover:border-[var(--color-teal)] hover:shadow-sm'
+                      ? 'border-[var(--color-teal)] bg-[rgba(255,102,0,0.08)] shadow-[0_0_0_3px_rgba(255,102,0,0.15)]'
+                      : 'border-border/50 bg-muted/10 hover:border-[var(--color-teal)] hover:shadow-sm'
                   }`}
                 >
                   {selectedRole === 'operator' && (
@@ -188,8 +188,8 @@ export default function LoginPage() {
                   onClick={() => setSelectedRole('institution')}
                   className={`relative flex flex-col items-start gap-2 rounded-xl border p-4 text-left hover:-translate-y-1 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
                     selectedRole === 'institution'
-                      ? 'border-[var(--color-teal)] bg-[rgba(45,212,191,0.08)] shadow-[0_0_0_3px_rgba(45,212,191,0.15)]'
-                      : 'border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)] hover:border-[var(--color-teal)] hover:shadow-sm'
+                      ? 'border-[var(--color-teal)] bg-[rgba(255,102,0,0.08)] shadow-[0_0_0_3px_rgba(255,102,0,0.15)]'
+                      : 'border-border/50 bg-muted/10 hover:border-[var(--color-teal)] hover:shadow-sm'
                   }`}
                 >
                   {selectedRole === 'institution' && (
@@ -230,11 +230,11 @@ export default function LoginPage() {
 
             {/* Divider */}
             <div className="relative flex items-center">
-              <div className="flex-1 h-px bg-[rgba(255,255,255,0.08)]" />
+              <div className="flex-1 h-px bg-border/50" />
               <span className="px-3 text-xs text-[var(--color-muted)] uppercase tracking-widest">
                 credentials
               </span>
-              <div className="flex-1 h-px bg-[rgba(255,255,255,0.08)]" />
+              <div className="flex-1 h-px bg-border/50" />
             </div>
 
             {/* Email & Password */}
@@ -252,7 +252,7 @@ export default function LoginPage() {
                   placeholder="you@institution.gov.ph"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="h-11 bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.1)] rounded-lg text-[var(--color-text)] focus:border-[var(--color-teal)] focus:shadow-[0_0_0_3px_rgba(45,212,191,0.15)] focus:ring-0 text-sm placeholder:text-muted-foreground transition-all duration-300"
+                  className="h-11 bg-background border border-input rounded-lg text-[var(--color-text)] focus:border-[var(--color-teal)] focus:shadow-[0_0_0_3px_rgba(255,102,0,0.15)] focus:ring-0 text-sm placeholder:text-muted-foreground transition-all duration-300"
                 />
               </div>
 
@@ -277,7 +277,7 @@ export default function LoginPage() {
                   placeholder="••••••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="h-11 bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.1)] rounded-lg text-[var(--color-text)] focus:border-[var(--color-teal)] focus:shadow-[0_0_0_3px_rgba(45,212,191,0.15)] focus:ring-0 text-sm placeholder:text-muted-foreground transition-all duration-300"
+                  className="h-11 bg-background border border-input rounded-lg text-[var(--color-text)] focus:border-[var(--color-teal)] focus:shadow-[0_0_0_3px_rgba(255,102,0,0.15)] focus:ring-0 text-sm placeholder:text-muted-foreground transition-all duration-300"
                 />
               </div>
             </div>
@@ -286,7 +286,7 @@ export default function LoginPage() {
             <Button
               onClick={handleSignIn}
               disabled={!selectedRole}
-              className="w-full h-11 bg-gradient-to-r from-[#0891b2] to-[#2dd4bf] text-white font-semibold rounded-lg text-sm tracking-wide hover:shadow-[0_8px_30px_rgba(45,212,191,0.4)] hover:-translate-y-0.5 transition-all duration-300 border-none disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none"
+              className="w-full h-11 bg-gradient-to-r from-[#ff8533] to-[#ff6600] text-white font-semibold rounded-lg text-sm tracking-wide hover:shadow-[0_8px_30px_rgba(255,102,0,0.4)] hover:-translate-y-0.5 transition-all duration-300 border-none disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none"
             >
               {selectedRole === null
                 ? 'Select a role to continue'
@@ -305,7 +305,7 @@ export default function LoginPage() {
             </p>
 
             {/* Trust Section */}
-            <div className="flex flex-col items-center gap-2 pt-4 border-t border-[rgba(255,255,255,0.06)]">
+            <div className="flex flex-col items-center gap-2 pt-4 border-t border-border/50">
               <p className="text-xs text-[#64748b] flex items-center gap-1.5">
                 <Lock className="w-3.5 h-3.5" />
                 <span>Secured by 256-bit TLS encryption</span>

@@ -78,13 +78,14 @@
   
   --radius: 0.75rem;
 
-  /* MarineSync Custom Tokens */
-  --color-bg: #050d1a;
-  --color-surface: rgba(255,255,255,0.04);
-  --color-teal: #2dd4bf;
-  --color-teal-mid: #0891b2;
-  --color-text: #f1f5f9;
-  --color-muted: #94a3b8;
+  /* MarineSync Custom Tokens (Orange, White, Black Palette) */
+  --color-bg: #ffffff; /* white background */
+  --color-surface: #ffffff; /* surface same as bg */
+  --color-teal: #ff6600; /* primary orange */
+  --color-teal-mid: #e65500; /* slightly darker orange */
+  --color-accent: #ff6600; /* accent orange */
+  --color-text: #000000; /* black text */
+  --color-muted: #555555; /* muted gray */
   --font-display: var(--font-fraunces), serif;
   --font-body: var(--font-dm-sans), sans-serif;
 }
@@ -123,7 +124,13 @@
   --chart-5: oklch(0.65 0.18 20);
 
   /* Override dark mode background to match redesign if desired */
-  --background: #050d1a; /* Using --color-bg */
+  --color-bg: #000000; /* black background */
+  --color-surface: #111111; /* dark surface */
+  --color-teal: #ff6600; /* orange primary */
+  --color-teal-mid: #e65500; /* darker orange */
+  --color-accent: #ff6600; /* NEX Orange */
+  --color-text: #ffffff;
+  --color-muted: #dad0ec;
 }
 
 @layer base {
