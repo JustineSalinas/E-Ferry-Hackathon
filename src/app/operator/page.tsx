@@ -15,6 +15,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import Map, { Marker, Source, Layer } from 'react-map-gl/maplibre'
+import 'maplibre-gl/dist/maplibre-gl.css'
 
 import { Home, Radio, BarChart3, Banknote, Settings, Anchor } from 'lucide-react'
 
@@ -97,7 +99,7 @@ function StatCard({
   title,
   value,
   sub,
-  subColor = 'text-green-600',
+  subColor = 'text-teal-600',
 }: {
   title: string
   value: string
@@ -121,13 +123,79 @@ function StatCard({
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
+import { useSharedState } from '@/lib/useSharedState'
+
 export default function OperatorDashboard() {
   const [activeNav, setActiveNav] = useState('overview')
   const [mounted, setMounted] = useState(false)
+  const [isSimulating, setIsSimulating] = useState(false)
+  const [liveScore, setLiveScore] = useState(780)
+  const [loans, setLoans] = useSharedState<any[]>('marineSync_loans', [])
 
   useEffect(() => {
     setMounted(true)
   }, [])
+
+  // Telemetry Simulation Loop
+  const [vesselPositions, setVesselPositions] = useState({
+    route1: { longitude: 122.5822, latitude: 10.6969 }, // Iloilo to Jordan
+    route2: { longitude: 122.6180, latitude: 10.6865 }, // Buenavista to Iloilo
+    route3: { longitude: 122.9416, latitude: 10.6750 }, // Bacolod to Buenavista
+  });
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (isSimulating) {
+      const startTime = Date.now();
+      interval = setInterval(() => {
+        // Score fluctuation
+        setLiveScore(prev => {
+          const change = Math.floor(Math.random() * 3) - 0.5;
+          return Math.min(1000, Math.max(0, Math.round(prev + change)));
+        });
+
+        // Calculate positions along the route lines using a simple sine wave for back-and-forth motion
+        const elapsed = (Date.now() - startTime) / 1000;
+        
+        // Iloilo (122.5822, 10.6969) to Jordan (122.5957, 10.6583)
+        const t1 = (Math.sin(elapsed / 15 * Math.PI) + 1) / 2; // 15s dur
+        // Buenavista (122.6180, 10.6865) to Iloilo (122.5822, 10.6969)
+        const t2 = (Math.sin(elapsed / 25 * Math.PI) + 1) / 2; // 25s dur
+        // Bacolod (122.9416, 10.6750) to Buenavista (122.6180, 10.6865)
+        const t3 = (Math.sin(elapsed / 20 * Math.PI) + 1) / 2; // 20s dur
+
+        setVesselPositions({
+          route1: {
+            longitude: 122.5822 + (122.5957 - 122.5822) * t1,
+            latitude: 10.6969 + (10.6583 - 10.6969) * t1,
+          },
+          route2: {
+            longitude: 122.6180 + (122.5822 - 122.6180) * t2,
+            latitude: 10.6865 + (10.6969 - 10.6865) * t2,
+          },
+          route3: {
+            longitude: 122.9416 + (122.6180 - 122.9416) * t3,
+            latitude: 10.6750 + (10.6865 - 10.6750) * t3,
+          }
+        });
+
+      }, 100); // Fast update for smooth map marker animation
+    }
+    return () => clearInterval(interval);
+  }, [isSimulating]);
+
+  const handleApplyLoan = () => {
+    const newLoan = {
+      id: `loan-${Date.now()}`,
+      name: 'Iloilo Ferry Co.',
+      score: liveScore,
+      loan: '₱1,500,000',
+      vessels: 12,
+      status: 'pending'
+    };
+    setLoans([...loans, newLoan]);
+    alert("Loan Application Submitted! The underwriting bank will see it immediately.");
+  };
 
   if (!mounted) return null
 
@@ -213,7 +281,7 @@ export default function OperatorDashboard() {
                 {activeNav === 'settings' && 'Manage your operator profile and preferences'}
               </p>
             </div>
-            <Badge className="bg-green-500/10 text-green-700 dark:text-green-400 border border-green-500/30 text-xs px-3 py-1">
+            <Badge className="bg-teal-500/10 text-teal-700 dark:text-teal-400 border border-teal-500/30 text-xs px-3 py-1">
               ● All Systems Operational
             </Badge>
           </div>
@@ -226,13 +294,13 @@ export default function OperatorDashboard() {
               title="Today's Passengers"
               value="1,342"
               sub="▲ +8% vs yesterday"
-              subColor="text-green-600 dark:text-green-400"
+              subColor="text-teal-600 dark:text-teal-400"
             />
             <StatCard
               title="Daily Revenue"
               value="₱67,100"
               sub="▲ +12% vs yesterday"
-              subColor="text-green-600 dark:text-green-400"
+              subColor="text-teal-600 dark:text-teal-400"
             />
             <StatCard
               title="Active Vessels"
@@ -261,7 +329,7 @@ export default function OperatorDashboard() {
                 <CardTitle className="text-foreground text-lg font-bold flex items-center gap-2">
                   <BarChart3 className="w-5 h-5 text-primary" /> Marine Bankability Score
                 </CardTitle>
-                <Badge className="bg-green-500/10 text-green-700 dark:text-green-400 border border-green-500/30 font-semibold tracking-wide text-xs px-3 py-1">
+                <Badge className="bg-teal-500/10 text-teal-700 dark:text-teal-400 border border-teal-500/30 font-semibold tracking-wide text-xs px-3 py-1">
                   ✓ ELIGIBLE FOR FINANCING
                 </Badge>
               </div>
@@ -270,13 +338,13 @@ export default function OperatorDashboard() {
               <div className="flex flex-col lg:flex-row gap-8 items-start">
                 {/* Score Display */}
                 <div className="flex flex-col items-center lg:items-start min-w-[180px]">
-                  <p className="text-7xl font-black bg-gradient-to-br from-primary to-primary/50 text-transparent bg-clip-text leading-none">
-                    780
+                  <p className="text-7xl font-black bg-gradient-to-br from-primary to-primary/50 text-transparent bg-clip-text leading-none transition-all duration-300">
+                    {liveScore}
                   </p>
                   <p className="text-muted-foreground text-sm font-medium mt-1">/ 1000</p>
                   <div className="mt-4 w-full min-w-[160px]">
-                    <ProgressBar value={78} height="h-3" color="bg-primary" />
-                    <p className="text-xs text-muted-foreground mt-1 text-center">78th percentile</p>
+                    <ProgressBar value={Math.round(liveScore / 10)} height="h-3" color="bg-primary" />
+                    <p className="text-xs text-muted-foreground mt-1 text-center">{Math.round(liveScore / 10)}th percentile</p>
                   </div>
                 </div>
 
@@ -478,9 +546,9 @@ export default function OperatorDashboard() {
                     <p className="text-primary-foreground font-bold text-xl">−5%</p>
                   </div>
                   <span className="text-primary-foreground/60 text-xl font-light">→</span>
-                  <div className="bg-green-500/20 border border-green-400/40 rounded-lg px-4 py-2 text-center min-w-[90px]">
+                  <div className="bg-teal-500/20 border border-teal-400/40 rounded-lg px-4 py-2 text-center min-w-[90px]">
                     <p className="text-primary-foreground/80 text-xs mb-0.5">Your Rate</p>
-                    <p className="text-green-300 font-extrabold text-2xl">3%</p>
+                    <p className="text-teal-300 font-extrabold text-2xl">3%</p>
                   </div>
                 </div>
 
@@ -491,12 +559,12 @@ export default function OperatorDashboard() {
 
               {/* Right: CTA */}
               <div className="flex flex-col items-start lg:items-end gap-3">
-                <Button className="bg-background text-foreground hover:bg-secondary font-bold px-6 py-3 text-sm shadow-md">
-                  Generate Loan Packet →
+                <Button onClick={handleApplyLoan} className="bg-background text-foreground hover:bg-secondary font-bold px-6 py-3 text-sm shadow-md transition-all">
+                  Generate Loan Packet & Apply →
                 </Button>
                 <p className="text-primary-foreground/80 text-xs lg:text-right">
                   Estimated savings vs standard rate:{' '}
-                  <span className="text-green-300 font-semibold">₱75,000/yr</span>
+                  <span className="text-teal-300 font-semibold">₱75,000/yr</span>
                 </p>
               </div>
             </div>
@@ -521,12 +589,125 @@ export default function OperatorDashboard() {
 
           {activeNav === 'telemetry' && (
             <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-              {/* Live Map Placeholder */}
-              <Card className="bg-card/50 backdrop-blur-md border border-border/40 shadow-lg h-[300px] flex flex-col items-center justify-center relative overflow-hidden group">
-                <div className="absolute inset-0 bg-blue-500/5 dark:bg-blue-500/10 topo-watermark opacity-20" />
-                <Anchor className="w-10 h-10 text-primary mb-3 relative z-10 animate-bounce" />
-                <p className="text-foreground font-semibold relative z-10">Live Vessel Tracking Map</p>
-                <p className="text-sm text-muted-foreground mt-1 relative z-10">Connecting to AIS receiver...</p>
+              {/* Live Vessel Tracking Map */}
+              <div className="flex items-center justify-between mb-2">
+                <h2 className="text-lg font-bold">Visayas Routes</h2>
+                <Button 
+                  onClick={() => setIsSimulating(!isSimulating)}
+                  variant={isSimulating ? "destructive" : "default"}
+                  className="shadow-sm"
+                >
+                  {isSimulating ? "Stop Simulation" : "Simulate Live Voyage"}
+                </Button>
+              </div>
+              <Card className="bg-card/80 backdrop-blur-md border border-border/40 shadow-xl overflow-hidden relative group h-[400px]">
+                {/* Overlay UI */}
+                <div className="absolute top-4 left-4 z-10 flex gap-2">
+                  <Badge variant="secondary" className="bg-background/90 backdrop-blur-sm border-border text-foreground text-xs shadow-sm font-semibold px-2 py-1">
+                    <div className="w-1.5 h-1.5 rounded-full bg-teal-500 animate-pulse mr-1.5 inline-block" />
+                    Live AIS Feed
+                  </Badge>
+                  <Badge variant="outline" className="bg-background/90 backdrop-blur-sm text-muted-foreground text-xs shadow-sm px-2 py-1">
+                    Region: Visayas
+                  </Badge>
+                </div>
+
+                <div className="absolute top-4 right-4 z-10 bg-background/90 backdrop-blur-sm border border-border rounded-lg p-4 shadow-sm text-xs font-medium min-w-[160px]">
+                  <p className="text-muted-foreground mb-3 font-semibold uppercase tracking-wider text-[10px]">Active Fleet</p>
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-primary" /> IFC-01</span>
+                    <span className="text-muted-foreground">14 kts</span>
+                  </div>
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-primary" /> IFC-02</span>
+                    <span className="text-muted-foreground">Docked</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-teal-500" /> IFC-03 <span className="text-[9px] text-teal-600 bg-teal-500/10 px-1 rounded">EV</span></span>
+                    <span className="text-teal-600 font-bold">12 kts</span>
+                  </div>
+                </div>
+
+                {/* Interactive MapLibre Map Component */}
+                <div className="absolute inset-0 z-0">
+                  <Map
+                    initialViewState={{
+                      longitude: 122.75, // Center of Visayas ports
+                      latitude: 10.68,
+                      zoom: 10.5
+                    }}
+                    mapStyle="https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json"
+                    interactive={true}
+                    dragPan={true}
+                    scrollZoom={true}
+                  >
+                    {/* Routes (GeoJSON) */}
+                    <Source id="routes" type="geojson" data={{
+                      type: 'FeatureCollection',
+                      features: [
+                        { type: 'Feature', properties: { color: '#0ea5e9' }, geometry: { type: 'LineString', coordinates: [[122.5822, 10.6969], [122.5957, 10.6583]] } }, // Iloilo - Jordan
+                        { type: 'Feature', properties: { color: '#0ea5e9' }, geometry: { type: 'LineString', coordinates: [[122.5822, 10.6969], [122.6180, 10.6865]] } }, // Iloilo - Buenavista
+                        { type: 'Feature', properties: { color: '#14b8a6' }, geometry: { type: 'LineString', coordinates: [[122.6180, 10.6865], [122.9416, 10.6750]] } }, // Buenavista - Bacolod
+                      ]
+                    }}>
+                      <Layer
+                        id="route-lines"
+                        type="line"
+                        paint={{
+                          'line-color': ['get', 'color'],
+                          'line-width': 2,
+                          'line-dasharray': [4, 4],
+                          'line-opacity': 0.5
+                        }}
+                      />
+                    </Source>
+
+                    {/* Ports Markers */}
+                    <Marker longitude={122.5822} latitude={10.6969} anchor="center">
+                      <div className="flex flex-col items-center cursor-pointer group">
+                        <div className="w-3 h-3 bg-card border-2 border-primary rounded-full group-hover:scale-125 transition-transform shadow-md" />
+                        <span className="mt-1 text-[10px] font-bold text-foreground bg-background/80 px-1.5 py-0.5 rounded backdrop-blur whitespace-nowrap opacity-70 group-hover:opacity-100 shadow-sm border border-border/50">Iloilo City Port</span>
+                      </div>
+                    </Marker>
+                    <Marker longitude={122.5957} latitude={10.6583} anchor="center">
+                      <div className="flex flex-col items-center cursor-pointer group">
+                        <div className="w-3 h-3 bg-card border-2 border-primary rounded-full group-hover:scale-125 transition-transform shadow-md" />
+                        <span className="mt-1 text-[10px] font-bold text-foreground bg-background/80 px-1.5 py-0.5 rounded backdrop-blur whitespace-nowrap opacity-70 group-hover:opacity-100 shadow-sm border border-border/50">Jordan Wharf</span>
+                      </div>
+                    </Marker>
+                    <Marker longitude={122.6180} latitude={10.6865} anchor="center">
+                      <div className="flex flex-col items-center cursor-pointer group">
+                        <div className="w-3 h-3 bg-card border-2 border-primary rounded-full group-hover:scale-125 transition-transform shadow-md" />
+                        <span className="mt-1 text-[10px] font-bold text-foreground bg-background/80 px-1.5 py-0.5 rounded backdrop-blur whitespace-nowrap opacity-70 group-hover:opacity-100 shadow-sm border border-border/50">Buenavista Port</span>
+                      </div>
+                    </Marker>
+                    <Marker longitude={122.9416} latitude={10.6750} anchor="center">
+                      <div className="flex flex-col items-center cursor-pointer group">
+                        <div className="w-3 h-3 bg-card border-2 border-primary rounded-full group-hover:scale-125 transition-transform shadow-md" />
+                        <span className="mt-1 text-[10px] font-bold text-foreground bg-background/80 px-1.5 py-0.5 rounded backdrop-blur whitespace-nowrap opacity-70 group-hover:opacity-100 shadow-sm border border-border/50">Bacolod BREDCO</span>
+                      </div>
+                    </Marker>
+
+                    {/* Vessel Markers (Live Simulation) */}
+                    <Marker longitude={vesselPositions.route1.longitude} latitude={vesselPositions.route1.latitude} anchor="center">
+                      <div className="relative">
+                        <div className="w-3 h-3 bg-primary rounded-full shadow-[0_0_10px_hsl(var(--primary))]" />
+                        {isSimulating && <div className="absolute inset-0 w-3 h-3 border border-primary rounded-full animate-ping" />}
+                      </div>
+                    </Marker>
+                    <Marker longitude={vesselPositions.route2.longitude} latitude={vesselPositions.route2.latitude} anchor="center">
+                      <div className="relative">
+                        <div className="w-3 h-3 bg-primary rounded-full shadow-[0_0_10px_hsl(var(--primary))]" />
+                      </div>
+                    </Marker>
+                    <Marker longitude={vesselPositions.route3.longitude} latitude={vesselPositions.route3.latitude} anchor="center">
+                      <div className="relative">
+                        <div className="w-3.5 h-3.5 bg-teal-500 rounded-full shadow-sm" />
+                        {isSimulating && <div className="absolute inset-0 w-3.5 h-3.5 border border-teal-500 rounded-full animate-ping" />}
+                      </div>
+                    </Marker>
+                  </Map>
+                </div>
               </Card>
 
               {/* ── 5. Route Telemetry Table ── */}
@@ -574,14 +755,14 @@ export default function OperatorDashboard() {
                           <span
                             className={
                               row.onTime >= 97
-                                ? 'text-green-600 dark:text-green-400 font-semibold'
+                                ? 'text-teal-600 dark:text-teal-400 font-semibold'
                                 : 'text-amber-600 dark:text-amber-400 font-semibold'
                             }
                           >
                             {row.onTime}%
                           </span>
                         </td>
-                        <td className="px-4 py-4 text-right text-green-700 dark:text-green-400 font-semibold tabular-nums">
+                        <td className="px-4 py-4 text-right text-teal-700 dark:text-teal-400 font-semibold tabular-nums">
                           {row.fuelSaved.toFixed(1)} L
                         </td>
                         <td className="px-6 py-4 text-center">

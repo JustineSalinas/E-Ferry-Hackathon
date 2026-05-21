@@ -92,7 +92,7 @@ export default function LandingPage() {
 
             <Link
               href="/login"
-              className={cn(buttonVariants({ variant: "outline" }), "border-none text-[var(--color-text)] bg-transparent hover:bg-black/5 dark:hover:bg-white/5 text-sm hidden sm:inline-flex")}
+              className={cn(buttonVariants({ variant: "outline" }), "border-[1.5px] border-[var(--color-border-custom)] text-[var(--color-text)] bg-[var(--color-surface)] hover:text-[var(--color-accent-custom)] hover:border-[var(--color-accent-custom)] hover:bg-[var(--color-surface)] shadow-sm text-sm hidden sm:inline-flex")}
             >
               Operator Login
             </Link>
@@ -185,7 +185,7 @@ export default function LandingPage() {
           </div>
 
           <div className="relative">
-            <div className="absolute top-[20px] left-[calc(16.67%)] right-[calc(16.67%)] h-0 border-t border-dashed border-[var(--color-border-custom)] hidden md:block z-0" />
+
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[

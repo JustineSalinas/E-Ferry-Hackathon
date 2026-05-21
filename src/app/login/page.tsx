@@ -18,6 +18,18 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
 
   const handleSignIn = () => {
+    if (!selectedRole) return;
+    
+    // Create temporary hackathon session
+    if (typeof window !== 'undefined') {
+      const session = {
+        role: selectedRole,
+        name: selectedRole === 'operator' ? 'Iloilo Ferry Co.' : 'BDO Green Finance',
+        loginTime: new Date().toISOString()
+      };
+      window.localStorage.setItem('marine_sync_session', JSON.stringify(session));
+    }
+
     if (selectedRole === 'operator') {
       router.push('/operator');
     } else if (selectedRole === 'institution') {
@@ -53,6 +65,45 @@ export default function LoginPage() {
           </p>
         </div>
 
+        {/* Decorative Route Map with Animated Ferries */}
+        <div className="absolute top-[20%] left-[-10%] right-[-10%] h-[40%] pointer-events-none opacity-25 flex items-center justify-center">
+          <svg className="w-full h-full" viewBox="0 0 1000 400" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+            {/* Route paths */}
+            <path id="loginRoute1" d="M-100,200 Q200,50 500,250 T1100,100" stroke="var(--color-accent-custom)" strokeWidth="1" strokeDasharray="4 4" opacity="0.6" />
+            <path id="loginRoute2" d="M0,350 Q300,400 600,200 T1200,250" stroke="var(--color-teal)" strokeWidth="0.5" strokeDasharray="2 2" opacity="0.6" />
+
+            {/* Ferry 1 — sailing along route 1 */}
+            <g>
+              <animateMotion dur="30s" repeatCount="indefinite" path="M-100,200 Q200,50 500,250 T1100,100" />
+              <g transform="scale(0.8) translate(-16,-12)">
+                <path d="M 2,18 L 28,18 L 32,12 L 0,12 Z" fill="var(--color-accent-custom)" />
+                <rect x="4" y="6" width="22" height="6" fill="var(--color-accent-custom)" opacity="0.9" />
+                <rect x="8" y="2" width="10" height="4" fill="var(--color-accent-custom)" opacity="0.8" />
+                <rect x="6" y="8" width="2" height="2" fill="var(--color-bg)" />
+                <rect x="10" y="8" width="2" height="2" fill="var(--color-bg)" />
+                <rect x="14" y="8" width="2" height="2" fill="var(--color-bg)" />
+                <rect x="18" y="8" width="2" height="2" fill="var(--color-bg)" />
+                <rect x="22" y="8" width="2" height="2" fill="var(--color-bg)" />
+              </g>
+            </g>
+
+            {/* Ferry 2 — sailing along route 2 */}
+            <g>
+              <animateMotion dur="45s" repeatCount="indefinite" path="M0,350 Q300,400 600,200 T1200,250" />
+              <g transform="scale(0.5) translate(-16,-12)">
+                <path d="M 2,18 L 28,18 L 32,12 L 0,12 Z" fill="var(--color-teal)" />
+                <rect x="4" y="6" width="22" height="6" fill="var(--color-teal)" opacity="0.9" />
+                <rect x="8" y="2" width="10" height="4" fill="var(--color-teal)" opacity="0.8" />
+                <rect x="6" y="8" width="2" height="2" fill="var(--color-bg)" />
+                <rect x="10" y="8" width="2" height="2" fill="var(--color-bg)" />
+                <rect x="14" y="8" width="2" height="2" fill="var(--color-bg)" />
+                <rect x="18" y="8" width="2" height="2" fill="var(--color-bg)" />
+                <rect x="22" y="8" width="2" height="2" fill="var(--color-bg)" />
+              </g>
+            </g>
+          </svg>
+        </div>
+
         {/* Content: Partners first, then Mission Quote */}
         <div className="relative z-10 space-y-6 animate-in slide-in-from-left-8 fade-in duration-1000 delay-150">
           {/* Partner Institutions */}
@@ -86,6 +137,32 @@ export default function LoginPage() {
             enabling data-driven lending decisions that power the blue economy
             across the Philippine archipelago.
           </p>
+
+          {/* Dashboard Preview Graphic */}
+          <div className="mt-8 relative overflow-hidden rounded-xl border border-[var(--color-border-custom)] bg-[var(--color-surface)]/50 p-5 shadow-sm backdrop-blur-sm animate-in slide-in-from-bottom-8 fade-in duration-1000 delay-500 max-w-[380px]">
+            <div className="flex items-center justify-between mb-5">
+              <span className="text-xs font-bold text-[var(--color-text)] uppercase tracking-wider">Live Network Status</span>
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] font-semibold text-teal-600 uppercase tracking-widest">Online</span>
+                <span className="flex h-2 w-2 rounded-full bg-teal-500 animate-pulse shadow-sm" />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-6">
+              <div>
+                <p className="text-[10px] text-[var(--color-muted-custom)] uppercase font-bold tracking-wider mb-1">Active Vessels</p>
+                <p className="text-3xl font-black text-[var(--color-accent-custom)]">1,492</p>
+              </div>
+              <div>
+                <p className="text-[10px] text-[var(--color-muted-custom)] uppercase font-bold tracking-wider mb-1 flex items-center gap-1">
+                  CO₂ Reduced
+                  <svg className="w-3 h-3 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                  </svg>
+                </p>
+                <p className="text-3xl font-black text-teal-600">4.2M <span className="text-sm font-semibold text-[var(--color-muted-custom)]">tons</span></p>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Bottom tagline */}
@@ -97,7 +174,7 @@ export default function LoginPage() {
       </div>
 
       {/* ── Right Panel ────────────────────────────────────────────── */}
-      <div className="flex-1 bg-[var(--color-surface)] border-l border-[var(--color-border-custom)] flex flex-col min-h-screen relative transition-colors">
+      <div className="flex-1 bg-[var(--color-surface)] border-l border-[var(--color-border-custom)] flex flex-col min-h-screen relative transition-colors overflow-y-auto">
         {/* Top nav */}
         <div className="flex items-center justify-between px-8 pt-7 pb-4">
           <Link
@@ -121,9 +198,9 @@ export default function LoginPage() {
           </div>
         </div>
 
-        {/* Form area */}
-        <div className="flex-1 flex flex-col items-center justify-center px-4 py-8 sm:px-8">
-          <div className="w-full max-w-md bg-transparent border-none shadow-none p-8 rounded-2xl space-y-7 animate-in slide-in-from-bottom-8 fade-in duration-700">
+        {/* Form area — truly centered */}
+        <div className="flex-1 flex flex-col items-center justify-center w-full px-6 py-8 md:px-12" style={{ paddingBottom: '5vh' }}>
+          <div className="w-full space-y-7 animate-in slide-in-from-bottom-8 fade-in duration-700 max-w-[440px]">
             {/* Header */}
             <div className="space-y-1">
               <h1 className="font-display text-[2rem] font-bold text-[var(--color-text)] tracking-tight">
@@ -137,17 +214,17 @@ export default function LoginPage() {
             {/* Role Selector */}
             <div className="space-y-2">
               <Label className="text-xs font-semibold uppercase tracking-widest text-[var(--color-accent-custom)]">
-                Select your role
+                {selectedRole === null ? 'Select your role' : selectedRole === 'operator' ? 'Role: Ferry Operator' : 'Role: Bank / LGU'}
               </Label>
               <div className="grid grid-cols-2 gap-3">
                 {/* Ferry Operator Card */}
                 <button
                   type="button"
                   onClick={() => setSelectedRole('operator')}
-                  className={`relative flex flex-col items-start gap-2 rounded-xl border p-4 text-left hover:-translate-y-1 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent-custom)] focus-visible:ring-offset-2 ${
+                  className={`relative flex flex-col items-start gap-2 rounded-xl text-left transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent-custom)] focus-visible:ring-offset-2 ${
                     selectedRole === 'operator'
-                      ? 'border-[var(--color-accent-custom)] bg-[var(--color-accent-light)] shadow-sm'
-                      : 'border-[var(--color-border-custom)] bg-[var(--color-surface)] hover:border-[var(--color-accent-custom)] hover:shadow-sm'
+                      ? 'border-2 border-[var(--color-accent-custom)] bg-[var(--color-accent-custom)]/5 shadow-md scale-[1.02] p-[15px]'
+                      : 'border border-[var(--color-border-custom)] bg-[var(--color-surface)] hover:border-[var(--color-accent-custom)]/50 hover:bg-[var(--color-accent-custom)]/5 hover:-translate-y-1 hover:shadow-sm p-4'
                   }`}
                 >
                   {selectedRole === 'operator' && (
@@ -188,10 +265,10 @@ export default function LoginPage() {
                 <button
                   type="button"
                   onClick={() => setSelectedRole('institution')}
-                  className={`relative flex flex-col items-start gap-2 rounded-xl border p-4 text-left hover:-translate-y-1 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent-custom)] focus-visible:ring-offset-2 ${
+                  className={`relative flex flex-col items-start gap-2 rounded-xl text-left transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent-custom)] focus-visible:ring-offset-2 ${
                     selectedRole === 'institution'
-                      ? 'border-[var(--color-accent-custom)] bg-[var(--color-accent-light)] shadow-sm'
-                      : 'border-[var(--color-border-custom)] bg-[var(--color-surface)] hover:border-[var(--color-accent-custom)] hover:shadow-sm'
+                      ? 'border-2 border-[var(--color-accent-custom)] bg-[var(--color-accent-custom)]/5 shadow-md scale-[1.02] p-[15px]'
+                      : 'border border-[var(--color-border-custom)] bg-[var(--color-surface)] hover:border-[var(--color-accent-custom)]/50 hover:bg-[var(--color-accent-custom)]/5 hover:-translate-y-1 hover:shadow-sm p-4'
                   }`}
                 >
                   {selectedRole === 'institution' && (
@@ -220,7 +297,7 @@ export default function LoginPage() {
                           : 'text-[var(--color-text)]'
                       }`}
                     >
-                      Financial Inst.
+                      Bank
                     </p>
                     <p className="text-xs text-[var(--color-muted-custom)] mt-0.5 leading-tight font-medium">
                       / LGU
@@ -251,7 +328,7 @@ export default function LoginPage() {
                 <Input
                   id="email"
                   type="email"
-                  placeholder="you@institution.gov.ph"
+                  placeholder="Email address"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="h-11 bg-[var(--color-surface)] border border-[var(--color-border-custom)] rounded-lg text-[var(--color-text)] focus:border-[var(--color-accent-custom)] focus:ring-[var(--color-accent-custom)] focus:ring-1 text-sm placeholder:text-[var(--color-muted-custom)] transition-all duration-300"
@@ -287,12 +364,13 @@ export default function LoginPage() {
             {/* Sign In Button */}
             <Button
               onClick={handleSignIn}
-              disabled={!selectedRole}
-              className="w-full h-11 bg-[var(--color-accent-custom)] hover:bg-[var(--color-accent-mid)] text-white font-semibold rounded-lg text-sm tracking-wide transition-all duration-300 border-none disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full h-11 bg-[var(--color-accent-custom)] hover:bg-[var(--color-accent-mid)] text-white font-semibold rounded-lg text-sm tracking-wide transition-all duration-300 border-none"
             >
               {selectedRole === null
                 ? 'Select a role to continue'
-                : 'Sign In →'}
+                : selectedRole === 'operator'
+                ? 'Continue as Ferry Operator →'
+                : 'Continue as Bank / LGU →'}
             </Button>
 
             {/* Register link */}
@@ -302,7 +380,7 @@ export default function LoginPage() {
                 href="/register"
                 className="text-[var(--color-accent-custom)] hover:underline font-bold transition-colors"
               >
-                Register your cooperative
+                {selectedRole === 'institution' ? 'Register your institution' : 'Register your cooperative'}
               </Link>
             </p>
 
