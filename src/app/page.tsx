@@ -111,11 +111,8 @@ export default function LandingPage() {
       >
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center gap-2 group cursor-pointer">
-            <Anchor className="w-6 h-6 text-[var(--color-accent-custom)] transition-transform duration-600 group-hover:rotate-[360deg]" />
-            <span className="text-[var(--color-text)] font-bold text-xl tracking-tight">
-              MarineSync
-            </span>
+          <div className="flex items-center group cursor-pointer">
+            <img src="/solmate.png" alt="Solmate Logo" className="h-14 w-auto object-contain transition-transform duration-600 group-hover:scale-105" />
           </div>
 
           {/* Nav Links */}
@@ -149,7 +146,7 @@ export default function LandingPage() {
           {/* CTA Buttons */}
           <div className="flex items-center gap-3">
 
-            <Link
+            <Link href="/login" className={cn(buttonVariants({ variant: "ghost" }), "text-[var(--color-muted-custom)] hover:text-[var(--color-text)] text-sm hidden lg:inline-flex")}>Admin Login</Link><Link
               href="/login"
               className={cn(buttonVariants({ variant: "outline" }), "border-[1.5px] border-[var(--color-border-custom)] text-[var(--color-text)] bg-[var(--color-surface)] hover:text-[var(--color-accent-custom)] hover:border-[var(--color-accent-custom)] hover:bg-[var(--color-surface)] shadow-sm text-sm hidden sm:inline-flex")}
             >
@@ -187,7 +184,7 @@ export default function LandingPage() {
             The platform connecting maritime cooperatives with institutional capital.
           </p>
           <p className="font-body text-[0.95rem] leading-[1.6] text-[var(--color-muted-custom)]/80 max-w-xl mx-auto mb-10">
-            MarineSync converts real-time vessel telemetry into bankable, ESG-compliant loan packages.
+            Solmate converts real-time vessel telemetry into bankable, ESG-compliant loan packages.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -265,7 +262,7 @@ export default function LandingPage() {
                   title: "Telemetry Engine",
                   subtitle: "Real-Time Data Ingestion",
                   description:
-                    "Onboard IoT nodes stream GPS position, fuel burn, battery state-of-health, and passenger load directly to the MarineSync cloud — processed in real time against route benchmarks.",
+                    "Onboard IoT nodes stream GPS position, fuel burn, battery state-of-health, and passenger load directly to the Solmate cloud — processed in real time against route benchmarks.",
                 },
                 {
                   step: "03",
@@ -280,7 +277,7 @@ export default function LandingPage() {
                   key={step}
                   className={cn(
                     "shadow-sm hover:shadow-lg transition-all duration-700 rounded-2xl group fade-in-section opacity-0 translate-y-8",
-                    i === 2 ? "bg-[#0a192f] border-teal-500/30 hover:border-teal-400/50 hover:-translate-y-[3px]" : "bg-[var(--color-surface)] border border-[var(--color-border-custom)] hover:border-[var(--color-accent-custom)]/50 hover:-translate-y-[3px]"
+                    i === 2 ? "bg-[#7C2D12] border-teal-500/30 hover:border-teal-400/50 hover:-translate-y-[3px]" : "bg-[var(--color-surface)] border border-[var(--color-border-custom)] hover:border-[var(--color-accent-custom)]/50 hover:-translate-y-[3px]"
                   )}
                   style={{ transitionDelay: `${i * 150}ms` }}
                 >
@@ -352,7 +349,7 @@ export default function LandingPage() {
                 },
                 {
                   heading: "Automated Subsidy Matching",
-                  body: "MarineSync cross-references your route geography and vessel class against active national and multilateral green-shipping subsidy programs — surfacing matches you'd otherwise miss.",
+                  body: "Solmate cross-references your route geography and vessel class against active national and multilateral green-shipping subsidy programs — surfacing matches you'd otherwise miss.",
                 },
                 {
                   heading: "Compliance Dashboard",
@@ -445,46 +442,41 @@ export default function LandingPage() {
       </section>
 
       {/* ─────────────────────────── LIVE IMPACT DASHBOARD ─────────────────────────── */}
-      <section id="for-banks" className="py-[clamp(80px,10vw,140px)] px-6 fade-in-section opacity-0 translate-y-8 transition-all duration-1000 ease-out delay-100 relative overflow-hidden">
-        {/* Dark navy background */}
-        <div className="absolute inset-0 bg-[#050f1a] z-0" />
-        {/* Ambient glow effects */}
-        <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] rounded-full bg-[var(--color-teal)]/5 blur-[120px] z-0 pointer-events-none" />
-        <div className="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] rounded-full bg-[var(--color-accent-custom)]/8 blur-[100px] z-0 pointer-events-none" />
-
+      <section id="for-banks" className="py-[clamp(80px,10vw,140px)] px-6 fade-in-section opacity-0 translate-y-8 transition-all duration-1000 ease-out delay-100 relative bg-[var(--color-surface-2)]">
+        <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[var(--color-border-custom)] to-transparent" />
+        
         <div className="max-w-6xl mx-auto relative z-10">
 
           {/* Header */}
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 bg-teal-500/10 border border-teal-500/20 rounded-full px-4 py-1.5 mb-6">
+            <div className="inline-flex items-center gap-2 bg-[var(--color-accent-light)] border border-[var(--color-accent-custom)]/20 rounded-full px-4 py-1.5 mb-6">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-teal-400"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-accent-custom)] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--color-accent-custom)]"></span>
               </span>
-              <span className="text-teal-300 text-xs font-semibold tracking-wider uppercase">Live Platform Data</span>
+              <span className="text-[var(--color-accent-custom)] text-xs font-semibold tracking-wider uppercase">Live Platform Data</span>
             </div>
-            <h2 className="font-display text-[clamp(2rem,4vw,3.2rem)] font-bold text-white leading-tight mb-4">
+            <h2 className="font-display text-[clamp(2rem,4vw,3.2rem)] font-bold text-[var(--color-text)] leading-tight mb-4">
               Real Capital. Real Impact.
             </h2>
-            <p className="text-teal-100/60 max-w-xl mx-auto font-body leading-relaxed">
-              MarineSync is actively funding the Philippines&apos; green maritime transition. These numbers update in real time as operators earn, qualify, and scale.
+            <p className="text-[var(--color-muted-custom)] max-w-xl mx-auto font-body leading-relaxed">
+              Solmate is actively funding the Philippines&apos; green maritime transition. These numbers update in real time as operators earn, qualify, and scale.
             </p>
           </div>
 
           {/* 4 Big Animated Metric Cards */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 w-full">
             {[
-              { value: <CountUpMetric prefix="₱" endValue={1.2} decimals={1} suffix="B" />, label: "Total Capital Facilitated", sub: "+₱48M this quarter", color: "from-teal-500/20 to-teal-500/5", text: "text-teal-300", border: "border-teal-500/20" },
-              { value: <CountUpMetric endValue={48} />, label: "Vessels Financed", sub: "Across 12 routes", color: "from-teal-500/20 to-teal-500/5", text: "text-teal-300", border: "border-teal-500/20" },
-              { value: <CountUpMetric endValue={1240} />, label: "Tonnes CO₂ Avoided", sub: "vs. diesel baseline", color: "from-emerald-500/15 to-emerald-500/5", text: "text-emerald-300", border: "border-emerald-500/20" },
-              { value: <CountUpMetric endValue={12} />, label: "Partner Banks & Lenders", sub: "LandBank, DBP, PCFC, PhilGuarantee", color: "from-teal-500/20 to-teal-500/5", text: "text-teal-300", border: "border-teal-500/20" },
-            ].map(({ value, label, sub, color, text, border }) => (
-              <div key={label} className={`relative rounded-2xl border ${border} bg-gradient-to-br ${color} p-6 group hover:scale-[1.02] transition-transform duration-300 overflow-hidden`}>
-                <div className="absolute inset-0 bg-white/[0.02] opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
-                <div className={`font-display text-[2.2rem] md:text-[2.8rem] font-extrabold ${text} leading-none mb-2`}>{value}</div>
-                <p className="text-white/80 text-sm font-semibold font-body leading-tight mb-1">{label}</p>
-                <p className="text-white/40 text-xs font-body">{sub}</p>
-              </div>
+              { value: <CountUpMetric prefix="₱" endValue={1.2} decimals={1} suffix="B" />, label: "Total Capital Facilitated", sub: "+₱48M this quarter" },
+              { value: <CountUpMetric endValue={48} />, label: "Vessels Financed", sub: "Across 12 routes" },
+              { value: <CountUpMetric endValue={1240} />, label: "Tonnes CO₂ Avoided", sub: "vs. diesel baseline" },
+              { value: <CountUpMetric endValue={12} />, label: "Partner Banks & Lenders", sub: "LandBank, DBP, PCFC, PhilGuarantee" },
+            ].map(({ value, label, sub }) => (
+              <Card key={label} className="p-6 group hover:-translate-y-1 transition-all duration-300 border-[var(--color-border-custom)] shadow-sm hover:shadow-md bg-[var(--color-surface)]">
+                <div className="font-display text-[2.2rem] md:text-[2.8rem] font-extrabold text-[var(--color-accent-custom)] leading-none mb-2">{value}</div>
+                <p className="text-[var(--color-text)] text-sm font-semibold font-body leading-tight mb-1">{label}</p>
+                <p className="text-[var(--color-muted-custom)] text-xs font-body">{sub}</p>
+              </Card>
             ))}
           </div>
 
@@ -492,70 +484,66 @@ export default function LandingPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
 
             {/* Live Activity Feed */}
-            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm">
-              <div className="flex items-center gap-2 mb-5">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" style={{ animationDuration: '2s' }}></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
-                </span>
-                <span className="text-white/60 text-xs font-semibold uppercase tracking-wider">Recent Activity</span>
+            <Card className="p-6 border-[var(--color-border-custom)] shadow-sm bg-[var(--color-surface)]">
+              <div className="flex items-center gap-2 mb-5 pb-4 border-b border-[var(--color-border-custom)]/50">
+                <span className="text-[var(--color-text)] font-display font-bold">Recent Activity</span>
               </div>
               <div className="space-y-4">
                 {[
-                  { coop: "Batangas Bay Ferry Coop", action: "Loan Approved", amount: "₱12.4M", time: "2 hrs ago", color: "text-emerald-400" },
-                  { coop: "Visayas Green Maritime", action: "Score Updated → 714", amount: "₱8.9M", time: "5 hrs ago", color: "text-blue-400" },
-                  { coop: "Mindanao Blue Shipping", action: "Application Submitted", amount: "₱6.2M", time: "1 day ago", color: "text-yellow-400" },
-                  { coop: "Palawan Sea Routes Coop", action: "ESG Report Generated", amount: "18 tCO₂ saved", time: "2 days ago", color: "text-teal-400" },
+                  { coop: "Batangas Bay Ferry Coop", action: "Loan Approved", amount: "₱12.4M", time: "2 hrs ago", color: "text-[var(--color-success)]" },
+                  { coop: "Visayas Green Maritime", action: "Score Updated → 714", amount: "₱8.9M", time: "5 hrs ago", color: "text-[var(--color-accent-custom)]" },
+                  { coop: "Mindanao Blue Shipping", action: "Application Submitted", amount: "₱6.2M", time: "1 day ago", color: "text-[var(--color-warning)]" },
+                  { coop: "Palawan Sea Routes Coop", action: "ESG Report Generated", amount: "18 tCO₂ saved", time: "2 days ago", color: "text-[var(--color-teal)]" },
                 ].map(({ coop, action, amount, time, color }) => (
-                  <div key={coop} className="flex items-start justify-between gap-3 pb-4 border-b border-white/5 last:border-0 last:pb-0">
+                  <div key={coop} className="flex items-start justify-between gap-3 pb-4 border-b border-[var(--color-border-custom)]/30 last:border-0 last:pb-0">
                     <div className="flex items-start gap-3">
-                      <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <Ship className="w-4 h-4 text-white/40" />
+                      <div className="w-8 h-8 rounded-full bg-[var(--color-surface-2)] flex items-center justify-center flex-shrink-0 mt-0.5 border border-[var(--color-border-custom)]">
+                        <Ship className="w-4 h-4 text-[var(--color-muted-custom)]" />
                       </div>
                       <div>
-                        <p className="text-white/90 text-sm font-semibold font-body">{coop}</p>
+                        <p className="text-[var(--color-text)] text-sm font-semibold font-body">{coop}</p>
                         <p className={`text-xs font-medium ${color}`}>{action}</p>
                       </div>
                     </div>
                     <div className="text-right flex-shrink-0">
-                      <p className="text-white/80 text-sm font-bold font-display">{amount}</p>
-                      <p className="text-white/30 text-xs">{time}</p>
+                      <p className="text-[var(--color-text)] text-sm font-bold font-display">{amount}</p>
+                      <p className="text-[var(--color-muted-custom)] text-xs">{time}</p>
                     </div>
                   </div>
                 ))}
               </div>
-              <div className="pt-4 mt-2 border-t border-white/5">
-                <Link href="#" className="text-xs text-teal-400 hover:text-teal-300 transition-colors font-medium">
+              <div className="pt-4 mt-2">
+                <Link href="#" className="text-xs text-[var(--color-accent-custom)] hover:text-[var(--color-accent-mid)] transition-colors font-medium">
                   View full activity log →
                 </Link>
               </div>
-            </div>
+            </Card>
 
             {/* CTA Card */}
-            <div className="rounded-2xl border border-teal-500/20 bg-gradient-to-br from-teal-500/10 to-[#050f1a] p-8 flex flex-col justify-between backdrop-blur-sm">
+            <Card className="p-8 flex flex-col justify-between border-[var(--color-border-custom)] shadow-sm bg-[var(--color-surface)]">
               <div>
-                <div className="w-12 h-12 rounded-xl bg-teal-500/20 flex items-center justify-center mb-6">
-                  <Landmark className="w-6 h-6 text-teal-300" />
+                <div className="w-12 h-12 rounded-xl bg-[var(--color-surface-2)] border border-[var(--color-border-custom)] flex items-center justify-center mb-6">
+                  <Landmark className="w-6 h-6 text-[var(--color-accent-custom)]" />
                 </div>
-                <h3 className="font-display text-2xl font-bold text-white mb-3">For Financial Institutions</h3>
-                <p className="text-teal-100/60 font-body leading-relaxed mb-6">
-                  Access a curated, pre-vetted pipeline of E-Ferry conversion loans — complete with 90-day telemetry history, verified DSCR projections, and tagged ESG quota contributions. No cold outreach. No opaque credit files.
+                <h3 className="font-display text-2xl font-bold text-[var(--color-text)] mb-3">For Financial Institutions</h3>
+                <p className="text-[var(--color-muted-custom)] font-body leading-relaxed mb-6">
+                  Access a curated, pre-vetted pipeline of E-Ferry conversion loans — complete with 90-day telemetry history, verified DSCR projections, and tagged ESG quota contributions.
                 </p>
-                <ul className="space-y-2 mb-8">
+                <ul className="space-y-3 mb-8">
                   {["Verified bankability scores on every applicant", "Live DSCR backed by actual revenue data", "ESG quota tagging per disbursed loan"].map((item) => (
-                    <li key={item} className="flex items-center gap-2 text-sm text-teal-100/70 font-body">
-                      <div className="w-4 h-4 rounded-full bg-teal-500/20 flex items-center justify-center flex-shrink-0">
-                        <div className="w-1.5 h-1.5 rounded-full bg-teal-400" />
+                    <li key={item} className="flex items-start gap-3 text-sm text-[var(--color-text)] font-body">
+                      <div className="mt-1 w-4 h-4 rounded-full bg-[var(--color-accent-light)] flex items-center justify-center flex-shrink-0">
+                        <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent-custom)]" />
                       </div>
-                      {item}
+                      <span className="leading-tight">{item}</span>
                     </li>
                   ))}
                 </ul>
               </div>
-              <Link href="/login" className={cn(buttonVariants(), "w-max self-start px-8 bg-teal-500 hover:bg-teal-400 text-[#050f1a] font-bold text-sm shadow-lg shadow-teal-500/20 border-none transition-all duration-300")}>
+              <Link href="/login" className={cn(buttonVariants(), "w-full sm:w-max px-8 bg-[var(--color-accent-custom)] hover:bg-[var(--color-accent-mid)] text-white font-bold text-sm shadow-sm transition-all duration-300 border-none")}>
                 Access the Credit Portal →
               </Link>
-            </div>
+            </Card>
           </div>
         </div>
       </section>
@@ -563,7 +551,7 @@ export default function LandingPage() {
 
 
 
-      {/* ─────────────────────────── PRODUCT: E-BANGKA ─────────────────────────── */}
+      {/* ─────────────────────────── PRODUCT: E-FERRY ─────────────────────────── */}
       <section id="product" className="py-[clamp(80px,10vw,140px)] px-6 fade-in-section opacity-0 translate-y-8 transition-all duration-1000 ease-out delay-100 relative">
         <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[var(--color-border-custom)] to-transparent" />
         <div className="max-w-6xl mx-auto">
@@ -572,7 +560,7 @@ export default function LandingPage() {
               Our Flagship Product
             </p>
             <h2 className="font-display text-[clamp(2rem,4vw,3.2rem)] font-bold text-[var(--color-text)]">
-              The E-Bangka System
+              The E-FERRY System
             </h2>
             <p className="text-[var(--color-muted-custom)] mt-3 max-w-2xl mx-auto leading-relaxed font-body">
               A fully integrated hardware and software ecosystem designed to modernize inter-island transport with zero emissions, real-time telemetry, and uncompromising safety.
@@ -588,11 +576,11 @@ export default function LandingPage() {
             <div className="flex flex-col md:flex-row items-center gap-12">
               <div className="w-full md:w-1/2 flex justify-center">
                 <div className="relative w-full max-w-lg aspect-video rounded-2xl overflow-hidden border border-[var(--color-border-custom)] shadow-xl group bg-[var(--color-surface-2)]">
-                  <img src="/boat.png" alt="E-Bangka Vessel" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                  <img src="/charge.png" alt="E-FERRY Vessel" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                 </div>
               </div>
               <div className="w-full md:w-1/2 space-y-6">
-                <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-[var(--color-accent-custom)] to-[#0c4a6e] shadow-lg shadow-[var(--color-accent-custom)]/20 border border-white/10 mb-2 relative overflow-hidden group">
+                <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-[var(--color-accent-custom)] to-[#9A3412] shadow-lg shadow-[var(--color-accent-custom)]/20 border border-white/10 mb-2 relative overflow-hidden group">
                   <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-white/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   <Ship className="w-7 h-7 text-white drop-shadow-md relative z-10 group-hover:scale-110 transition-transform duration-500" />
                 </div>
@@ -600,7 +588,7 @@ export default function LandingPage() {
                   Next-Generation Electric Vessel
                 </h3>
                 <p className="text-[var(--color-muted-custom)] leading-relaxed font-body">
-                  The E-Bangka replaces traditional, heavily polluting diesel engines with a state-of-the-art electric propulsion system. Built with composite materials for weight reduction and hydrodynamically optimized hulls, it delivers a smooth, silent, and zero-emission ride for passengers.
+                  The E-FERRY replaces traditional, heavily polluting diesel engines with a state-of-the-art electric propulsion system. Built with composite materials for weight reduction and hydrodynamically optimized hulls, it delivers a smooth, silent, and zero-emission ride for passengers.
                 </p>
                 <ul className="space-y-3 font-body">
                   {["Zero carbon emissions during operation", "Significant reduction in noise and vibration", "Lower maintenance costs compared to diesel equivalents"].map((item, i) => (
@@ -619,22 +607,22 @@ export default function LandingPage() {
             <div className="flex flex-col md:flex-row-reverse items-center gap-12">
               <div className="w-full md:w-1/2 flex justify-center">
                 <div className="relative w-full max-w-lg aspect-video rounded-2xl overflow-hidden border border-[var(--color-border-custom)] shadow-xl group bg-[var(--color-surface-2)]">
-                  <img src="/system.png" alt="MarineSync System" className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700" />
+                  <img src="/system.png" alt="Solmate System" className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700" />
                 </div>
               </div>
               <div className="w-full md:w-1/2 space-y-6">
-                <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-[var(--color-accent-custom)] to-[#0c4a6e] shadow-lg shadow-[var(--color-accent-custom)]/20 border border-white/10 mb-2 relative overflow-hidden group">
+                <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-[var(--color-accent-custom)] to-[#9A3412] shadow-lg shadow-[var(--color-accent-custom)]/20 border border-white/10 mb-2 relative overflow-hidden group">
                   <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-white/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   <Activity className="w-7 h-7 text-white drop-shadow-md relative z-10 group-hover:scale-110 transition-transform duration-500" />
                 </div>
                 <h3 className="font-display text-2xl md:text-3xl font-bold text-[var(--color-text)]">
-                  MarineSync Telemetry & Control
+                  Solmate Telemetry & Control
                 </h3>
                 <p className="text-[var(--color-muted-custom)] leading-relaxed font-body">
-                  Every E-Bangka is connected to our centralized MarineSync platform. IoT sensors continuously stream critical data—from battery state-of-charge and motor temperature to GPS location and passenger manifest—ensuring peak operational efficiency and absolute passenger safety.
+                  Every E-FERRY is connected to our centralized Solmate platform. IoT sensors continuously stream critical data—from battery state-of-charge and motor temperature to GPS location and passenger manifest—ensuring peak operational efficiency and absolute passenger safety.
                 </p>
                 <ul className="space-y-3 font-body">
-                  {["Real-time GPS tracking and geofencing", "Predictive maintenance alerts based on motor telemetry", "Automated compliance reporting for maritime authorities"].map((item, i) => (
+                  {["Predictive maintenance alerts based on motor telemetry", "Automated compliance reporting for maritime authorities"].map((item, i) => (
                     <li key={i} className="flex items-start gap-3">
                       <div className="mt-1 w-5 h-5 rounded-full bg-[var(--color-accent-light)] flex items-center justify-center flex-shrink-0">
                         <div className="w-2 h-2 rounded-full bg-[var(--color-teal)]" />
@@ -694,10 +682,10 @@ export default function LandingPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {[
               {
-                icon: <Ship className="w-8 h-8 text-blue-500" />,
-                bgClass: "bg-blue-500/10",
+                icon: <Ship className="w-8 h-8 text-[var(--color-accent-custom)]" />,
+                bgClass: "bg-[var(--color-accent-custom)]/10",
                 title: "Transportation Innovation",
-                description: "Deploying zero-emission E-Bangka vessels to modernize inter-island transit, improving passenger safety and comfort."
+                description: "Deploying zero-emission E-FERRY vessels to modernize inter-island transit, improving passenger safety and comfort."
               },
               {
                 icon: <Sun className="w-8 h-8 text-emerald-500" />,
@@ -735,7 +723,7 @@ export default function LandingPage() {
             <div className="flex items-center gap-2 justify-center md:justify-start mb-2">
               <Anchor className="w-5 h-5 text-[var(--color-accent-custom)]" />
               <span className="text-[var(--color-text)] font-bold text-lg tracking-tight">
-                MarineSync
+                Solmate
               </span>
             </div>
             <p className="text-[var(--color-muted-custom)] text-sm max-w-xs leading-relaxed font-body">
@@ -746,7 +734,7 @@ export default function LandingPage() {
 
           <div className="text-center md:text-right font-body">
             <p className="text-[var(--color-muted-custom)] text-xs">
-              © 2026 MarineSync Technologies, Inc. All rights reserved.
+              © 2026 Solmate Technologies, Inc. All rights reserved.
             </p>
             <p className="text-[var(--color-muted-custom)]/70 text-xs mt-1">
               Regulated maritime fintech. All data encrypted in transit and at

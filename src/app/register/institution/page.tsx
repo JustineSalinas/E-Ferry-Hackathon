@@ -64,7 +64,7 @@ export default function InstitutionRegisterPage() {
               <Anchor className="w-6 h-6 text-[var(--color-accent-custom)]" />
             </div>
             <span className="text-[var(--color-text)] text-2xl font-bold tracking-tight">
-              MarineSync
+              Solmate
             </span>
           </Link>
           <p className="text-[var(--color-muted-custom)] text-sm tracking-widest uppercase font-medium ml-1">
@@ -110,7 +110,7 @@ export default function InstitutionRegisterPage() {
         {/* Bottom tagline */}
         <div className="relative z-10 animate-in slide-in-from-bottom-4 fade-in duration-1000 delay-300">
           <p className="text-[var(--color-muted-custom)]/60 text-xs font-medium">
-            © 2026 MarineSync · Republic of the Philippines
+            © 2026 Solmate · Republic of the Philippines
           </p>
         </div>
       </div>
@@ -133,7 +133,7 @@ export default function InstitutionRegisterPage() {
               <div className="w-7 h-7 rounded-lg bg-[var(--color-accent-custom)] flex items-center justify-center">
                 <Anchor className="w-4 h-4 text-[var(--color-surface)]" />
               </div>
-              <span className="text-[var(--color-text)] font-bold text-sm">MarineSync</span>
+              <span className="text-[var(--color-text)] font-bold text-sm">Solmate</span>
             </div>
             <div className="hidden md:flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full bg-[var(--color-accent-light)] text-[var(--color-accent-custom)]">
               <Landmark className="w-3.5 h-3.5" />
@@ -254,10 +254,10 @@ export default function InstitutionRegisterPage() {
                   </div>
                   <div className="text-sm">
                     <Label htmlFor="agreeTerms" className="font-semibold text-[var(--color-text)] cursor-pointer">
-                      I agree to the MarineSync Institutional Terms and Data Processing Agreement
+                      I agree to the Solmate Institutional Terms and Data Processing Agreement
                     </Label>
                     <p className="text-[var(--color-muted-custom)] mt-1">
-                      By checking this box, I confirm that I am authorized to register on behalf of my institution and agree to adhere to BSP guidelines regarding data privacy and credit underwriting via the MarineSync platform.
+                      By checking this box, I confirm that I am authorized to register on behalf of my institution and agree to adhere to BSP guidelines regarding data privacy and credit underwriting via the Solmate platform.
                     </p>
                   </div>
                 </div>

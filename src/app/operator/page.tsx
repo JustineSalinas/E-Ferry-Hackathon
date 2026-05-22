@@ -130,7 +130,7 @@ export default function OperatorDashboard() {
   const [mounted, setMounted] = useState(false)
   const [isSimulating, setIsSimulating] = useState(false)
   const [liveScore, setLiveScore] = useState(780)
-  const [loans, setLoans] = useSharedState<any[]>('marineSync_loans', [])
+  const [loans, setLoans] = useSharedState<any[]>('Solmate_loans', [])
 
   useEffect(() => {
     setMounted(true)
@@ -232,12 +232,8 @@ export default function OperatorDashboard() {
       {/* ── Top Navigation ── */}
       <header className="fixed top-0 left-0 right-0 z-30 bg-background/80 backdrop-blur-md h-14 flex items-center px-6 shadow-sm border-b border-border/40">
         <div className="flex items-center gap-3 flex-1">
-          <Anchor className="w-5 h-5 text-primary" />
-          <span className="text-foreground font-extrabold text-xl tracking-tight">
-            Marine<span className="text-primary">Sync</span>
-          </span>
-          <span className="text-muted-foreground text-sm hidden sm:block">|</span>
-          <span className="text-muted-foreground text-sm hidden sm:block font-medium">
+          <img src="/solmate.png" alt="Solmate Logo" className="h-12 w-auto object-contain" />
+          <span className="text-muted-foreground text-sm hidden sm:block ml-2 border-l border-border/50 pl-3 font-medium">
             Operator Dashboard
           </span>
         </div>
@@ -972,7 +968,7 @@ export default function OperatorDashboard() {
                       onChange={(e) => setLoanForm({...loanForm, esgCommitment: e.target.checked})}
                     />
                     <label htmlFor="esg" className="text-sm text-muted-foreground cursor-pointer">
-                      I certify that these funds will be used exclusively for green maritime investments, and I agree to continuous ESG telemetry monitoring by MarineSync.
+                      I certify that these funds will be used exclusively for green maritime investments, and I agree to continuous ESG telemetry monitoring by Solmate.
                     </label>
                   </div>
                 </div>

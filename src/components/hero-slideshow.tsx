@@ -33,7 +33,7 @@ export function HeroSlideshow() {
         >
           <img
             src={src}
-            alt={`MarineSync platform ${index + 1}`}
+            alt={`Solmate platform ${index + 1}`}
             className="w-full h-full object-contain object-center p-2"
           />
         </div>

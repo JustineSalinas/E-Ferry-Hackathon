@@ -73,13 +73,10 @@ export default function AdminPage() {
     <div className="min-h-screen bg-background font-sans transition-colors duration-300">
       {/* ── Top Navigation Bar ─────────────────────────────────────────── */}
       <header className="bg-background/80 backdrop-blur-md border-b border-border/60 px-6 py-0 flex items-center justify-between h-14 sticky top-0 z-50">
-        <div className="flex items-center gap-2.5">
-          <div className="h-7 w-7 rounded bg-primary flex items-center justify-center">
-            <Anchor className="h-4 w-4 text-primary-foreground" />
+        <div className="flex items-center">
+          <div className="flex items-center justify-center">
+            <img src="/solmate.png" alt="Solmate Logo" className="h-12 w-auto object-contain" />
           </div>
-          <span className="text-foreground font-bold text-lg tracking-tight">
-            MarineSync
-          </span>
         </div>
 
         <div className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center">

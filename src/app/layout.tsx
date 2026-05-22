@@ -16,9 +16,9 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "MarineSync | Premium E-Ferry Financial Platform",
+  title: "Solmate | Premium E-Ferry Financial Platform",
   description:
-    "MarineSync bridges the gap between inter-island ferry operators and financial institutions through telemetry-backed credit scoring and green subsidy coordination.",
+    "Solmate bridges the gap between inter-island ferry operators and financial institutions through telemetry-backed credit scoring and green subsidy coordination.",
 };
 
 export default function RootLayout({

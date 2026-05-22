@@ -63,7 +63,7 @@ export default function CooperativeRegisterPage() {
               <Anchor className="w-6 h-6 text-[var(--color-accent-custom)]" />
             </div>
             <span className="text-[var(--color-text)] text-2xl font-bold tracking-tight">
-              MarineSync
+              Solmate
             </span>
           </Link>
           <p className="text-[var(--color-muted-custom)] text-sm tracking-widest uppercase font-medium ml-1">
@@ -100,7 +100,7 @@ export default function CooperativeRegisterPage() {
                 <svg className="h-3.5 w-3.5" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
               </div>
               <p className="text-sm text-[var(--color-muted-custom)] leading-relaxed">
-                <span className="font-semibold text-[var(--color-text)]">Zero-Emission Future.</span> Step-by-step guidance for E-Bangka conversions and infrastructure upgrades.
+                <span className="font-semibold text-[var(--color-text)]">Zero-Emission Future.</span> Step-by-step guidance for E-FERRY conversions and infrastructure upgrades.
               </p>
             </div>
           </div>
@@ -109,7 +109,7 @@ export default function CooperativeRegisterPage() {
         {/* Bottom tagline */}
         <div className="relative z-10 animate-in slide-in-from-bottom-4 fade-in duration-1000 delay-300">
           <p className="text-[var(--color-muted-custom)]/60 text-xs font-medium">
-            © 2026 MarineSync · Republic of the Philippines
+            © 2026 Solmate · Republic of the Philippines
           </p>
         </div>
       </div>
@@ -132,7 +132,7 @@ export default function CooperativeRegisterPage() {
               <div className="w-7 h-7 rounded-lg bg-[var(--color-accent-custom)] flex items-center justify-center">
                 <Anchor className="w-4 h-4 text-[var(--color-surface)]" />
               </div>
-              <span className="text-[var(--color-text)] font-bold text-sm">MarineSync</span>
+              <span className="text-[var(--color-text)] font-bold text-sm">Solmate</span>
             </div>
             <div className="hidden md:flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full bg-[var(--color-accent-light)] text-[var(--color-accent-custom)]">
               <Ship className="w-3.5 h-3.5" />
@@ -238,10 +238,10 @@ export default function CooperativeRegisterPage() {
                   </div>
                   <div className="text-sm">
                     <Label htmlFor="agreeTerms" className="font-semibold text-[var(--color-text)] cursor-pointer">
-                      I agree to the MarineSync Terms of Service and Privacy Policy
+                      I agree to the Solmate Terms of Service and Privacy Policy
                     </Label>
                     <p className="text-[var(--color-muted-custom)] mt-1">
-                      By checking this box, I authorize MarineSync to securely share my cooperative's aggregated telemetry and registration data with MARINA and DOTr for compliance reporting purposes.
+                      By checking this box, I authorize Solmate to securely share my cooperative's aggregated telemetry and registration data with MARINA and DOTr for compliance reporting purposes.
                     </p>
                   </div>
                 </div>

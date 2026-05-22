@@ -27,7 +27,7 @@ export default function LoginPage() {
         name: selectedRole === 'operator' ? 'Iloilo Ferry Co.' : selectedRole === 'institution' ? 'BDO Green Finance' : 'System Administrator',
         loginTime: new Date().toISOString()
       };
-      window.localStorage.setItem('marine_sync_session', JSON.stringify(session));
+      window.localStorage.setItem('solmate_session', JSON.stringify(session));
     }
 
     if (selectedRole === 'operator') {
@@ -50,17 +50,14 @@ export default function LoginPage() {
         />
 
         {/* Anchor watermark */}
-        <Anchor className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] text-[var(--color-accent-custom)] opacity-5" />
+        <img src="/solmate.png" alt="Solmate Watermark" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] opacity-5 pointer-events-none" />
 
         {/* Branding */}
         <div className="relative z-10 animate-in slide-in-from-left-8 fade-in duration-1000">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 rounded-xl bg-[var(--color-surface)] border border-[var(--color-border-custom)] flex items-center justify-center shadow-sm">
-              <Anchor className="w-6 h-6 text-[var(--color-accent-custom)]" />
+          <div className="flex items-center mb-4">
+            <div className="flex items-center justify-center">
+              <img src="/solmate.png" alt="Solmate Logo" className="h-16 w-auto object-contain" />
             </div>
-            <span className="text-[var(--color-text)] text-2xl font-bold tracking-tight">
-              MarineSync
-            </span>
           </div>
           <p className="text-[var(--color-muted-custom)] text-sm tracking-widest uppercase font-medium ml-1">
             E-Ferry Finance Platform
@@ -135,7 +132,7 @@ export default function LoginPage() {
             and sustainable maritime infrastructure.&quot;
           </blockquote>
           <p className="text-[var(--color-muted-custom)] text-sm leading-relaxed max-w-sm">
-            MarineSync bridges ferry cooperatives and financial institutions,
+            Solmate bridges ferry cooperatives and financial institutions,
             enabling data-driven lending decisions that power the blue economy
             across the Philippine archipelago.
           </p>
@@ -170,7 +167,7 @@ export default function LoginPage() {
         {/* Bottom tagline */}
         <div className="relative z-10 animate-in slide-in-from-bottom-4 fade-in duration-1000 delay-300">
           <p className="text-[var(--color-muted-custom)]/60 text-xs font-medium">
-            © 2026 MarineSync · Republic of the Philippines
+            © 2026 Solmate · Republic of the Philippines
           </p>
         </div>
       </div>
@@ -191,11 +188,10 @@ export default function LoginPage() {
           <div className="flex items-center gap-4">
 
             {/* Mobile brand mark */}
-            <div className="flex lg:hidden items-center gap-2">
-              <div className="w-7 h-7 rounded-lg bg-[var(--color-accent-custom)] flex items-center justify-center">
-                <Anchor className="w-4 h-4 text-[var(--color-surface)]" />
+            <div className="flex lg:hidden items-center">
+              <div className="flex items-center justify-center">
+                <img src="/solmate.png" alt="Solmate Logo" className="h-10 w-auto object-contain" />
               </div>
-              <span className="text-[var(--color-text)] font-bold text-sm">MarineSync</span>
             </div>
           </div>
         </div>
@@ -209,7 +205,7 @@ export default function LoginPage() {
                 Welcome back
               </h1>
               <p className="text-sm text-[var(--color-muted-custom)]">
-                Sign in to your MarineSync account to continue.
+                Sign in to your Solmate account to continue.
               </p>
             </div>
 

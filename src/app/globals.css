@@ -52,42 +52,42 @@
 }
 
 :root {
-  /* ── MarineSync Institutional Light Mode ── */
-  --background: #F7F6F3;
-  --foreground: #1A1A2E;
+  /* ── Solmate Premium Orange Light Mode ── */
+  --background: #FFFFFF;
+  --foreground: #1C1917;
   --card: #FFFFFF;
-  --card-foreground: #1A1A2E;
+  --card-foreground: #1C1917;
   --popover: #FFFFFF;
-  --popover-foreground: #1A1A2E;
-  --primary: #0C4A6E;
+  --popover-foreground: #1C1917;
+  --primary: #EA580C;
   --primary-foreground: #FFFFFF;
-  --secondary: #F0EEE9;
-  --secondary-foreground: #1A1A2E;
-  --muted: #F0EEE9;
-  --muted-foreground: #6B7280;
-  --accent: #E0F2FE;
-  --accent-foreground: #0C4A6E;
-  --destructive: #dc2626;
+  --secondary: #F5F5F4;
+  --secondary-foreground: #1C1917;
+  --muted: #E7E5E4;
+  --muted-foreground: #78716C;
+  --accent: #FFEDD5;
+  --accent-foreground: #EA580C;
+  --destructive: #EF4444;
   --destructive-foreground: #FFFFFF;
-  --border: #E2DED6;
-  --input: #E2DED6;
-  --ring: #0C4A6E;
+  --border: #D6D3D1;
+  --input: #D6D3D1;
+  --ring: #EA580C;
   --radius: 0.75rem;
 
   /* ── Custom Semantic Tokens (Light) ── */
-  --color-bg:           #F7F6F3;
+  --color-bg:           #FAFAFA;
   --color-surface:      #FFFFFF;
-  --color-surface-2:    #F0EEE9;
-  --color-border-custom:#E2DED6;
-  --color-text:         #1A1A2E;
-  --color-muted-custom: #6B7280;
-  --color-accent-custom:#0C4A6E;
-  --color-accent-mid:   #0369A1;
-  --color-accent-light: #E0F2FE;
+  --color-surface-2:    #F5F5F4;
+  --color-border-custom:#D6D3D1;
+  --color-text:         #1C1917;
+  --color-muted-custom: #78716C;
+  --color-accent-custom:#EA580C;
+  --color-accent-mid:   #F97316;
+  --color-accent-light: #FFEDD5;
   --color-teal:         #0D9488;
-  --color-success:      #15803D;
-  --color-warning:      #B45309;
-  --color-pending:      #6B7280;
+  --color-success:      #16A34A;
+  --color-warning:      #D97706;
+  --color-pending:      #94A3B8;
 
   --font-display: var(--font-fraunces), serif;
   --font-body: var(--font-dm-sans), sans-serif;

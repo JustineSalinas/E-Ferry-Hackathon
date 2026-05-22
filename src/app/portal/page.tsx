@@ -359,7 +359,7 @@ const navItems = [
 ]
 
 export default function PortalPage() {
-  const [cooperatives, setCooperatives] = useSharedState<Cooperative[]>('marineSync_loans', INITIAL_COOPERATIVES)
+  const [cooperatives, setCooperatives] = useSharedState<Cooperative[]>('Solmate_loans', INITIAL_COOPERATIVES)
   const [activeNav, setActiveNav] = useState('pipeline')
   const [selectedCoop, setSelectedCoop] = useState<Cooperative>(INITIAL_COOPERATIVES[2]) // default to Iloilo
   const [approveClicked, setApproveClicked] = useState(false)
@@ -413,7 +413,7 @@ export default function PortalPage() {
             </svg>
           </div>
           <span className="text-foreground font-bold text-lg tracking-tight">
-            MarineSync
+            Solmate
           </span>
         </div>
 
@@ -919,7 +919,13 @@ export default function PortalPage() {
           {activeNav === 'portfolio' && (
             <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
               <Card className="bg-card/50 backdrop-blur-md border border-border/40 shadow-lg p-12 text-center flex flex-col items-center justify-center">
-                <Briefcase className="w-12 h-12 text-muted-foreground mb-4 opacity-50" />
+                {/* Logo */}
+                <div className="flex flex-col sm:flex-row items-center gap-4 cursor-pointer group mb-6">
+                  <img src="/solmate.png" alt="Solmate Logo" className="h-16 w-auto object-contain" />
+                  <span className="text-muted-foreground font-medium text-sm sm:border-l border-border/50 sm:pl-4 hidden sm:block">
+                    Institution Portal
+                  </span>
+                </div>
                 <h2 className="text-2xl font-bold text-foreground">Active Loan Portfolio</h2>
                 <p className="text-muted-foreground mt-2 max-w-md">
                   View and manage currently disbursed loans, repayment schedules, and operator ESG compliance reports.
