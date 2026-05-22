@@ -9,7 +9,7 @@ import { Label } from '@/components/ui/label';
 import { Anchor, Ship, Landmark, Lock, Shield } from 'lucide-react';
 
 
-type Role = 'operator' | 'institution' | null;
+type Role = 'operator' | 'institution' | 'admin' | null;
 
 export default function LoginPage() {
   const router = useRouter();
@@ -24,7 +24,7 @@ export default function LoginPage() {
     if (typeof window !== 'undefined') {
       const session = {
         role: selectedRole,
-        name: selectedRole === 'operator' ? 'Iloilo Ferry Co.' : 'BDO Green Finance',
+        name: selectedRole === 'operator' ? 'Iloilo Ferry Co.' : selectedRole === 'institution' ? 'BDO Green Finance' : 'System Administrator',
         loginTime: new Date().toISOString()
       };
       window.localStorage.setItem('marine_sync_session', JSON.stringify(session));
@@ -34,6 +34,8 @@ export default function LoginPage() {
       router.push('/operator');
     } else if (selectedRole === 'institution') {
       router.push('/portal');
+    } else if (selectedRole === 'admin') {
+      router.push('/admin');
     }
   };
 
@@ -200,7 +202,7 @@ export default function LoginPage() {
 
         {/* Form area — truly centered */}
         <div className="flex-1 flex flex-col items-center justify-center w-full px-6 py-8 md:px-12" style={{ paddingBottom: '5vh' }}>
-          <div className="w-full space-y-7 animate-in slide-in-from-bottom-8 fade-in duration-700 max-w-[440px]">
+          <div className="w-full space-y-7 animate-in slide-in-from-bottom-8 fade-in duration-700 max-w-[540px]">
             {/* Header */}
             <div className="space-y-1 text-center">
               <h1 className="font-display text-[2rem] font-bold text-[var(--color-text)] tracking-tight">
@@ -214,9 +216,9 @@ export default function LoginPage() {
             {/* Role Selector */}
             <div className="space-y-2">
               <Label className="block text-center text-xs font-semibold uppercase tracking-widest text-[var(--color-accent-custom)]">
-                {selectedRole === null ? 'Select your role' : selectedRole === 'operator' ? 'Role: Ferry Operator' : 'Role: Bank / LGU'}
+                {selectedRole === null ? 'Select your role' : selectedRole === 'operator' ? 'Role: Ferry Operator' : selectedRole === 'institution' ? 'Role: Bank / LGU' : 'Role: System Admin'}
               </Label>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 {/* Ferry Operator Card */}
                 <button
                   type="button"
@@ -304,6 +306,50 @@ export default function LoginPage() {
                     </p>
                   </div>
                 </button>
+
+                {/* System Admin Card */}
+                <button
+                  type="button"
+                  onClick={() => setSelectedRole('admin')}
+                  className={`relative flex flex-col items-start gap-2 rounded-xl text-left transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent-custom)] focus-visible:ring-offset-2 ${
+                    selectedRole === 'admin'
+                      ? 'border-2 border-[var(--color-accent-custom)] bg-[var(--color-accent-custom)]/5 shadow-md scale-[1.02] p-[15px]'
+                      : 'border border-[var(--color-border-custom)] bg-[var(--color-surface)] hover:border-[var(--color-accent-custom)]/50 hover:bg-[var(--color-accent-custom)]/5 hover:-translate-y-1 hover:shadow-sm p-4'
+                  }`}
+                >
+                  {selectedRole === 'admin' && (
+                    <span className="absolute top-2.5 right-2.5 flex h-4 w-4 items-center justify-center rounded-full bg-[var(--color-accent-custom)] animate-in zoom-in duration-200">
+                      <svg
+                        className="h-2.5 w-2.5 text-[var(--color-surface)]"
+                        viewBox="0 0 12 12"
+                        fill="none"
+                      >
+                        <path
+                          d="M2 6l3 3 5-5"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </span>
+                  )}
+                  <Shield className={`w-8 h-8 ${selectedRole === 'admin' ? 'text-[var(--color-accent-custom)]' : 'text-[var(--color-muted-custom)]'}`} />
+                  <div>
+                    <p
+                      className={`text-sm font-semibold leading-tight ${
+                        selectedRole === 'admin'
+                          ? 'text-[var(--color-accent-custom)]'
+                          : 'text-[var(--color-text)]'
+                      }`}
+                    >
+                      System Admin
+                    </p>
+                    <p className="text-xs text-[var(--color-muted-custom)] mt-0.5 leading-tight font-medium">
+                      / Oversight
+                    </p>
+                  </div>
+                </button>
               </div>
             </div>
 
@@ -370,42 +416,50 @@ export default function LoginPage() {
                 ? 'Select a role to continue'
                 : selectedRole === 'operator'
                 ? 'Continue as Ferry Operator →'
-                : 'Continue as Bank / LGU →'}
+                : selectedRole === 'institution'
+                ? 'Continue as Bank / LGU →'
+                : 'Continue as System Admin →'}
             </Button>
 
             {/* Register link */}
             <div className="text-center text-sm text-[var(--color-muted-custom)] font-medium">
-              Don&apos;t have an account?{' '}
-              {selectedRole === 'operator' ? (
-                <Link
-                  href="/register/cooperative"
-                  className="text-[var(--color-accent-custom)] hover:underline font-bold transition-colors"
-                >
-                  Register your cooperative
-                </Link>
-              ) : selectedRole === 'institution' ? (
-                <Link
-                  href="/register/institution"
-                  className="text-[var(--color-accent-custom)] hover:underline font-bold transition-colors"
-                >
-                  Register your institution
-                </Link>
+              {selectedRole === 'admin' ? (
+                <span>Internal system access only</span>
               ) : (
-                <div className="inline-flex items-center gap-2 mt-2 sm:mt-0">
-                  <Link
-                    href="/register/cooperative"
-                    className="text-[var(--color-accent-custom)] hover:underline font-bold transition-colors"
-                  >
-                    Ferry Operator
-                  </Link>
-                  <span className="text-muted-foreground/50">|</span>
-                  <Link
-                    href="/register/institution"
-                    className="text-[var(--color-accent-custom)] hover:underline font-bold transition-colors"
-                  >
-                    Bank / LGU
-                  </Link>
-                </div>
+                <>
+                  Don&apos;t have an account?{' '}
+                  {selectedRole === 'operator' ? (
+                    <Link
+                      href="/register/cooperative"
+                      className="text-[var(--color-accent-custom)] hover:underline font-bold transition-colors"
+                    >
+                      Register your cooperative
+                    </Link>
+                  ) : selectedRole === 'institution' ? (
+                    <Link
+                      href="/register/institution"
+                      className="text-[var(--color-accent-custom)] hover:underline font-bold transition-colors"
+                    >
+                      Register your institution
+                    </Link>
+                  ) : (
+                    <div className="inline-flex items-center gap-2 mt-2 sm:mt-0">
+                      <Link
+                        href="/register/cooperative"
+                        className="text-[var(--color-accent-custom)] hover:underline font-bold transition-colors"
+                      >
+                        Ferry Operator
+                      </Link>
+                      <span className="text-muted-foreground/50">|</span>
+                      <Link
+                        href="/register/institution"
+                        className="text-[var(--color-accent-custom)] hover:underline font-bold transition-colors"
+                      >
+                        Bank / LGU
+                      </Link>
+                    </div>
+                  )}
+                </>
               )}
             </div>
 
