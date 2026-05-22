@@ -9,7 +9,6 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { LayoutDashboard, ShieldAlert, Briefcase, Settings, Landmark, ShieldCheck } from 'lucide-react'
-import { DragDropContext, Droppable, Draggable, DropResult } from '@hello-pangea/dnd'
 import { useSharedState } from '@/lib/useSharedState'
 
 
@@ -343,18 +342,9 @@ function KanbanColumn({
           {count}
         </span>
       </div>
-      <Droppable droppableId={id}>
-        {(provided) => (
-          <div
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-            className="flex-1 overflow-y-auto pr-1 pb-2 space-y-3 scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent"
-          >
-            {children}
-            {provided.placeholder}
-          </div>
-        )}
-      </Droppable>
+      <div className="flex-1 overflow-y-auto pr-1 pb-2 space-y-3 scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent">
+        {children}
+      </div>
     </div>
   )
 }
@@ -403,12 +393,6 @@ export default function PortalPage() {
     setCooperatives((prev) =>
       prev.map((c) => (c.id === id ? { ...c, status: newStatus } : c))
     )
-  }
-
-  const handleDragEnd = (result: DropResult) => {
-    if (!result.destination) return;
-    const { draggableId, destination } = result;
-    handleMoveCard(draggableId, destination.droppableId as 'pending' | 'in-review' | 'approved');
   }
 
   if (!mounted) return null;
@@ -542,73 +526,59 @@ export default function PortalPage() {
         </div>
 
         {/* ── Kanban Board ─────────────────────────────────────────────── */}
-        <DragDropContext onDragEnd={handleDragEnd}>
-          <div className="flex flex-col lg:flex-row gap-5 items-start">
-            {/* Column 1 — Pending */}
-            <KanbanColumn
-              title="Pending"
-              count={pending.length}
-              id="pending"
-            >
-              {pending.map((c, index) => (
-                <Draggable key={c.id} draggableId={c.id} index={index}>
-                  {(provided) => (
-                    <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                      <PendingCard 
-                        coop={c} 
-                        onClick={() => handleCardClick(c)} 
-                        onMove={(e) => { e.stopPropagation(); handleMoveCard(c.id, 'in-review') }}
-                      />
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-            </KanbanColumn>
+        <div className="flex flex-col lg:flex-row gap-5 items-start">
+          {/* Column 1 — Pending */}
+          <KanbanColumn
+            title="Pending"
+            count={pending.length}
+            id="pending"
+          >
+            {pending.map((c) => (
+              <div key={c.id}>
+                <PendingCard 
+                  coop={c} 
+                  onClick={() => handleCardClick(c)} 
+                  onMove={(e) => { e.stopPropagation(); handleMoveCard(c.id, 'in-review') }}
+                />
+              </div>
+            ))}
+          </KanbanColumn>
 
-            {/* Column 2 — In Review */}
-            <KanbanColumn
-              title="In Review"
-              count={inReview.length}
-              id="in-review"
-            >
-              {inReview.map((c, index) => (
-                <Draggable key={c.id} draggableId={c.id} index={index}>
-                  {(provided) => (
-                    <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                      <InReviewCard 
-                        coop={c} 
-                        onClick={() => handleCardClick(c)}
-                        onMove={(e) => { e.stopPropagation(); handleMoveCard(c.id, 'approved') }}
-                        onMoveBack={(e) => { e.stopPropagation(); handleMoveCard(c.id, 'pending') }}
-                      />
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-            </KanbanColumn>
+          {/* Column 2 — In Review */}
+          <KanbanColumn
+            title="In Review"
+            count={inReview.length}
+            id="in-review"
+          >
+            {inReview.map((c) => (
+              <div key={c.id}>
+                <InReviewCard 
+                  coop={c} 
+                  onClick={() => handleCardClick(c)}
+                  onMove={(e) => { e.stopPropagation(); handleMoveCard(c.id, 'approved') }}
+                  onMoveBack={(e) => { e.stopPropagation(); handleMoveCard(c.id, 'pending') }}
+                />
+              </div>
+            ))}
+          </KanbanColumn>
 
-            {/* Column 3 — Approved */}
-            <KanbanColumn
-              title="Approved"
-              count={approved.length}
-              id="approved"
-            >
-              {approved.map((c, index) => (
-                <Draggable key={c.id} draggableId={c.id} index={index}>
-                  {(provided) => (
-                    <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                      <ApprovedCard 
-                        coop={c} 
-                        onClick={() => handleCardClick(c)}
-                        onMoveBack={(e) => { e.stopPropagation(); handleMoveCard(c.id, 'in-review') }}
-                      />
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-            </KanbanColumn>
-          </div>
-        </DragDropContext>
+          {/* Column 3 — Approved */}
+          <KanbanColumn
+            title="Approved"
+            count={approved.length}
+            id="approved"
+          >
+            {approved.map((c) => (
+              <div key={c.id}>
+                <ApprovedCard 
+                  coop={c} 
+                  onClick={() => handleCardClick(c)}
+                  onMoveBack={(e) => { e.stopPropagation(); handleMoveCard(c.id, 'in-review') }}
+                />
+              </div>
+            ))}
+          </KanbanColumn>
+        </div>
 
         {/* ── Summary Footer ─────────────────────────────────────── */}
         <div className="mt-6 grid grid-cols-3 gap-5">

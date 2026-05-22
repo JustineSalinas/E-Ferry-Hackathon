@@ -31,13 +31,10 @@ export function HeroSlideshow() {
             zIndex: index === currentImageIndex ? 10 : 0
           }}
         >
-          <Image
+          <img
             src={src}
             alt={`MarineSync platform ${index + 1}`}
-            fill
-            priority={index === 0}
-            quality={100}
-            className="object-contain object-center p-2"
+            className="w-full h-full object-contain object-center p-2"
           />
         </div>
       ))}

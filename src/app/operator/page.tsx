@@ -184,17 +184,45 @@ export default function OperatorDashboard() {
     return () => clearInterval(interval);
   }, [isSimulating]);
 
+  const [showLoanModal, setShowLoanModal] = useState(false)
+  const [loanStep, setLoanStep] = useState(1)
+  const [loanForm, setLoanForm] = useState({
+    purpose: 'E-Ferry Conversion',
+    amount: '1500000',
+    term: '10',
+    institution: 'LandBank',
+    vessels: '12',
+    route: 'Iloilo–Guimaras',
+    esgCommitment: false,
+  })
+
   const handleApplyLoan = () => {
+    setShowLoanModal(true)
+    setLoanStep(1)
+  };
+
+  const submitLoanApplication = () => {
+    if (!loanForm.esgCommitment) {
+      alert('Please agree to the ESG commitment to proceed.');
+      return;
+    }
     const newLoan = {
       id: `loan-${Date.now()}`,
       name: 'Iloilo Ferry Co.',
       score: liveScore,
-      loan: '₱1,500,000',
-      vessels: 12,
-      status: 'pending'
+      loan: `₱${parseInt(loanForm.amount).toLocaleString()}`,
+      vessels: parseInt(loanForm.vessels),
+      status: 'pending' as const,
+      purpose: loanForm.purpose,
+      term: parseInt(loanForm.term),
+      institution: loanForm.institution,
+      route: loanForm.route,
+      submittedAt: new Date().toISOString(),
+      refNo: `MS-${new Date().getFullYear()}-${Math.floor(Math.random() * 10000).toString().padStart(4, '0')}`,
     };
     setLoans([...loans, newLoan]);
-    alert("Loan Application Submitted! The underwriting bank will see it immediately.");
+    setShowLoanModal(false);
+    alert(`Loan Application Submitted! Reference No: ${newLoan.refNo}\nThe underwriting bank will see it immediately.`);
   };
 
   if (!mounted) return null
@@ -827,6 +855,188 @@ export default function OperatorDashboard() {
           <div className="h-8" />
         </div>
       </main>
+
+      {/* ── Loan Application Modal ── */}
+      {showLoanModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm animate-in fade-in duration-300">
+          <div className="bg-card border border-border shadow-2xl rounded-2xl w-full max-w-2xl overflow-hidden flex flex-col max-h-[90vh]">
+            <div className="px-6 py-4 border-b border-border/40 flex justify-between items-center bg-muted/30">
+              <div>
+                <h2 className="text-xl font-bold">Loan Application</h2>
+                <p className="text-sm text-muted-foreground">Step {loanStep} of 3</p>
+              </div>
+              <button onClick={() => setShowLoanModal(false)} className="text-muted-foreground hover:text-foreground">
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            
+            <div className="p-6 overflow-y-auto flex-1">
+              {loanStep === 1 && (
+                <div className="space-y-4 animate-in slide-in-from-right-4">
+                  <h3 className="text-lg font-semibold border-b border-border/40 pb-2 mb-4">Step 1: Loan Details</h3>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Loan Purpose</label>
+                    <select 
+                      className="w-full bg-background border border-border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                      value={loanForm.purpose}
+                      onChange={(e) => setLoanForm({...loanForm, purpose: e.target.value})}
+                    >
+                      <option>E-Ferry Conversion</option>
+                      <option>Fleet Expansion</option>
+                      <option>Infrastructure Upgrade</option>
+                    </select>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Requested Amount (₱)</label>
+                    <input 
+                      type="number" 
+                      className="w-full bg-background border border-border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                      value={loanForm.amount}
+                      onChange={(e) => setLoanForm({...loanForm, amount: e.target.value})}
+                    />
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium">Preferred Term (Years)</label>
+                      <select 
+                        className="w-full bg-background border border-border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                        value={loanForm.term}
+                        onChange={(e) => setLoanForm({...loanForm, term: e.target.value})}
+                      >
+                        <option>5</option>
+                        <option>7</option>
+                        <option>10</option>
+                        <option>15</option>
+                        <option>20</option>
+                      </select>
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium">Preferred Institution</label>
+                      <select 
+                        className="w-full bg-background border border-border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                        value={loanForm.institution}
+                        onChange={(e) => setLoanForm({...loanForm, institution: e.target.value})}
+                      >
+                        <option>LandBank</option>
+                        <option>DBP</option>
+                        <option>PCFC</option>
+                        <option>PhilGuarantee</option>
+                        <option>Any Available</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {loanStep === 2 && (
+                <div className="space-y-4 animate-in slide-in-from-right-4">
+                  <h3 className="text-lg font-semibold border-b border-border/40 pb-2 mb-4">Step 2: Supporting Information</h3>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium">Vessels to Convert</label>
+                      <input 
+                        type="number" 
+                        className="w-full bg-background border border-border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                        value={loanForm.vessels}
+                        onChange={(e) => setLoanForm({...loanForm, vessels: e.target.value})}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium">Primary Route</label>
+                      <input 
+                        type="text" 
+                        className="w-full bg-background border border-border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                        value={loanForm.route}
+                        onChange={(e) => setLoanForm({...loanForm, route: e.target.value})}
+                      />
+                    </div>
+                  </div>
+                  <div className="bg-secondary/30 p-4 rounded-lg space-y-3 mt-4">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-muted-foreground">Estimated Monthly Revenue</span>
+                      <span className="font-semibold">₱1,870,000</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-muted-foreground">Live Bankability Score</span>
+                      <span className="font-bold text-primary">{liveScore} / 1000</span>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3 mt-6">
+                    <input 
+                      type="checkbox" 
+                      id="esg" 
+                      className="mt-1 w-4 h-4 accent-primary"
+                      checked={loanForm.esgCommitment}
+                      onChange={(e) => setLoanForm({...loanForm, esgCommitment: e.target.checked})}
+                    />
+                    <label htmlFor="esg" className="text-sm text-muted-foreground cursor-pointer">
+                      I certify that these funds will be used exclusively for green maritime investments, and I agree to continuous ESG telemetry monitoring by MarineSync.
+                    </label>
+                  </div>
+                </div>
+              )}
+
+              {loanStep === 3 && (
+                <div className="space-y-6 animate-in slide-in-from-right-4">
+                  <h3 className="text-lg font-semibold border-b border-border/40 pb-2 mb-2">Step 3: Review & Submit</h3>
+                  <div className="bg-secondary/20 border border-border/40 rounded-xl p-5 space-y-4">
+                    <div className="grid grid-cols-2 gap-y-4">
+                      <div>
+                        <p className="text-xs text-muted-foreground uppercase tracking-wider font-bold mb-1">Purpose</p>
+                        <p className="font-medium">{loanForm.purpose}</p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-muted-foreground uppercase tracking-wider font-bold mb-1">Amount</p>
+                        <p className="font-medium text-primary text-lg">₱{parseInt(loanForm.amount).toLocaleString()}</p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-muted-foreground uppercase tracking-wider font-bold mb-1">Term</p>
+                        <p className="font-medium">{loanForm.term} Years</p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-muted-foreground uppercase tracking-wider font-bold mb-1">Institution</p>
+                        <p className="font-medium">{loanForm.institution}</p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-muted-foreground uppercase tracking-wider font-bold mb-1">Route</p>
+                        <p className="font-medium">{loanForm.route}</p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-muted-foreground uppercase tracking-wider font-bold mb-1">Vessels</p>
+                        <p className="font-medium">{loanForm.vessels} Units</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="bg-primary/10 border border-primary/20 text-primary px-4 py-3 rounded-lg flex items-center gap-3 text-sm font-medium">
+                    <svg className="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd"></path></svg>
+                    Your application and live telemetry dossier will be instantly available to underwriters upon submission.
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="px-6 py-4 border-t border-border/40 bg-muted/30 flex justify-between">
+              <Button 
+                variant="outline" 
+                onClick={() => loanStep > 1 ? setLoanStep(loanStep - 1) : setShowLoanModal(false)}
+              >
+                {loanStep > 1 ? 'Back' : 'Cancel'}
+              </Button>
+              {loanStep < 3 ? (
+                <Button onClick={() => setLoanStep(loanStep + 1)}>
+                  Next Step →
+                </Button>
+              ) : (
+                <Button onClick={submitLoanApplication} className="bg-teal-600 hover:bg-teal-700 text-white shadow-md">
+                  Submit Application ✓
+                </Button>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

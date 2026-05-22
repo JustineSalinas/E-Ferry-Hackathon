@@ -11,6 +11,65 @@ import { Anchor, Sun, Radio, BarChart2, Layers, Activity, Leaf, ArrowRight, Arro
 import { AnimatedBackground } from "@/components/animated-background";
 import { StatsBar } from "@/components/stats-bar";
 import { HeroSlideshow } from "@/components/hero-slideshow";
+import { PropulsionDiagram } from "@/components/ui/propulsion-diagram";
+import React from "react";
+
+function CountUpScore() {
+  const [count, setCount] = useState(0);
+  const ref = React.useRef<HTMLSpanElement>(null);
+  
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        let start = 0;
+        const int = setInterval(() => {
+          start += Math.floor(Math.random() * 40) + 10;
+          if (start >= 1000) {
+            setCount(1000);
+            clearInterval(int);
+          } else {
+            setCount(start);
+          }
+        }, 30);
+        observer.disconnect();
+      }
+    });
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return <span ref={ref}>{count.toLocaleString()}</span>;
+}
+
+function CountUpMetric({ endValue, prefix = "", suffix = "", decimals = 0 }: { endValue: number, prefix?: string, suffix?: string, decimals?: number }) {
+  const [count, setCount] = useState(0);
+  const ref = React.useRef<HTMLSpanElement>(null);
+  
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        let start = 0;
+        const steps = 30;
+        const increment = endValue / steps;
+        
+        const int = setInterval(() => {
+          start += increment;
+          if (start >= endValue) {
+            setCount(endValue);
+            clearInterval(int);
+          } else {
+            setCount(start);
+          }
+        }, 30);
+        observer.disconnect();
+      }
+    });
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [endValue]);
+
+  return <span ref={ref}>{prefix}{(count).toLocaleString(undefined, { minimumFractionDigits: decimals, maximumFractionDigits: decimals })}{suffix}</span>;
+}
 
 export default function LandingPage() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -133,7 +192,7 @@ export default function LandingPage() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link
-              href="/login"
+              href="/register/cooperative"
               className={cn(buttonVariants(), "bg-[var(--color-accent-custom)] text-white h-auto px-[32px] py-[14px] rounded-[10px] text-base font-semibold border-none hover:bg-[var(--color-accent-mid)] hover:shadow-[0_8px_24px_rgba(12,74,110,0.25)] hover:-translate-y-1 transition-all duration-300 w-full sm:w-auto flex items-center justify-center gap-2")}
             >
               <Ship className="w-5 h-5 opacity-80" />
@@ -141,7 +200,7 @@ export default function LandingPage() {
             </Link>
             
             <Link
-              href="/login"
+              href="/register/institution"
               className={cn(buttonVariants({ variant: "outline" }), "bg-[var(--color-surface)] border-[1.5px] border-[var(--color-border-custom)] text-[var(--color-text)] hover:text-[var(--color-accent-custom)] hover:border-[var(--color-accent-custom)] h-auto px-[32px] py-[14px] rounded-[10px] text-base font-semibold hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(0,0,0,0.05)] transition-all duration-300 w-full sm:w-auto flex items-center justify-center gap-2")}
             >
               <Landmark className="w-5 h-5 opacity-80" />
@@ -168,8 +227,10 @@ export default function LandingPage() {
         <StatsBar />
       </section>
 
+
+
       {/* ─────────────────────────── HOW IT WORKS ─────────────────────────── */}
-      <section id="how-it-works" className="py-[clamp(80px,10vw,140px)] px-6 relative fade-in-section opacity-0 translate-y-8 transition-all duration-1000 ease-out delay-100">
+      <section id="how-it-works" className="pt-[clamp(80px,10vw,140px)] pb-[clamp(40px,5vw,80px)] px-6 relative fade-in-section opacity-0 translate-y-8 transition-all duration-1000 ease-out delay-100">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-[var(--color-accent-custom)] mb-2">
@@ -185,13 +246,14 @@ export default function LandingPage() {
           </div>
 
           <div className="relative">
+            {/* Visual connector line for desktop */}
+            <div className="absolute top-24 left-[10%] w-[80%] h-[2px] border-t-2 border-dashed border-[var(--color-teal)]/30 hidden md:block z-0" />
 
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
               {[
                 {
                   step: "01",
-                  icon: <Sun className="w-8 h-8" />,
+                  icon: <Sun className="w-5 h-5" />,
                   title: "Hardware Layer",
                   subtitle: "Hybrid Solar-Wind Controller",
                   description:
@@ -199,7 +261,7 @@ export default function LandingPage() {
                 },
                 {
                   step: "02",
-                  icon: <Radio className="w-8 h-8" />,
+                  icon: <Radio className="w-5 h-5" />,
                   title: "Telemetry Engine",
                   subtitle: "Real-Time Data Ingestion",
                   description:
@@ -207,38 +269,62 @@ export default function LandingPage() {
                 },
                 {
                   step: "03",
-                  icon: <BarChart2 className="w-8 h-8" />,
+                  icon: <BarChart2 className="w-5 h-5" />,
                   title: "Marine Bankability Score",
-                  subtitle: "Credit Score · 0 – 1,000",
+                  subtitle: "Credit Score · 0 – 1000",
                   description:
                     "Proprietary scoring engine aggregates 90-day telemetry history, operator compliance, DSCR projections, and ESG deltas into a single bankability score used by partner lenders.",
                 },
-              ].map(({ step, icon, title, subtitle, description }) => (
+              ].map(({ step, icon, title, subtitle, description }, i) => (
                 <Card
                   key={step}
-                  className="bg-[var(--color-surface)] border border-[var(--color-border-custom)] shadow-sm hover:shadow-lg hover:border-[var(--color-accent-custom)]/50 hover:-translate-y-[3px] transition-all duration-300 rounded-2xl group"
+                  className={cn(
+                    "shadow-sm hover:shadow-lg transition-all duration-700 rounded-2xl group fade-in-section opacity-0 translate-y-8",
+                    i === 2 ? "bg-[#0a192f] border-teal-500/30 hover:border-teal-400/50 hover:-translate-y-[3px]" : "bg-[var(--color-surface)] border border-[var(--color-border-custom)] hover:border-[var(--color-accent-custom)]/50 hover:-translate-y-[3px]"
+                  )}
+                  style={{ transitionDelay: `${i * 150}ms` }}
                 >
                   <CardHeader className="pb-2">
                     <div className="flex items-center gap-3 mb-3">
-                      <span className="relative z-10 inline-flex items-center justify-center w-10 h-10 rounded-full bg-[var(--color-accent-light)] text-[var(--color-accent-custom)] font-display text-sm font-bold transition-colors duration-300">
+                      <span className={cn(
+                        "relative z-10 inline-flex items-center justify-center w-10 h-10 rounded-full font-display text-sm font-bold transition-colors duration-300",
+                        i === 2 ? "bg-teal-500/20 text-teal-300" : "bg-[var(--color-accent-light)] text-[var(--color-accent-custom)]"
+                      )}>
                         {step}
                       </span>
-                      <span className="text-[var(--color-teal)] group-hover:scale-110 transition-transform duration-300">{icon}</span>
+                      <span className="group-hover:scale-110 transition-transform duration-300">
+                        <div className={cn(
+                          "w-10 h-10 rounded-full flex items-center justify-center",
+                          i === 2 ? "bg-teal-500/20 text-teal-300" : "bg-[var(--color-teal)]/10 text-[var(--color-teal)]"
+                        )}>
+                          {icon}
+                        </div>
+                      </span>
                     </div>
-                    <CardTitle className="text-[var(--color-text)] text-lg font-bold font-display">
+                    <CardTitle className={cn("text-lg font-bold font-display", i === 2 ? "text-white" : "text-[var(--color-text)]")}>
                       {title}
                     </CardTitle>
-                    <span className="inline-block mt-1 bg-[var(--color-success)]/10 border border-[var(--color-success)]/20 rounded-full px-2.5 py-0.5 text-[0.72rem] text-[var(--color-success)] font-medium font-body">
-                      {subtitle}
+                    <span className={cn(
+                      "inline-flex items-center mt-1 border rounded-full px-2.5 py-0.5 text-[0.72rem] font-medium font-body",
+                      i === 2 ? "bg-teal-500/20 border-teal-500/30 text-teal-300" : "bg-[var(--color-success)]/10 border-[var(--color-success)]/20 text-[var(--color-success)]"
+                    )}>
+                      {i === 2 ? <>Credit Score · 0 –&nbsp;<CountUpScore /></> : subtitle}
                     </span>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-[var(--color-muted-custom)] text-sm leading-relaxed font-body">
+                    <p className={cn("text-sm leading-relaxed font-body", i === 2 ? "text-teal-100/70" : "text-[var(--color-muted-custom)]")}>
                       {description}
                     </p>
                   </CardContent>
                 </Card>
               ))}
+            </div>
+            
+            {/* CTA Row to replace empty space */}
+            <div className="mt-14 flex justify-center fade-in-section opacity-0 translate-y-4 transition-all duration-700 delay-500">
+              <Link href="/score-methodology" className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-accent-custom)] hover:text-[var(--color-teal)] transition-colors group">
+                See how the score is calculated <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
             </div>
           </div>
         </div>
@@ -358,158 +444,124 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ─────────────────────────── FOR INSTITUTIONS ─────────────────────────── */}
-      <section id="for-banks" className="py-[clamp(80px,10vw,140px)] px-6 fade-in-section opacity-0 translate-y-8 transition-all duration-1000 ease-out delay-100 bg-[var(--color-surface-2)]/50">
-        <div className="max-w-6xl mx-auto">
-          <div className="mb-12">
-            <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-[var(--color-accent-custom)] mb-2">
-              For Financial Institutions
-            </p>
-            <h2 className="font-display text-[clamp(2rem,4vw,3.2rem)] font-bold text-[var(--color-text)]">
-              Pre-Vetted, De-Risked Loan Packages
+      {/* ─────────────────────────── LIVE IMPACT DASHBOARD ─────────────────────────── */}
+      <section id="for-banks" className="py-[clamp(80px,10vw,140px)] px-6 fade-in-section opacity-0 translate-y-8 transition-all duration-1000 ease-out delay-100 relative overflow-hidden">
+        {/* Dark navy background */}
+        <div className="absolute inset-0 bg-[#050f1a] z-0" />
+        {/* Ambient glow effects */}
+        <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] rounded-full bg-[var(--color-teal)]/5 blur-[120px] z-0 pointer-events-none" />
+        <div className="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] rounded-full bg-[var(--color-accent-custom)]/8 blur-[100px] z-0 pointer-events-none" />
+
+        <div className="max-w-6xl mx-auto relative z-10">
+
+          {/* Header */}
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 bg-teal-500/10 border border-teal-500/20 rounded-full px-4 py-1.5 mb-6">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-teal-400"></span>
+              </span>
+              <span className="text-teal-300 text-xs font-semibold tracking-wider uppercase">Live Platform Data</span>
+            </div>
+            <h2 className="font-display text-[clamp(2rem,4vw,3.2rem)] font-bold text-white leading-tight mb-4">
+              Real Capital. Real Impact.
             </h2>
-            <p className="text-[var(--color-muted-custom)] mt-3 max-w-2xl leading-relaxed font-body">
-              Access a curated pipeline of E-Ferry conversion loans — each
-              complete with verified telemetry history, DSCR projections, and
-              ESG quota contributions — delivered through the MarineSync Kanban
-              Credit Portal.
+            <p className="text-teal-100/60 max-w-xl mx-auto font-body leading-relaxed">
+              MarineSync is actively funding the Philippines&apos; green maritime transition. These numbers update in real time as operators earn, qualify, and scale.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-14">
+          {/* 4 Big Animated Metric Cards */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 w-full">
             {[
-              {
-                icon: <Layers className="w-8 h-8" />,
-                title: "Kanban Credit Portal",
-                body: "Visualise your entire pipeline from Application → In Review → Approved → Disbursed with real-time status synced to operator telemetry.",
-              },
-              {
-                icon: <Activity className="w-8 h-8" />,
-                title: "Live DSCR Metrics",
-                body: "Debt Service Coverage Ratios are not modelled — they are back-tested against 90 days of actual vessel revenue and fuel-cost data.",
-              },
-              {
-                icon: <Leaf className="w-8 h-8" />,
-                title: "ESG Quota Tracking",
-                body: "Each approved loan is tagged with verified CO₂ reduction tonnage, helping institutions meet green-portfolio mandates and regulatory ESG targets.",
-              },
-            ].map(({ icon, title, body }) => (
-              <Card
-                key={title}
-                className="bg-[var(--color-surface)] border border-[var(--color-border-custom)] shadow-sm hover:shadow-lg hover:-translate-y-[3px] transition-all duration-300 rounded-2xl group"
-              >
-                <CardHeader className="pb-2 p-8">
-                  <span className="text-[var(--color-teal)] mb-2 block group-hover:scale-110 transition-transform duration-300 origin-left">{icon}</span>
-                  <CardTitle className="text-[var(--color-text)] text-base font-bold font-display">
-                    {title}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="p-8 pt-0">
-                  <p className="text-[var(--color-muted-custom)] text-sm leading-relaxed font-body">{body}</p>
-                </CardContent>
-              </Card>
+              { value: <CountUpMetric prefix="₱" endValue={1.2} decimals={1} suffix="B" />, label: "Total Capital Facilitated", sub: "+₱48M this quarter", color: "from-teal-500/20 to-teal-500/5", text: "text-teal-300", border: "border-teal-500/20" },
+              { value: <CountUpMetric endValue={48} />, label: "Vessels Financed", sub: "Across 12 routes", color: "from-teal-500/20 to-teal-500/5", text: "text-teal-300", border: "border-teal-500/20" },
+              { value: <CountUpMetric endValue={1240} />, label: "Tonnes CO₂ Avoided", sub: "vs. diesel baseline", color: "from-emerald-500/15 to-emerald-500/5", text: "text-emerald-300", border: "border-emerald-500/20" },
+              { value: <CountUpMetric endValue={12} />, label: "Partner Banks & Lenders", sub: "LandBank, DBP, PCFC, PhilGuarantee", color: "from-teal-500/20 to-teal-500/5", text: "text-teal-300", border: "border-teal-500/20" },
+            ].map(({ value, label, sub, color, text, border }) => (
+              <div key={label} className={`relative rounded-2xl border ${border} bg-gradient-to-br ${color} p-6 group hover:scale-[1.02] transition-transform duration-300 overflow-hidden`}>
+                <div className="absolute inset-0 bg-white/[0.02] opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
+                <div className={`font-display text-[2.2rem] md:text-[2.8rem] font-extrabold ${text} leading-none mb-2`}>{value}</div>
+                <p className="text-white/80 text-sm font-semibold font-body leading-tight mb-1">{label}</p>
+                <p className="text-white/40 text-xs font-body">{sub}</p>
+              </div>
             ))}
           </div>
 
-          {/* Mock Pipeline Table */}
-          <Card className="bg-[var(--color-surface)] border border-[var(--color-border-custom)] rounded-2xl shadow-sm overflow-hidden">
-            <CardHeader className="border-b border-[var(--color-border-custom)] bg-[var(--color-bg)] px-6 py-4">
-              <div className="flex items-center justify-between">
-                <CardTitle className="text-[var(--color-text)] text-sm font-bold uppercase tracking-wide font-body">
-                  Active Loan Pipeline — Sample View
-                </CardTitle>
-                <Badge
-                  variant="outline"
-                  className="text-[var(--color-accent-custom)] border-[var(--color-accent-custom)]/20 text-xs bg-[var(--color-accent-light)]"
-                >
-                  Live Data
-                </Badge>
+          {/* Live Activity Feed + CTA */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+
+            {/* Live Activity Feed */}
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm">
+              <div className="flex items-center gap-2 mb-5">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" style={{ animationDuration: '2s' }}></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+                </span>
+                <span className="text-white/60 text-xs font-semibold uppercase tracking-wider">Recent Activity</span>
               </div>
-            </CardHeader>
-            <CardContent className="p-0 overflow-x-auto">
-              <table className="w-full text-sm font-body">
-                <thead>
-                  <tr className="bg-[var(--color-bg)] border-b border-[var(--color-border-custom)]">
-                    <th className="text-left px-6 py-4 text-[var(--color-muted-custom)] text-xs font-semibold uppercase tracking-wider">
-                      Cooperative
-                    </th>
-                    <th className="text-left px-6 py-4 text-[var(--color-muted-custom)] text-xs font-semibold uppercase tracking-wider">
-                      Route
-                    </th>
-                    <th className="text-left px-6 py-4 text-[var(--color-muted-custom)] text-xs font-semibold uppercase tracking-wider">
-                      Score
-                    </th>
-                    <th className="text-left px-6 py-4 text-[var(--color-muted-custom)] text-xs font-semibold uppercase tracking-wider">
-                      Loan Amount
-                    </th>
-                    <th className="text-left px-6 py-4 text-[var(--color-muted-custom)] text-xs font-semibold uppercase tracking-wider">
-                      Status
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {[
-                    {
-                      coop: "Batangas Bay Ferry Coop",
-                      route: "Batangas → Calapan",
-                      score: 780,
-                      amount: "₱12.4M",
-                      status: "Approved",
-                    },
-                    {
-                      coop: "Visayas Green Maritime",
-                      route: "Cebu → Bohol",
-                      score: 714,
-                      amount: "₱8.9M",
-                      status: "In Review",
-                    },
-                    {
-                      coop: "Mindanao Blue Shipping",
-                      route: "Davao → Samal",
-                      score: 651,
-                      amount: "₱6.2M",
-                      status: "Pending",
-                    },
-                  ].map(({ coop, route, score, amount, status }) => {
-                    const statusStyles: Record<string, string> = {
-                      "Approved": "bg-[var(--color-success)]/10 text-[var(--color-success)] border border-[var(--color-success)]/20",
-                      "In Review": "bg-[var(--color-warning)]/10 text-[var(--color-warning)] border border-[var(--color-warning)]/20",
-                      "Pending": "bg-[var(--color-pending)]/10 text-[var(--color-pending)] border border-[var(--color-pending)]/20",
-                    };
-                    return (
-                      <tr
-                        key={coop}
-                        className="border-b border-[var(--color-border-custom)] last:border-0 hover:bg-[var(--color-surface-2)]/50 transition-colors duration-200"
-                      >
-                        <td className="px-6 py-4 font-medium text-[var(--color-text)]">
-                          {coop}
-                        </td>
-                        <td className="px-6 py-4 text-[var(--color-muted-custom)]">{route}</td>
-                        <td className="px-6 py-4 font-display text-[1.05rem] text-[var(--color-accent-custom)] font-bold">
-                          {score}
-                        </td>
-                        <td className="px-6 py-4 text-[var(--color-text)] font-medium">
-                          {amount}
-                        </td>
-                        <td className="px-6 py-4">
-                          <span
-                            className={`${statusStyles[status]} text-[0.7rem] font-semibold px-3 py-1 rounded-full inline-block`}
-                          >
-                            {status}
-                          </span>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-              <div className="flex justify-end px-6 py-3 border-t border-[var(--color-border-custom)]">
-                <a href="#" className="text-[var(--color-accent-custom)] text-sm font-medium hover:underline">View All →</a>
+              <div className="space-y-4">
+                {[
+                  { coop: "Batangas Bay Ferry Coop", action: "Loan Approved", amount: "₱12.4M", time: "2 hrs ago", color: "text-emerald-400" },
+                  { coop: "Visayas Green Maritime", action: "Score Updated → 714", amount: "₱8.9M", time: "5 hrs ago", color: "text-blue-400" },
+                  { coop: "Mindanao Blue Shipping", action: "Application Submitted", amount: "₱6.2M", time: "1 day ago", color: "text-yellow-400" },
+                  { coop: "Palawan Sea Routes Coop", action: "ESG Report Generated", amount: "18 tCO₂ saved", time: "2 days ago", color: "text-teal-400" },
+                ].map(({ coop, action, amount, time, color }) => (
+                  <div key={coop} className="flex items-start justify-between gap-3 pb-4 border-b border-white/5 last:border-0 last:pb-0">
+                    <div className="flex items-start gap-3">
+                      <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <Ship className="w-4 h-4 text-white/40" />
+                      </div>
+                      <div>
+                        <p className="text-white/90 text-sm font-semibold font-body">{coop}</p>
+                        <p className={`text-xs font-medium ${color}`}>{action}</p>
+                      </div>
+                    </div>
+                    <div className="text-right flex-shrink-0">
+                      <p className="text-white/80 text-sm font-bold font-display">{amount}</p>
+                      <p className="text-white/30 text-xs">{time}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
-            </CardContent>
-          </Card>
+              <div className="pt-4 mt-2 border-t border-white/5">
+                <Link href="#" className="text-xs text-teal-400 hover:text-teal-300 transition-colors font-medium">
+                  View full activity log →
+                </Link>
+              </div>
+            </div>
+
+            {/* CTA Card */}
+            <div className="rounded-2xl border border-teal-500/20 bg-gradient-to-br from-teal-500/10 to-[#050f1a] p-8 flex flex-col justify-between backdrop-blur-sm">
+              <div>
+                <div className="w-12 h-12 rounded-xl bg-teal-500/20 flex items-center justify-center mb-6">
+                  <Landmark className="w-6 h-6 text-teal-300" />
+                </div>
+                <h3 className="font-display text-2xl font-bold text-white mb-3">For Financial Institutions</h3>
+                <p className="text-teal-100/60 font-body leading-relaxed mb-6">
+                  Access a curated, pre-vetted pipeline of E-Ferry conversion loans — complete with 90-day telemetry history, verified DSCR projections, and tagged ESG quota contributions. No cold outreach. No opaque credit files.
+                </p>
+                <ul className="space-y-2 mb-8">
+                  {["Verified bankability scores on every applicant", "Live DSCR backed by actual revenue data", "ESG quota tagging per disbursed loan"].map((item) => (
+                    <li key={item} className="flex items-center gap-2 text-sm text-teal-100/70 font-body">
+                      <div className="w-4 h-4 rounded-full bg-teal-500/20 flex items-center justify-center flex-shrink-0">
+                        <div className="w-1.5 h-1.5 rounded-full bg-teal-400" />
+                      </div>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <Link href="/login" className={cn(buttonVariants(), "w-max self-start px-8 bg-teal-500 hover:bg-teal-400 text-[#050f1a] font-bold text-sm shadow-lg shadow-teal-500/20 border-none transition-all duration-300")}>
+                Access the Credit Portal →
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
+
+
+
 
       {/* ─────────────────────────── PRODUCT: E-BANGKA ─────────────────────────── */}
       <section id="product" className="py-[clamp(80px,10vw,140px)] px-6 fade-in-section opacity-0 translate-y-8 transition-all duration-1000 ease-out delay-100 relative">
@@ -527,6 +579,10 @@ export default function LandingPage() {
             </p>
           </div>
 
+          <div className="mb-24">
+            <PropulsionDiagram />
+          </div>
+
           <div className="space-y-24">
             {/* Feature 1: The Vessel */}
             <div className="flex flex-col md:flex-row items-center gap-12">
@@ -536,8 +592,9 @@ export default function LandingPage() {
                 </div>
               </div>
               <div className="w-full md:w-1/2 space-y-6">
-                <div className="inline-flex items-center justify-center p-3 bg-[var(--color-accent-light)] border border-[var(--color-accent-custom)]/20 rounded-xl mb-2">
-                  <Ship className="w-6 h-6 text-[var(--color-accent-custom)]" />
+                <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-[var(--color-accent-custom)] to-[#0c4a6e] shadow-lg shadow-[var(--color-accent-custom)]/20 border border-white/10 mb-2 relative overflow-hidden group">
+                  <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-white/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <Ship className="w-7 h-7 text-white drop-shadow-md relative z-10 group-hover:scale-110 transition-transform duration-500" />
                 </div>
                 <h3 className="font-display text-2xl md:text-3xl font-bold text-[var(--color-text)]">
                   Next-Generation Electric Vessel
@@ -566,8 +623,9 @@ export default function LandingPage() {
                 </div>
               </div>
               <div className="w-full md:w-1/2 space-y-6">
-                <div className="inline-flex items-center justify-center p-3 bg-[var(--color-accent-light)] border border-[var(--color-accent-custom)]/20 rounded-xl mb-2">
-                  <Activity className="w-6 h-6 text-[var(--color-accent-custom)]" />
+                <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-[var(--color-accent-custom)] to-[#0c4a6e] shadow-lg shadow-[var(--color-accent-custom)]/20 border border-white/10 mb-2 relative overflow-hidden group">
+                  <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-white/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <Activity className="w-7 h-7 text-white drop-shadow-md relative z-10 group-hover:scale-110 transition-transform duration-500" />
                 </div>
                 <h3 className="font-display text-2xl md:text-3xl font-bold text-[var(--color-text)]">
                   MarineSync Telemetry & Control
@@ -599,39 +657,69 @@ export default function LandingPage() {
               Our Core Pillars
             </p>
             <h2 className="font-display text-[clamp(2rem,4vw,3.2rem)] font-bold text-[var(--color-text)]">
-              Transport, Clean Energy & Finance
+              Transport. Energy. Finance.
             </h2>
-            <p className="text-[var(--color-muted-custom)] mt-3 max-w-2xl mx-auto leading-relaxed font-body">
-              MarineSync operates at the intersection of three critical sectors. We are a team of maritime engineers, renewable energy experts, and financial technologists dedicated to accelerating the Philippines&apos; transition to a sustainable blue economy.
+            <p className="text-[var(--color-muted-custom)] mt-3 max-w-2xl mx-auto leading-relaxed font-body mb-12">
+              Accelerating the Philippines&apos; transition to a sustainable blue economy through maritime engineering, renewable energy, and financial technology.
             </p>
+
+            {/* Vision & Mission Block */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-16 text-left items-stretch">
+              <div className="relative rounded-2xl border border-[var(--color-accent-custom)]/20 bg-gradient-to-br from-[var(--color-accent-custom)]/5 to-transparent p-8 group hover:-translate-y-1 transition-all duration-300 flex flex-col h-full">
+                <div className="inline-block bg-[var(--color-surface)] px-4 py-1 border border-[var(--color-accent-custom)]/20 rounded-full mb-4 self-start">
+                  <span className="text-[var(--color-accent-custom)] font-bold text-xs uppercase tracking-widest font-body">Our Vision</span>
+                </div>
+                <h3 className="font-display text-2xl font-bold text-[var(--color-text)] mb-3 mt-2">
+                  A Decarbonized Blue Economy
+                </h3>
+                <p className="text-[var(--color-muted-custom)] font-body leading-relaxed text-sm">
+                  Orchestrating the transition to a fully decarbonized, data-driven maritime ecosystem. Zero-emission inter-island transport must become the standard.
+                </p>
+              </div>
+
+              <div className="relative rounded-2xl border border-[var(--color-accent-custom)]/20 bg-gradient-to-br from-[var(--color-accent-custom)]/5 to-transparent p-8 group hover:-translate-y-1 transition-all duration-300 flex flex-col h-full">
+                <div className="inline-block bg-[var(--color-surface)] px-4 py-1 border border-[var(--color-accent-custom)]/20 rounded-full mb-4 self-start">
+                  <span className="text-[var(--color-accent-custom)] font-bold text-xs uppercase tracking-widest font-body">Our Mission</span>
+                </div>
+                <h3 className="font-display text-2xl font-bold text-[var(--color-text)] mb-3 mt-2">
+                  Deploying the Infrastructure
+                </h3>
+                <p className="text-[var(--color-muted-custom)] font-body leading-relaxed text-sm">
+                  Bridging the gap between legacy maritime transport and institutional climate finance. We deliver the hardware and verification tools to deploy scalable green fleets today.
+                </p>
+              </div>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {[
               {
-                icon: <Ship className="w-8 h-8" />,
+                icon: <Ship className="w-8 h-8 text-blue-500" />,
+                bgClass: "bg-blue-500/10",
                 title: "Transportation Innovation",
-                description: "Modernizing inter-island transit by deploying zero-emission E-Bangka vessels that drastically improve passenger mobility, safety, and comfort across the archipelago."
+                description: "Deploying zero-emission E-Bangka vessels to modernize inter-island transit, improving passenger safety and comfort."
               },
               {
-                icon: <Sun className="w-8 h-8" />,
+                icon: <Sun className="w-8 h-8 text-emerald-500" />,
+                bgClass: "bg-emerald-500/10",
                 title: "Renewable Energy Access",
-                description: "Harvesting clean power directly on the water. Our vessels utilize proprietary hybrid solar-wind controllers, decentralizing energy generation and eliminating reliance on polluting diesel fuels."
+                description: "Harvesting clean power directly on the water. Our hybrid solar-wind controllers eliminate reliance on polluting diesel fuels."
               },
               {
-                icon: <Landmark className="w-8 h-8" />,
+                icon: <Landmark className="w-8 h-8 text-amber-500" />,
+                bgClass: "bg-amber-500/10",
                 title: "Inclusive Financing",
-                description: "Bridging the gap between ferry cooperatives and institutional capital. We use verified vessel telemetry to de-risk lending and unlock green subsidies for physical infrastructure."
+                description: "Using verified vessel telemetry to de-risk lending, bridging the gap between ferry cooperatives and institutional capital."
               }
-            ].map(({ icon, title, description }) => (
-              <Card key={title} className="bg-[var(--color-surface)] border border-[var(--color-border-custom)] shadow-sm hover:-translate-y-2 transition-transform duration-300">
-                <CardHeader className="flex flex-col items-center text-center">
-                  <div className="w-16 h-16 rounded-full bg-[var(--color-accent-light)] flex items-center justify-center mb-4 text-[var(--color-accent-custom)]">
+            ].map(({ icon, bgClass, title, description }) => (
+              <Card key={title} className="bg-[var(--color-surface)] border border-[var(--color-border-custom)] shadow-sm hover:shadow-xl hover:-translate-y-2 hover:border-[var(--color-accent-custom)]/50 transition-all duration-300 group cursor-pointer flex flex-col h-full min-h-[320px]">
+                <CardHeader className="flex flex-col items-center text-center pt-8 pb-4">
+                  <div className={`w-16 h-16 rounded-full ${bgClass} flex items-center justify-center mb-6 transition-transform duration-500 group-hover:scale-110`}>
                     {icon}
                   </div>
-                  <CardTitle className="text-xl font-display font-bold text-[var(--color-text)]">{title}</CardTitle>
+                  <CardTitle className="text-xl font-display font-bold text-[var(--color-text)] group-hover:text-[var(--color-accent-custom)] transition-colors duration-300">{title}</CardTitle>
                 </CardHeader>
-                <CardContent className="text-center">
+                <CardContent className="text-center flex-grow px-6 pb-8">
                   <p className="text-[var(--color-muted-custom)] font-body text-sm leading-relaxed">{description}</p>
                 </CardContent>
               </Card>

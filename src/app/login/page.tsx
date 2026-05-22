@@ -202,7 +202,7 @@ export default function LoginPage() {
         <div className="flex-1 flex flex-col items-center justify-center w-full px-6 py-8 md:px-12" style={{ paddingBottom: '5vh' }}>
           <div className="w-full space-y-7 animate-in slide-in-from-bottom-8 fade-in duration-700 max-w-[440px]">
             {/* Header */}
-            <div className="space-y-1">
+            <div className="space-y-1 text-center">
               <h1 className="font-display text-[2rem] font-bold text-[var(--color-text)] tracking-tight">
                 Welcome back
               </h1>
@@ -213,7 +213,7 @@ export default function LoginPage() {
 
             {/* Role Selector */}
             <div className="space-y-2">
-              <Label className="text-xs font-semibold uppercase tracking-widest text-[var(--color-accent-custom)]">
+              <Label className="block text-center text-xs font-semibold uppercase tracking-widest text-[var(--color-accent-custom)]">
                 {selectedRole === null ? 'Select your role' : selectedRole === 'operator' ? 'Role: Ferry Operator' : 'Role: Bank / LGU'}
               </Label>
               <div className="grid grid-cols-2 gap-3">
@@ -374,15 +374,40 @@ export default function LoginPage() {
             </Button>
 
             {/* Register link */}
-            <p className="text-center text-sm text-[var(--color-muted-custom)] font-medium">
+            <div className="text-center text-sm text-[var(--color-muted-custom)] font-medium">
               Don&apos;t have an account?{' '}
-              <Link
-                href="/register"
-                className="text-[var(--color-accent-custom)] hover:underline font-bold transition-colors"
-              >
-                {selectedRole === 'institution' ? 'Register your institution' : 'Register your cooperative'}
-              </Link>
-            </p>
+              {selectedRole === 'operator' ? (
+                <Link
+                  href="/register/cooperative"
+                  className="text-[var(--color-accent-custom)] hover:underline font-bold transition-colors"
+                >
+                  Register your cooperative
+                </Link>
+              ) : selectedRole === 'institution' ? (
+                <Link
+                  href="/register/institution"
+                  className="text-[var(--color-accent-custom)] hover:underline font-bold transition-colors"
+                >
+                  Register your institution
+                </Link>
+              ) : (
+                <div className="inline-flex items-center gap-2 mt-2 sm:mt-0">
+                  <Link
+                    href="/register/cooperative"
+                    className="text-[var(--color-accent-custom)] hover:underline font-bold transition-colors"
+                  >
+                    Ferry Operator
+                  </Link>
+                  <span className="text-muted-foreground/50">|</span>
+                  <Link
+                    href="/register/institution"
+                    className="text-[var(--color-accent-custom)] hover:underline font-bold transition-colors"
+                  >
+                    Bank / LGU
+                  </Link>
+                </div>
+              )}
+            </div>
 
             {/* Trust Section */}
             <div className="flex flex-col items-center gap-2 pt-4 border-t border-[var(--color-border-custom)]">
