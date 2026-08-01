@@ -235,57 +235,60 @@ export default function LandingPage() {
           </div>
 
           {/* Award Photo Spotlight Banner */}
-          <div className="mt-16 bg-[var(--color-surface)] border border-[var(--color-border-custom)] rounded-3xl p-6 md:p-8 shadow-xl overflow-hidden text-left relative">
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-              <div className="md:col-span-6 space-y-4">
-                <div className="flex items-center gap-2">
-                  <Badge className="bg-amber-500/10 text-amber-700 border border-amber-500/20 rounded-full px-3.5 py-1 text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5">
-                    <Award className="w-4 h-4 text-amber-600" />
-                    Official Award Recognition
-                  </Badge>
-                </div>
-
-                <h3 className="text-2xl md:text-3xl font-extrabold text-[var(--color-text)] tracking-tight leading-snug">
-                  Ready, Spark, Charge Hackathon 2026 1st Runner-Up
-                </h3>
-
-                <p className="text-sm md:text-base text-[var(--color-muted-custom)] leading-relaxed">
-                  Recognized for pioneering the Solmate E-Ferry Modular Retrofit Service & Green Fintech Platform, enabling clean zero-emission maritime transportation.
-                </p>
-
-                <div className="flex flex-wrap items-center gap-4 pt-2 text-xs font-mono text-[var(--color-muted-custom)]">
-                  <span className="flex items-center gap-1.5 text-[var(--color-accent-custom)] font-semibold">
-                    <CheckCircle2 className="w-4 h-4" /> Products 1 & 2 Recognized
-                  </span>
-                  <span>•</span>
-                  <span>Clean Energy Track</span>
-                </div>
+          <div className="mt-20 bg-[var(--color-surface)] border border-[var(--color-border-custom)] rounded-3xl p-8 md:p-10 shadow-2xl overflow-hidden text-left relative">
+            <div className="max-w-4xl mb-8 space-y-3">
+              <div className="flex items-center gap-3">
+                <Badge className="bg-amber-500/10 text-amber-700 border border-amber-500/20 rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5">
+                  <Award className="w-4 h-4 text-amber-600" />
+                  Official Award Recognition
+                </Badge>
+                <span className="text-xs font-mono text-[var(--color-muted-custom)]">• Clean Energy Track</span>
               </div>
 
-              {/* Side-by-Side Award Photos */}
-              <div className="md:col-span-6 grid grid-cols-2 gap-3">
-                <div className="relative group overflow-hidden rounded-2xl border border-[var(--color-border-custom)] shadow-md aspect-[4/3]">
-                  <img
-                    src="/award.jpg"
-                    alt="Ready, Spark, Charge 2026 Award Photo 1"
-                    className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
-                    <span className="text-white text-[0.7rem] font-semibold drop-shadow-md">
-                      Award Ceremony Photo 1
+              <h3 className="text-3xl md:text-4xl font-extrabold text-[var(--color-text)] tracking-tight leading-tight">
+                Ready, Spark, Charge Hackathon 2026 1st Runner-Up
+              </h3>
+
+              <p className="text-base md:text-lg text-[var(--color-muted-custom)] leading-relaxed max-w-3xl">
+                Recognized for pioneering the Solmate E-Ferry Modular Retrofit Service & Green Fintech Platform, enabling clean zero-emission maritime transportation.
+              </p>
+
+              <div className="flex flex-wrap items-center gap-4 pt-2 text-xs font-mono text-[var(--color-muted-custom)]">
+                <span className="flex items-center gap-1.5 text-[var(--color-accent-custom)] font-semibold">
+                  <CheckCircle2 className="w-4 h-4" /> Products 1 & 2 Recognized
+                </span>
+              </div>
+            </div>
+
+            {/* Spacious Side-by-Side Award Photos */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="relative group overflow-hidden rounded-2xl border border-[var(--color-border-custom)] shadow-lg h-72 md:h-96">
+                <img
+                  src="/award.jpg"
+                  alt="Ready, Spark, Charge 2026 Award Photo 1"
+                  className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-5">
+                  <div>
+                    <span className="text-amber-400 text-xs font-mono font-bold block mb-1">AWARD CEREMONY</span>
+                    <span className="text-white text-sm md:text-base font-bold drop-shadow-md">
+                      1st Runner-Up Trophy & Certificate Presentation
                     </span>
                   </div>
                 </div>
+              </div>
 
-                <div className="relative group overflow-hidden rounded-2xl border border-[var(--color-border-custom)] shadow-md aspect-[4/3]">
-                  <img
-                    src="/award2.jpg"
-                    alt="Ready, Spark, Charge 2026 Award Photo 2"
-                    className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
-                    <span className="text-white text-[0.7rem] font-semibold drop-shadow-md">
-                      Award Ceremony Photo 2
+              <div className="relative group overflow-hidden rounded-2xl border border-[var(--color-border-custom)] shadow-lg h-72 md:h-96">
+                <img
+                  src="/award2.jpg"
+                  alt="Ready, Spark, Charge 2026 Award Photo 2"
+                  className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-5">
+                  <div>
+                    <span className="text-amber-400 text-xs font-mono font-bold block mb-1">TEAM CELEBRATION</span>
+                    <span className="text-white text-sm md:text-base font-bold drop-shadow-md">
+                      Solmate Marine Engineering Team at Hackathon Finale
                     </span>
                   </div>
                 </div>
