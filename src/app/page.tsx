@@ -233,6 +233,52 @@ export default function LandingPage() {
               Launch Live AI Bridge Simulator
             </a>
           </div>
+
+          {/* Award Photo Spotlight Banner */}
+          <div className="mt-16 bg-[var(--color-surface)] border border-[var(--color-border-custom)] rounded-3xl p-6 md:p-8 shadow-xl overflow-hidden text-left relative">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+              <div className="md:col-span-7 space-y-4">
+                <div className="flex items-center gap-2">
+                  <Badge className="bg-amber-500/10 text-amber-700 border border-amber-500/20 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5">
+                    <Award className="w-4 h-4 text-amber-600" />
+                    Official Award Recognition
+                  </Badge>
+                  <Badge className="bg-[var(--color-accent-light)] text-[var(--color-accent-custom)] border border-[var(--color-accent-custom)]/30 rounded-full px-3 py-1 text-xs font-semibold uppercase font-mono">
+                    Nexus Presentation
+                  </Badge>
+                </div>
+
+                <h3 className="text-2xl md:text-3xl font-extrabold text-[var(--color-text)] tracking-tight">
+                  Ready, Spark, Charge Hackathon 2026 1st Runner-Up
+                </h3>
+
+                <p className="text-sm md:text-base text-[var(--color-muted-custom)] leading-relaxed">
+                  Recognized at the Nexus event for pioneering the Solmate E-Ferry Modular Retrofit Service & Green Fintech Platform, enabling clean zero-emission maritime transportation.
+                </p>
+
+                <div className="flex items-center gap-4 pt-2 text-xs font-mono text-[var(--color-muted-custom)]">
+                  <span className="flex items-center gap-1.5 text-[var(--color-accent-custom)] font-semibold">
+                    <CheckCircle2 className="w-4 h-4" /> Products 1 & 2 Recognized
+                  </span>
+                  <span>•</span>
+                  <span>Clean Energy Track</span>
+                </div>
+              </div>
+
+              <div className="md:col-span-5 relative group overflow-hidden rounded-2xl border border-[var(--color-border-custom)] shadow-lg">
+                <img
+                  src="/award.jpg"
+                  alt="Ready, Spark, Charge 2026 1st Runner-Up Award at Nexus"
+                  className="w-full h-64 md:h-72 object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                  <span className="text-white text-xs font-semibold drop-shadow-md">
+                    Nexus Award Presentation Ceremony 2026
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
