@@ -154,17 +154,12 @@ export default function LandingPage() {
           <div className="flex flex-wrap justify-center items-center gap-3 mb-8">
             <Badge className="bg-amber-500/10 text-amber-700 border border-amber-500/20 rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-wider flex items-center gap-2">
               <Award className="w-4 h-4 text-amber-600" />
-              Ready, Spark, Charge 2026 1st Runner-Up (Products 1 & 2)
+              Ready, Spark, Charge Hackathon 2026 1st Runner-Up (Products 1 & 2)
             </Badge>
 
             <Badge className="bg-blue-500/10 text-blue-700 border border-blue-500/20 rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-wider flex items-center gap-2">
               <Award className="w-4 h-4 text-blue-600" />
               National AI Hackathon (Product 3)
-            </Badge>
-
-            <Badge className="bg-[var(--color-accent-light)] text-[var(--color-accent-custom)] border border-[var(--color-accent-custom)]/30 rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-wider flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[var(--color-accent-custom)] animate-pulse" />
-              Zero-Emission Maritime Ecosystem
             </Badge>
           </div>
 
@@ -245,7 +240,7 @@ export default function LandingPage() {
       <section id="retrofit" className="py-20 px-6 max-w-7xl mx-auto fade-in-section opacity-0 translate-y-8 transition-all duration-1000">
         <div className="mb-10 text-center md:text-left">
           <Badge className="bg-[var(--color-accent-light)] text-[var(--color-accent-custom)] border border-[var(--color-accent-custom)]/30 rounded-full px-3.5 py-1 text-xs font-semibold uppercase tracking-wider mb-3">
-            Product 1 Showcase • Ready, Spark, Charge 2026 1st Runner-Up
+            Product 1 Showcase • Ready, Spark, Charge Hackathon 2026 1st Runner-Up
           </Badge>
           <h2 className="text-3xl md:text-5xl font-extrabold text-[var(--color-text)] tracking-tight mb-4">
             Solmate E-Ferry Retrofit Service
@@ -296,7 +291,7 @@ export default function LandingPage() {
       <section id="fintech" className="py-20 px-6 max-w-7xl mx-auto fade-in-section opacity-0 translate-y-8 transition-all duration-1000">
         <div className="mb-10 text-center md:text-left">
           <Badge className="bg-emerald-500/10 text-[var(--color-teal)] border border-[var(--color-teal)]/30 rounded-full px-3.5 py-1 text-xs font-semibold uppercase tracking-wider mb-3">
-            Product 2 Showcase • Ready, Spark, Charge 2026 1st Runner-Up
+            Product 2 Showcase • Ready, Spark, Charge Hackathon 2026 1st Runner-Up
           </Badge>
           <h2 className="text-3xl md:text-5xl font-extrabold text-[var(--color-text)] tracking-tight mb-4">
             Solmate Green Fintech Platform
@@ -709,7 +704,7 @@ export default function LandingPage() {
               <div className="flex flex-col gap-2 pt-1">
                 <div className="inline-flex items-center gap-2 bg-amber-500/10 text-amber-700 px-3 py-1 rounded-full text-xs font-semibold border border-amber-500/20 w-fit">
                   <Award className="w-3.5 h-3.5 text-amber-600" />
-                  Ready, Spark, Charge 2026 1st Runner-Up (P1 & P2)
+                  Ready, Spark, Charge Hackathon 2026 1st Runner-Up (P1 & P2)
                 </div>
                 <div className="inline-flex items-center gap-2 bg-blue-500/10 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold border border-blue-500/20 w-fit">
                   <Award className="w-3.5 h-3.5 text-blue-600" />
