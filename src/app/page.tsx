@@ -243,9 +243,6 @@ export default function LandingPage() {
                     <Award className="w-4 h-4 text-amber-600" />
                     Official Award Recognition
                   </Badge>
-                  <Badge className="bg-[var(--color-accent-light)] text-[var(--color-accent-custom)] border border-[var(--color-accent-custom)]/30 rounded-full px-3 py-1 text-xs font-semibold uppercase font-mono">
-                    Nexus Presentation
-                  </Badge>
                 </div>
 
                 <h3 className="text-2xl md:text-3xl font-extrabold text-[var(--color-text)] tracking-tight">
@@ -253,7 +250,7 @@ export default function LandingPage() {
                 </h3>
 
                 <p className="text-sm md:text-base text-[var(--color-muted-custom)] leading-relaxed">
-                  Recognized at the Nexus event for pioneering the Solmate E-Ferry Modular Retrofit Service & Green Fintech Platform, enabling clean zero-emission maritime transportation.
+                  Recognized for pioneering the Solmate E-Ferry Modular Retrofit Service & Green Fintech Platform, enabling clean zero-emission maritime transportation.
                 </p>
 
                 <div className="flex items-center gap-4 pt-2 text-xs font-mono text-[var(--color-muted-custom)]">
@@ -268,12 +265,12 @@ export default function LandingPage() {
               <div className="md:col-span-5 relative group overflow-hidden rounded-2xl border border-[var(--color-border-custom)] shadow-lg">
                 <img
                   src="/award.jpg"
-                  alt="Ready, Spark, Charge 2026 1st Runner-Up Award at Nexus"
+                  alt="Ready, Spark, Charge 2026 1st Runner-Up Award"
                   className="w-full h-64 md:h-72 object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
                   <span className="text-white text-xs font-semibold drop-shadow-md">
-                    Nexus Award Presentation Ceremony 2026
+                    Ready, Spark, Charge Hackathon 2026 Award Ceremony
                   </span>
                 </div>
               </div>
