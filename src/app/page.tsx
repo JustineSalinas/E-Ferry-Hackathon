@@ -151,16 +151,16 @@ export default function LandingPage() {
         <AnimatedBackground />
 
         <div className="max-w-5xl mx-auto relative z-10">
-          <div className="flex flex-wrap justify-center items-center gap-3 mb-8">
-            <Badge className="bg-amber-500/10 text-amber-700 border border-amber-500/20 rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-wider flex items-center gap-2">
-              <Award className="w-4 h-4 text-amber-600" />
-              Ready, Spark, Charge Hackathon 2026 1st Runner-Up (Products 1 & 2)
-            </Badge>
+          <div className="flex flex-col md:flex-row justify-center items-center gap-4 mb-8 max-w-5xl mx-auto w-full">
+            <div className="w-full md:w-auto bg-amber-500/10 text-amber-800 border border-amber-500/25 rounded-2xl px-6 py-2.5 text-xs md:text-sm font-semibold uppercase tracking-wider flex items-center justify-center gap-2 whitespace-nowrap shadow-sm">
+              <Award className="w-4 h-4 text-amber-600 shrink-0" />
+              <span>Ready, Spark, Charge Hackathon 2026 1st Runner-Up (Products 1 & 2)</span>
+            </div>
 
-            <Badge className="bg-blue-500/10 text-blue-700 border border-blue-500/20 rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-wider flex items-center gap-2">
-              <Award className="w-4 h-4 text-blue-600" />
-              National AI Hackathon (Product 3)
-            </Badge>
+            <div className="w-full md:w-auto bg-blue-500/10 text-blue-800 border border-blue-500/25 rounded-2xl px-6 py-2.5 text-xs md:text-sm font-semibold uppercase tracking-wider flex items-center justify-center gap-2 whitespace-nowrap shadow-sm">
+              <Award className="w-4 h-4 text-blue-600 shrink-0" />
+              <span>National AI Hackathon (Product 3)</span>
+            </div>
           </div>
 
           <h1 className="font-display text-[clamp(2.5rem,5.5vw,5.5rem)] font-extrabold text-[var(--color-text)] leading-[1.08] tracking-[-0.03em] mb-6 drop-shadow-sm max-w-4xl mx-auto">
@@ -282,7 +282,7 @@ export default function LandingPage() {
       {/* ─────────────────────────── PRODUCT 1: E-FERRY RETROFIT ─────────────────────────── */}
       <section id="retrofit" className="py-20 px-6 max-w-7xl mx-auto fade-in-section opacity-0 translate-y-8 transition-all duration-1000">
         <div className="mb-10 text-center md:text-left">
-          <Badge className="bg-[var(--color-accent-light)] text-[var(--color-accent-custom)] border border-[var(--color-accent-custom)]/30 rounded-full px-3.5 py-1 text-xs font-semibold uppercase tracking-wider mb-3">
+          <Badge className="bg-[var(--color-accent-light)] text-[var(--color-accent-custom)] border border-[var(--color-accent-custom)]/30 rounded-full px-5 py-2 text-xs md:text-sm font-semibold uppercase tracking-wider mb-3 whitespace-nowrap inline-block">
             Product 1 Showcase • Ready, Spark, Charge Hackathon 2026 1st Runner-Up
           </Badge>
           <h2 className="text-3xl md:text-5xl font-extrabold text-[var(--color-text)] tracking-tight mb-4">
@@ -333,7 +333,7 @@ export default function LandingPage() {
       {/* ─────────────────────────── PRODUCT 2: GREEN FINTECH ─────────────────────────── */}
       <section id="fintech" className="py-20 px-6 max-w-7xl mx-auto fade-in-section opacity-0 translate-y-8 transition-all duration-1000">
         <div className="mb-10 text-center md:text-left">
-          <Badge className="bg-emerald-500/10 text-[var(--color-teal)] border border-[var(--color-teal)]/30 rounded-full px-3.5 py-1 text-xs font-semibold uppercase tracking-wider mb-3">
+          <Badge className="bg-emerald-500/10 text-[var(--color-teal)] border border-[var(--color-teal)]/30 rounded-full px-5 py-2 text-xs md:text-sm font-semibold uppercase tracking-wider mb-3 whitespace-nowrap inline-block">
             Product 2 Showcase • Ready, Spark, Charge Hackathon 2026 1st Runner-Up
           </Badge>
           <h2 className="text-3xl md:text-5xl font-extrabold text-[var(--color-text)] tracking-tight mb-4">
