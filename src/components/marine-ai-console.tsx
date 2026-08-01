@@ -309,21 +309,13 @@ export function MarineAiConsole() {
         </div>
 
         {/* Footer Summary */}
-        <div className="p-4 bg-slate-950/60 border border-slate-800 rounded-xl flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+        <div className="p-4 bg-slate-950/60 border border-slate-800 rounded-xl flex items-center justify-between gap-4 text-xs text-slate-400">
           <div className="flex items-center gap-2">
             <Cpu className="w-4 h-4 text-[var(--color-accent-custom)] shrink-0" />
             <span>
-              <strong>Open Source Architecture:</strong> Installs directly onto existing vessel sensors. Zero engine replacement needed.
+              <strong>Modular Open Architecture:</strong> Installs directly onto existing vessel sensors. Zero engine replacement needed.
             </span>
           </div>
-          <a
-            href="https://github.com/JustineSalinas/MARINE-AI---National-AI-Hackathon---AI-Fest"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[var(--color-accent-custom)] hover:underline font-mono font-bold flex items-center gap-1 shrink-0"
-          >
-            View GitHub Hackathon Repository →
-          </a>
         </div>
       </div>
     </div>

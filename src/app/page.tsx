@@ -760,24 +760,15 @@ export default function LandingPage() {
               </ul>
             </div>
 
-            {/* Col 4: Open Source & Contact */}
+            {/* Col 4: Open Source & Resources */}
             <div className="space-y-3">
               <h4 className="font-bold text-xs uppercase tracking-wider text-[var(--color-text)] font-mono">
                 Open Source & Resources
               </h4>
               <ul className="space-y-2 text-xs">
-                <li>
-                  <a
-                    href="https://github.com/JustineSalinas/MARINE-AI---National-AI-Hackathon---AI-Fest"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[var(--color-accent-custom)] font-semibold hover:underline flex items-center gap-1"
-                  >
-                    GitHub Hackathon Repo <ExternalLink className="w-3 h-3" />
-                  </a>
-                </li>
                 <li>MIT Open Source License</li>
                 <li>Clean Energy & Blue Economy Track</li>
+                <li>ISO 14064 Carbon Accounting Standard</li>
               </ul>
             </div>
           </div>
