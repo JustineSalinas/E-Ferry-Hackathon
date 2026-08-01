@@ -52,7 +52,7 @@
 }
 
 :root {
-  /* ── Solmate Premium Orange Light Mode ── */
+  /* ── Solmate Premium Light Mode ── */
   --background: #FFFFFF;
   --foreground: #1C1917;
   --card: #FFFFFF;
@@ -85,6 +85,7 @@
   --color-accent-mid:   #F97316;
   --color-accent-light: #FFEDD5;
   --color-teal:         #0D9488;
+  --color-blue:         #2563EB;
   --color-success:      #16A34A;
   --color-warning:      #D97706;
   --color-pending:      #94A3B8;

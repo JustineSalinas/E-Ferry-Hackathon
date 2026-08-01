@@ -1,78 +1,44 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-import { Anchor, Sun, Radio, BarChart2, Layers, Activity, Leaf, ArrowRight, ArrowDown, Ship, Users, Target, ShieldCheck, Landmark } from "lucide-react";
+import {
+  Ship,
+  Zap,
+  Landmark,
+  Cpu,
+  Leaf,
+  ShieldCheck,
+  BarChart2,
+  ArrowRight,
+  ChevronDown,
+  Award,
+  CheckCircle2,
+  Compass,
+  DollarSign,
+  Layers,
+  Sparkles,
+  Send,
+  Radio,
+  ExternalLink,
+  Lock,
+  Globe
+} from "lucide-react";
+
 import { AnimatedBackground } from "@/components/animated-background";
-import { StatsBar } from "@/components/stats-bar";
-import { HeroSlideshow } from "@/components/hero-slideshow";
-import { PropulsionDiagram } from "@/components/ui/propulsion-diagram";
-import React from "react";
-
-function CountUpScore() {
-  const [count, setCount] = useState(0);
-  const ref = React.useRef<HTMLSpanElement>(null);
-  
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        let start = 0;
-        const int = setInterval(() => {
-          start += Math.floor(Math.random() * 40) + 10;
-          if (start >= 1000) {
-            setCount(1000);
-            clearInterval(int);
-          } else {
-            setCount(start);
-          }
-        }, 30);
-        observer.disconnect();
-      }
-    });
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
-
-  return <span ref={ref}>{count.toLocaleString()}</span>;
-}
-
-function CountUpMetric({ endValue, prefix = "", suffix = "", decimals = 0 }: { endValue: number, prefix?: string, suffix?: string, decimals?: number }) {
-  const [count, setCount] = useState(0);
-  const ref = React.useRef<HTMLSpanElement>(null);
-  
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        let start = 0;
-        const steps = 30;
-        const increment = endValue / steps;
-        
-        const int = setInterval(() => {
-          start += increment;
-          if (start >= endValue) {
-            setCount(endValue);
-            clearInterval(int);
-          } else {
-            setCount(start);
-          }
-        }, 30);
-        observer.disconnect();
-      }
-    });
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, [endValue]);
-
-  return <span ref={ref}>{prefix}{(count).toLocaleString(undefined, { minimumFractionDigits: decimals, maximumFractionDigits: decimals })}{suffix}</span>;
-}
+import { RetrofitSimulator } from "@/components/retrofit-simulator";
+import { FintechCalculator } from "@/components/fintech-calculator";
+import { MarineAiConsole } from "@/components/marine-ai-console";
 
 export default function LandingPage() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeStep, setActiveStep] = useState<1 | 2 | 3>(1);
+  const [contactSubmitted, setContactSubmitted] = useState(false);
+  const [contactRole, setContactRole] = useState("operator");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -99,647 +65,733 @@ export default function LandingPage() {
     };
   }, []);
 
+  const handleContactSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setContactSubmitted(true);
+    setTimeout(() => setContactSubmitted(false), 5000);
+  };
+
   return (
     <div className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] font-sans antialiased relative overflow-hidden transition-colors duration-300">
       {/* ─────────────────────────── NAVIGATION ─────────────────────────── */}
-      <header 
+      <header
         className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-          isScrolled 
-            ? "bg-[var(--color-bg)]/90 backdrop-blur-[12px] border-b border-[var(--color-border-custom)] shadow-sm" 
+          isScrolled
+            ? "bg-[var(--color-bg)]/95 backdrop-blur-[16px] border-b border-[var(--color-border-custom)] shadow-md"
             : "bg-transparent border-transparent"
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          {/* Logo */}
-          <div className="flex items-center group cursor-pointer">
-            <img src="/solmate.png" alt="Solmate Logo" className="h-14 w-auto object-contain transition-transform duration-600 group-hover:scale-105" />
-          </div>
+          {/* Logo only (Clean corporate logo) */}
+          <a href="#" className="flex items-center group cursor-pointer">
+            <img
+              src="/solmate.png"
+              alt="Solmate Logo"
+              className="h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+            />
+          </a>
 
-          {/* Nav Links */}
-          <nav className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
-            <a href="#how-it-works" className="text-[var(--color-text)] font-medium text-sm transition-colors duration-150 relative group pb-1 whitespace-nowrap hover:text-[var(--color-accent-custom)]">
-              How It Works
-              <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[var(--color-teal)] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-            </a>
-            
-            <div className="relative group pb-1">
-              <button className="text-[var(--color-text)] font-medium text-sm transition-colors duration-150 whitespace-nowrap hover:text-[var(--color-accent-custom)] flex items-center gap-1">
-                Solutions <span className="text-[0.6rem] opacity-70">▼</span>
-              </button>
-              <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-48 bg-[var(--color-surface)] border border-[var(--color-border-custom)] rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-2 group-hover:translate-y-0 overflow-hidden flex flex-col z-50">
-                <a href="#for-operators" className="px-4 py-3 text-sm text-[var(--color-text)] hover:bg-[var(--color-surface-2)] hover:text-[var(--color-accent-custom)] transition-colors border-b border-[var(--color-border-custom)]/50">For Ferry Operators</a>
-                <a href="#for-banks" className="px-4 py-3 text-sm text-[var(--color-text)] hover:bg-[var(--color-surface-2)] hover:text-[var(--color-accent-custom)] transition-colors">For Financial Institutions</a>
-              </div>
-            </div>
-
-            <a href="#product" className="text-[var(--color-text)] font-medium text-sm transition-colors duration-150 relative group pb-1 whitespace-nowrap hover:text-[var(--color-accent-custom)]">
-              Product
-              <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[var(--color-teal)] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+          {/* Navigation Links */}
+          <nav className="hidden md:flex items-center gap-8">
+            <a
+              href="#products"
+              className="text-[var(--color-text)] font-medium text-sm transition-colors relative group pb-1 hover:text-[var(--color-accent-custom)]"
+            >
+              Products Showcase
+              <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[var(--color-accent-custom)] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
             </a>
 
-            <a href="#about-us" className="text-[var(--color-text)] font-medium text-sm transition-colors duration-150 relative group pb-1 whitespace-nowrap hover:text-[var(--color-accent-custom)]">
-              About Us
-              <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[var(--color-teal)] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+            <a
+              href="#retrofit"
+              className="text-[var(--color-text)] font-medium text-sm transition-colors relative group pb-1 hover:text-[var(--color-accent-custom)]"
+            >
+              E-Ferry Retrofit
+              <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[var(--color-accent-custom)] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+            </a>
+
+            <a
+              href="#fintech"
+              className="text-[var(--color-text)] font-medium text-sm transition-colors relative group pb-1 hover:text-[var(--color-accent-custom)]"
+            >
+              Green Fintech
+              <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[var(--color-accent-custom)] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+            </a>
+
+            <a
+              href="#marine-ai"
+              className="text-[var(--color-text)] font-medium text-sm transition-colors relative group pb-1 hover:text-[var(--color-accent-custom)]"
+            >
+              Marine-AI Platform
+              <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[var(--color-accent-custom)] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+            </a>
+
+            <a
+              href="#architecture"
+              className="text-[var(--color-text)] font-medium text-sm transition-colors relative group pb-1 hover:text-[var(--color-accent-custom)]"
+            >
+              System Architecture
+              <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[var(--color-accent-custom)] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
             </a>
           </nav>
 
-          {/* CTA Buttons */}
+          {/* Action CTA Button */}
           <div className="flex items-center gap-3">
-
-            <Link href="/login" className={cn(buttonVariants({ variant: "ghost" }), "text-[var(--color-muted-custom)] hover:text-[var(--color-text)] text-sm hidden lg:inline-flex")}>Admin Login</Link><Link
-              href="/login"
-              className={cn(buttonVariants({ variant: "outline" }), "border-[1.5px] border-[var(--color-border-custom)] text-[var(--color-text)] bg-[var(--color-surface)] hover:text-[var(--color-accent-custom)] hover:border-[var(--color-accent-custom)] hover:bg-[var(--color-surface)] shadow-sm text-sm hidden sm:inline-flex")}
+            <a
+              href="#contact"
+              className="bg-[var(--color-accent-custom)] hover:bg-[var(--color-accent-mid)] text-white font-bold text-sm px-5 py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg"
             >
-              Operator Login
-            </Link>
-            <Link
-              href="/login"
-              className={cn(buttonVariants(), "bg-[var(--color-accent-custom)] hover:bg-[var(--color-accent-mid)] text-white font-semibold text-sm transition-all border-none")}
-            >
-              Bank Portal
-            </Link>
+              Request Feasibility Audit
+            </a>
           </div>
         </div>
       </header>
 
-      {/* ─────────────────────────── HERO ─────────────────────────── */}
-      <section
-        id="impact"
-        className="relative pt-28 pb-4 px-6 text-center fade-in-section opacity-0 translate-y-8 transition-all duration-1000 ease-out z-10"
-      >
+      {/* ─────────────────────────── HERO SECTION ─────────────────────────── */}
+      <section className="relative pt-36 pb-20 px-6 text-center fade-in-section opacity-0 translate-y-8 transition-all duration-1000 ease-out z-10">
         <AnimatedBackground />
 
-        <div className="max-w-4xl mx-auto relative z-10">
-          <Badge className="mb-8 bg-[var(--color-surface)] text-[var(--color-accent-custom)] border border-[var(--color-border-custom)] rounded-full text-[0.7rem] font-bold tracking-[0.12em] uppercase px-4 py-1.5 flex items-center gap-2 w-fit mx-auto shadow-md">
-            <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-teal)] animate-blink-pulse inline-block" />
-            Institutional-Grade Maritime Finance
-          </Badge>
-          
-          <h1 className="font-display text-[clamp(2.5rem,5vw,5rem)] font-extrabold text-[var(--color-text)] leading-[1.1] tracking-[-0.02em] mb-6 drop-shadow-sm max-w-[900px] mx-auto">
-            De-risking Electric Propulsion for <br className="hidden md:block" />
-            <span className="text-[var(--color-teal)] italic whitespace-nowrap">Inter-Island Ferries</span>
+        <div className="max-w-5xl mx-auto relative z-10">
+          <div className="flex flex-wrap justify-center items-center gap-3 mb-8">
+            <Badge className="bg-amber-500/10 text-amber-700 border border-amber-500/20 rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-wider flex items-center gap-2">
+              <Award className="w-4 h-4 text-amber-600" />
+              Ready, Spark, Charge 2026 1st Runner-Up (Products 1 & 2)
+            </Badge>
+
+            <Badge className="bg-blue-500/10 text-blue-700 border border-blue-500/20 rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-wider flex items-center gap-2">
+              <Award className="w-4 h-4 text-blue-600" />
+              National AI Hackathon (Product 3)
+            </Badge>
+
+            <Badge className="bg-[var(--color-accent-light)] text-[var(--color-accent-custom)] border border-[var(--color-accent-custom)]/30 rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-wider flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[var(--color-accent-custom)] animate-pulse" />
+              Zero-Emission Maritime Ecosystem
+            </Badge>
+          </div>
+
+          <h1 className="font-display text-[clamp(2.5rem,5.5vw,5.5rem)] font-extrabold text-[var(--color-text)] leading-[1.08] tracking-[-0.03em] mb-6 drop-shadow-sm max-w-4xl mx-auto">
+            Pioneering Zero-Emission & <br className="hidden md:block" />
+            <span className="text-[var(--color-accent-custom)]">
+              Intelligent Maritime Solutions
+            </span>
           </h1>
-          
-          <p className="font-body text-[1.1rem] leading-[1.75] text-[var(--color-muted-custom)] max-w-2xl mx-auto mb-3">
-            The platform connecting maritime cooperatives with institutional capital.
+
+          <p className="font-body text-lg md:text-xl leading-relaxed text-[var(--color-muted-custom)] max-w-3xl mx-auto mb-10">
+            Solmate unifies modular electric ferry retrofits, institutional green finance, and real-time AI bridge intelligence into a single transformative platform for passenger fleets.
           </p>
-          <p className="font-body text-[0.95rem] leading-[1.6] text-[var(--color-muted-custom)]/80 max-w-xl mx-auto mb-10">
-            Solmate converts real-time vessel telemetry into bankable, ESG-compliant loan packages.
-          </p>
+
+          {/* Product Quick-Switch Tabs */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto mb-12">
+            <a
+              href="#retrofit"
+              className="p-4 rounded-xl bg-[var(--color-surface)] border border-[var(--color-border-custom)] hover:border-[var(--color-accent-custom)] transition-all group text-left flex items-center gap-3 shadow-sm hover:shadow-md"
+            >
+              <div className="p-2.5 rounded-lg bg-[var(--color-accent-light)] text-[var(--color-accent-custom)] group-hover:scale-105 transition-transform">
+                <Ship className="w-5 h-5" />
+              </div>
+              <div>
+                <span className="text-xs text-[var(--color-muted-custom)] uppercase font-mono block">Product 1</span>
+                <span className="font-bold text-sm text-[var(--color-text)]">E-Ferry Retrofit Service</span>
+              </div>
+            </a>
+
+            <a
+              href="#fintech"
+              className="p-4 rounded-xl bg-[var(--color-surface)] border border-[var(--color-border-custom)] hover:border-[var(--color-teal)] transition-all group text-left flex items-center gap-3 shadow-sm hover:shadow-md"
+            >
+              <div className="p-2.5 rounded-lg bg-[var(--color-teal)]/10 text-[var(--color-teal)] group-hover:scale-105 transition-transform">
+                <Landmark className="w-5 h-5" />
+              </div>
+              <div>
+                <span className="text-xs text-[var(--color-muted-custom)] uppercase font-mono block">Product 2</span>
+                <span className="font-bold text-sm text-[var(--color-text)]">Solmate Green Fintech</span>
+              </div>
+            </a>
+
+            <a
+              href="#marine-ai"
+              className="p-4 rounded-xl bg-[var(--color-surface)] border border-[var(--color-border-custom)] hover:border-[var(--color-blue)] transition-all group text-left flex items-center gap-3 shadow-sm hover:shadow-md"
+            >
+              <div className="p-2.5 rounded-lg bg-[var(--color-blue)]/10 text-[var(--color-blue)] group-hover:scale-105 transition-transform">
+                <Cpu className="w-5 h-5" />
+              </div>
+              <div>
+                <span className="text-xs text-[var(--color-muted-custom)] uppercase font-mono block">Product 3</span>
+                <span className="font-bold text-sm text-[var(--color-text)]">Marine-AI Advisory System</span>
+              </div>
+            </a>
+          </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Link
-              href="/register/cooperative"
-              className={cn(buttonVariants(), "bg-[var(--color-accent-custom)] text-white h-auto px-[32px] py-[14px] rounded-[10px] text-base font-semibold border-none hover:bg-[var(--color-accent-mid)] hover:shadow-[0_8px_24px_rgba(12,74,110,0.25)] hover:-translate-y-1 transition-all duration-300 w-full sm:w-auto flex items-center justify-center gap-2")}
+            <a
+              href="#products"
+              className="bg-[var(--color-accent-custom)] text-white px-8 py-4 rounded-xl text-base font-bold hover:bg-[var(--color-accent-mid)] transition-all shadow-md flex items-center gap-2"
             >
-              <Ship className="w-5 h-5 opacity-80" />
-              I&apos;m a Ferry Operator
-            </Link>
-            
-            <Link
-              href="/register/institution"
-              className={cn(buttonVariants({ variant: "outline" }), "bg-[var(--color-surface)] border-[1.5px] border-[var(--color-border-custom)] text-[var(--color-text)] hover:text-[var(--color-accent-custom)] hover:border-[var(--color-accent-custom)] h-auto px-[32px] py-[14px] rounded-[10px] text-base font-semibold hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(0,0,0,0.05)] transition-all duration-300 w-full sm:w-auto flex items-center justify-center gap-2")}
+              <Sparkles className="w-5 h-5" />
+              Explore All 3 Products Below
+            </a>
+
+            <a
+              href="#marine-ai"
+              className="bg-[var(--color-surface-2)] text-[var(--color-text)] border border-[var(--color-border-custom)] px-8 py-4 rounded-xl text-base font-semibold hover:border-[var(--color-accent-custom)] transition-all flex items-center gap-2"
             >
-              <Landmark className="w-5 h-5 opacity-80" />
-              I&apos;m a Financial Institution
-            </Link>
-          </div>
-
-          {/* Social Proof / Trusted By */}
-          <div className="mt-12 flex flex-col items-center justify-center animate-in fade-in duration-1000 delay-500">
-            <p className="text-[0.65rem] uppercase tracking-widest font-semibold text-[var(--color-muted-custom)] mb-4">
-              Trusted by leading institutions
-            </p>
-            <div className="flex flex-wrap justify-center items-center gap-8 md:gap-14 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
-              <span className="font-display font-bold text-xl text-[var(--color-text)] flex items-center gap-1.5"><ShieldCheck className="w-5 h-5 text-[var(--color-teal)]" /> LandBank</span>
-              <span className="font-display font-bold text-xl text-[var(--color-text)] flex items-center gap-1.5"><ShieldCheck className="w-5 h-5 text-[var(--color-accent-custom)]" /> DBP</span>
-              <span className="font-display font-bold text-xl text-[var(--color-text)] flex items-center gap-1.5"><ShieldCheck className="w-5 h-5 text-[var(--color-text)]" /> PCFC</span>
-              <span className="font-display font-bold text-xl text-[var(--color-text)] flex items-center gap-1.5"><ShieldCheck className="w-5 h-5 text-[var(--color-teal)]" /> PhilGuarantee</span>
-            </div>
-          </div>
-          
-          <HeroSlideshow />
-        </div>
-
-        <StatsBar />
-      </section>
-
-
-
-      {/* ─────────────────────────── HOW IT WORKS ─────────────────────────── */}
-      <section id="how-it-works" className="pt-[clamp(80px,10vw,140px)] pb-[clamp(40px,5vw,80px)] px-6 relative fade-in-section opacity-0 translate-y-8 transition-all duration-1000 ease-out delay-100">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-[var(--color-accent-custom)] mb-2">
-              The Platform
-            </p>
-            <h2 className="font-display text-[clamp(2rem,4vw,3.2rem)] font-bold text-[var(--color-text)]">
-              How It Works
-            </h2>
-            <p className="text-[var(--color-muted-custom)] mt-3 max-w-xl mx-auto font-body">
-              Three integrated layers convert raw vessel data into institutional
-              financing.
-            </p>
-          </div>
-
-          <div className="relative">
-            {/* Visual connector line for desktop */}
-            <div className="absolute top-24 left-[10%] w-[80%] h-[2px] border-t-2 border-dashed border-[var(--color-teal)]/30 hidden md:block z-0" />
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
-              {[
-                {
-                  step: "01",
-                  icon: <Sun className="w-5 h-5" />,
-                  title: "Hardware Layer",
-                  subtitle: "Hybrid Solar-Wind Controller",
-                  description:
-                    "Each vessel is fitted with our proprietary Hybrid Solar-Wind Controller that harvests renewable energy, manages battery discharge cycles, and logs propulsion metrics at 1-second granularity.",
-                },
-                {
-                  step: "02",
-                  icon: <Radio className="w-5 h-5" />,
-                  title: "Telemetry Engine",
-                  subtitle: "Real-Time Data Ingestion",
-                  description:
-                    "Onboard IoT nodes stream GPS position, fuel burn, battery state-of-health, and passenger load directly to the Solmate cloud — processed in real time against route benchmarks.",
-                },
-                {
-                  step: "03",
-                  icon: <BarChart2 className="w-5 h-5" />,
-                  title: "Marine Bankability Score",
-                  subtitle: "Credit Score · 0 – 1000",
-                  description:
-                    "Proprietary scoring engine aggregates 90-day telemetry history, operator compliance, DSCR projections, and ESG deltas into a single bankability score used by partner lenders.",
-                },
-              ].map(({ step, icon, title, subtitle, description }, i) => (
-                <Card
-                  key={step}
-                  className={cn(
-                    "shadow-sm hover:shadow-lg transition-all duration-700 rounded-2xl group fade-in-section opacity-0 translate-y-8",
-                    i === 2 ? "bg-[#7C2D12] border-teal-500/30 hover:border-teal-400/50 hover:-translate-y-[3px]" : "bg-[var(--color-surface)] border border-[var(--color-border-custom)] hover:border-[var(--color-accent-custom)]/50 hover:-translate-y-[3px]"
-                  )}
-                  style={{ transitionDelay: `${i * 150}ms` }}
-                >
-                  <CardHeader className="pb-2">
-                    <div className="flex items-center gap-3 mb-3">
-                      <span className={cn(
-                        "relative z-10 inline-flex items-center justify-center w-10 h-10 rounded-full font-display text-sm font-bold transition-colors duration-300",
-                        i === 2 ? "bg-teal-500/20 text-teal-300" : "bg-[var(--color-accent-light)] text-[var(--color-accent-custom)]"
-                      )}>
-                        {step}
-                      </span>
-                      <span className="group-hover:scale-110 transition-transform duration-300">
-                        <div className={cn(
-                          "w-10 h-10 rounded-full flex items-center justify-center",
-                          i === 2 ? "bg-teal-500/20 text-teal-300" : "bg-[var(--color-teal)]/10 text-[var(--color-teal)]"
-                        )}>
-                          {icon}
-                        </div>
-                      </span>
-                    </div>
-                    <CardTitle className={cn("text-lg font-bold font-display", i === 2 ? "text-white" : "text-[var(--color-text)]")}>
-                      {title}
-                    </CardTitle>
-                    <span className={cn(
-                      "inline-flex items-center mt-1 border rounded-full px-2.5 py-0.5 text-[0.72rem] font-medium font-body",
-                      i === 2 ? "bg-teal-500/20 border-teal-500/30 text-teal-300" : "bg-[var(--color-success)]/10 border-[var(--color-success)]/20 text-[var(--color-success)]"
-                    )}>
-                      {i === 2 ? <>Credit Score · 0 –&nbsp;<CountUpScore /></> : subtitle}
-                    </span>
-                  </CardHeader>
-                  <CardContent>
-                    <p className={cn("text-sm leading-relaxed font-body", i === 2 ? "text-teal-100/70" : "text-[var(--color-muted-custom)]")}>
-                      {description}
-                    </p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-            
-            {/* CTA Row to replace empty space */}
-            <div className="mt-14 flex justify-center fade-in-section opacity-0 translate-y-4 transition-all duration-700 delay-500">
-              <Link href="/score-methodology" className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-accent-custom)] hover:text-[var(--color-teal)] transition-colors group">
-                See how the score is calculated <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </div>
+              <Radio className="w-5 h-5 text-[var(--color-accent-custom)] animate-pulse" />
+              Launch Live AI Bridge Simulator
+            </a>
           </div>
         </div>
       </section>
 
-      {/* ─────────────────────────── FOR OPERATORS ─────────────────────────── */}
-      <section id="for-operators" className="py-[clamp(80px,10vw,140px)] px-6 fade-in-section opacity-0 translate-y-8 transition-all duration-1000 ease-out delay-100">
-        <div className="max-w-6xl mx-auto">
-          <div className="mb-12">
-            <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-[var(--color-accent-custom)] mb-2">
-              For Operators
+      {/* ─────────────────────────── PRODUCT 1: E-FERRY RETROFIT ─────────────────────────── */}
+      <section id="retrofit" className="py-20 px-6 max-w-7xl mx-auto fade-in-section opacity-0 translate-y-8 transition-all duration-1000">
+        <div className="mb-10 text-center md:text-left">
+          <Badge className="bg-[var(--color-accent-light)] text-[var(--color-accent-custom)] border border-[var(--color-accent-custom)]/30 rounded-full px-3.5 py-1 text-xs font-semibold uppercase tracking-wider mb-3">
+            Product 1 Showcase • Ready, Spark, Charge 2026 1st Runner-Up
+          </Badge>
+          <h2 className="text-3xl md:text-5xl font-extrabold text-[var(--color-text)] tracking-tight mb-4">
+            Solmate E-Ferry Retrofit Service
+          </h2>
+          <p className="text-base md:text-lg text-[var(--color-muted-custom)] max-w-3xl">
+            Convert existing diesel passenger boats into 100% zero-emission electric ferries. Zero vessel hull reconstruction needed. Installs directly onto fiberglass bangkas, catamarans, and monohulls in service.
+          </p>
+        </div>
+
+        {/* Feature Highlights Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          <div className="bg-[var(--color-surface)] p-6 rounded-2xl border border-[var(--color-border-custom)] shadow-sm">
+            <div className="p-3 bg-[var(--color-accent-light)] text-[var(--color-accent-custom)] w-fit rounded-xl mb-4">
+              <Zap className="w-6 h-6" />
+            </div>
+            <h3 className="text-xl font-bold text-[var(--color-text)] mb-2">Up to 85% OpEx Savings</h3>
+            <p className="text-sm text-[var(--color-muted-custom)] leading-relaxed">
+              Replacing expensive diesel fuel with high-efficiency electric propulsion drops daily operating costs dramatically from day one.
             </p>
-            <h2 className="font-display text-[clamp(2rem,4vw,3.2rem)] font-bold text-[var(--color-text)]">
-              Turn Your Route Data Into Capital
-            </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            {/* Left: Feature list with numbered blocks */}
-            <div className="space-y-6">
-              {[
-                {
-                  heading: "Bankability Score System",
-                  body: "Your 90-day operational track record is continuously scored on a 0–1,000 scale. A score above 700 automatically qualifies your cooperative for pre-approved loan packages from our institutional partners.",
-                },
-                {
-                  heading: "Automated Subsidy Matching",
-                  body: "Solmate cross-references your route geography and vessel class against active national and multilateral green-shipping subsidy programs — surfacing matches you'd otherwise miss.",
-                },
-                {
-                  heading: "Compliance Dashboard",
-                  body: "Stay audit-ready. Real-time alerts flag deviations from MARINA and DOE regulatory requirements, protecting your score and your subsidy eligibility.",
-                },
-                {
-                  heading: "Investor-Ready Reports",
-                  body: "Generate one-click PDF or JSON data rooms with DSCR projections, CO₂ reduction curves, and route profitability analysis — formatted to bank underwriting standards.",
-                },
-              ].map(({ heading, body }, index) => (
-                <div key={heading} className="flex gap-4 group">
-                  <span className="font-display text-[var(--color-accent-custom)] text-sm font-bold flex-shrink-0 mt-0.5">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <div className="border-l-2 border-[var(--color-border-custom)] pl-5 hover:border-[var(--color-teal)] transition-colors duration-300">
-                    <p className="text-[var(--color-text)] font-semibold text-sm mb-1 font-body">
-                      {heading}
-                    </p>
-                    <p className="text-[var(--color-muted-custom)] text-sm leading-relaxed font-body">
-                      {body}
-                    </p>
-                  </div>
-                </div>
-              ))}
+          <div className="bg-[var(--color-surface)] p-6 rounded-2xl border border-[var(--color-border-custom)] shadow-sm">
+            <div className="p-3 bg-[var(--color-teal)]/10 text-[var(--color-teal)] w-fit rounded-xl mb-4">
+              <Leaf className="w-6 h-6" />
             </div>
+            <h3 className="text-xl font-bold text-[var(--color-text)] mb-2">Zero Direct Carbon Emissions</h3>
+            <p className="text-sm text-[var(--color-muted-custom)] leading-relaxed">
+              Eliminates thousands of tons of local CO2, oil spills, and diesel smoke in pristine coastal waters and island ports.
+            </p>
+          </div>
 
-            {/* Right: Mock Score Card */}
-            <div className="flex justify-center">
-              <Card className="w-full max-w-sm bg-[var(--color-surface)] border border-[var(--color-border-custom)] rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                <CardHeader className="pb-2 border-b border-[var(--color-border-custom)]">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[0.65rem] text-[var(--color-muted-custom)] uppercase tracking-widest font-medium font-body">
-                      Marine Bankability Score
-                    </span>
-                    <Badge className="bg-[var(--color-success)]/20 text-[var(--color-success)] border border-[var(--color-success)]/30 hover:bg-[var(--color-success)]/20 text-[0.65rem] font-semibold px-2 py-0.5 rounded-full">
-                      ELIGIBLE
-                    </Badge>
-                  </div>
-                </CardHeader>
-                <CardContent className="pt-6 space-y-5">
-                  {/* SVG Circular Gauge */}
-                  <div className="relative w-[180px] h-[180px] mx-auto">
-                    <svg className="w-full h-full -rotate-90" viewBox="0 0 180 180">
-                      <circle cx="90" cy="90" r="80" fill="none" className="stroke-[var(--color-border-custom)]" strokeWidth="8" />
-                      <circle cx="90" cy="90" r="80" fill="none" stroke="var(--color-teal)" strokeWidth="8" strokeLinecap="round" strokeDasharray={`${(780/1000) * 502.65} 502.65`} className="transition-all duration-[1.5s] ease-out" />
-                    </svg>
-                    <div className="absolute inset-0 flex flex-col items-center justify-center">
-                      <span className="font-display text-[3.5rem] font-extrabold text-[var(--color-accent-custom)] leading-none">780</span>
-                      <span className="font-body text-sm text-[var(--color-muted-custom)] mt-1">/ 1000</span>
-                      <span className="font-body text-[0.65rem] text-[var(--color-muted-custom)] uppercase tracking-widest mt-1">Composite Score</span>
-                    </div>
-                  </div>
-
-                  {/* Metrics rows with progress bars */}
-                  <div className="space-y-2">
-                    {[
-                      { label: "Operational Uptime", value: "97.2%", progress: 97.2 },
-                      { label: "Fuel Efficiency", value: "31%", progress: 69, isReduction: true },
-                      { label: "DSCR (Projected)", value: "1.42×", progress: 71 },
-                      { label: "ESG Delta", value: "−22 tCO₂", progress: 85 },
-                    ].map(({ label, value, progress, isReduction }) => (
-                      <div key={label}>
-                        <div
-                          className="flex justify-between items-center py-1.5 border-b border-transparent hover:bg-[var(--color-surface-2)] px-2 rounded transition-colors"
-                        >
-                          <span className="text-[var(--color-muted-custom)] text-xs font-body">{label}</span>
-                          <span className={`text-xs font-semibold font-body ${isReduction ? "text-[var(--color-teal)]" : "text-[var(--color-text)]"}`}>
-                            {isReduction && <ArrowDown className="w-3 h-3 inline" />}
-                            {isReduction ? ` ${value}` : value}
-                          </span>
-                        </div>
-                        <div className="mt-1 h-[3px] w-full rounded-full bg-[var(--color-border-custom)]">
-                          <div className="h-full rounded-full bg-[var(--color-teal)]" style={{ width: `${progress}%` }} />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  <Link
-                    href="/login"
-                    className={cn(buttonVariants(), "w-full bg-[var(--color-accent-custom)] hover:bg-[var(--color-accent-mid)] text-white text-sm font-semibold shadow-none transition-all border-none")}
-                  >
-                    View Full Report →
-                  </Link>
-                </CardContent>
-              </Card>
+          <div className="bg-[var(--color-surface)] p-6 rounded-2xl border border-[var(--color-border-custom)] shadow-sm">
+            <div className="p-3 bg-[var(--color-blue)]/10 text-[var(--color-blue)] w-fit rounded-xl mb-4">
+              <Layers className="w-6 h-6" />
             </div>
+            <h3 className="text-xl font-bold text-[var(--color-text)] mb-2">Modular Pack & Drive Kit</h3>
+            <p className="text-sm text-[var(--color-muted-custom)] leading-relaxed">
+              Liquid-cooled IP68 LFP sub-packs, high-torque brushless electric outboards/inboards, and digital throttle control units.
+            </p>
           </div>
         </div>
+
+        {/* Interactive Retrofit Simulator */}
+        <RetrofitSimulator />
       </section>
 
-      {/* ─────────────────────────── LIVE IMPACT DASHBOARD ─────────────────────────── */}
-      <section id="for-banks" className="py-[clamp(80px,10vw,140px)] px-6 fade-in-section opacity-0 translate-y-8 transition-all duration-1000 ease-out delay-100 relative bg-[var(--color-surface-2)]">
-        <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[var(--color-border-custom)] to-transparent" />
-        
-        <div className="max-w-6xl mx-auto relative z-10">
+      {/* ─────────────────────────── PRODUCT 2: GREEN FINTECH ─────────────────────────── */}
+      <section id="fintech" className="py-20 px-6 max-w-7xl mx-auto fade-in-section opacity-0 translate-y-8 transition-all duration-1000">
+        <div className="mb-10 text-center md:text-left">
+          <Badge className="bg-emerald-500/10 text-[var(--color-teal)] border border-[var(--color-teal)]/30 rounded-full px-3.5 py-1 text-xs font-semibold uppercase tracking-wider mb-3">
+            Product 2 Showcase • Ready, Spark, Charge 2026 1st Runner-Up
+          </Badge>
+          <h2 className="text-3xl md:text-5xl font-extrabold text-[var(--color-text)] tracking-tight mb-4">
+            Solmate Green Fintech Platform
+          </h2>
+          <p className="text-base md:text-lg text-[var(--color-muted-custom)] max-w-3xl">
+            Unlocking institutional ESG capital for maritime vessel electrification. Converts tamper-proof IoT telemetry into bankable loan structures, tokenized green bonds, and automated carbon credit monetization.
+          </p>
+        </div>
 
-          {/* Header */}
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 bg-[var(--color-accent-light)] border border-[var(--color-accent-custom)]/20 rounded-full px-4 py-1.5 mb-6">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-accent-custom)] opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--color-accent-custom)]"></span>
-              </span>
-              <span className="text-[var(--color-accent-custom)] text-xs font-semibold tracking-wider uppercase">Live Platform Data</span>
+        {/* Feature Highlights Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          <div className="bg-[var(--color-surface)] p-6 rounded-2xl border border-[var(--color-border-custom)] shadow-sm">
+            <div className="p-3 bg-[var(--color-teal)]/10 text-[var(--color-teal)] w-fit rounded-xl mb-4">
+              <Landmark className="w-6 h-6" />
             </div>
-            <h2 className="font-display text-[clamp(2rem,4vw,3.2rem)] font-bold text-[var(--color-text)] leading-tight mb-4">
-              Real Capital. Real Impact.
-            </h2>
-            <p className="text-[var(--color-muted-custom)] max-w-xl mx-auto font-body leading-relaxed">
-              Solmate is actively funding the Philippines&apos; green maritime transition. These numbers update in real time as operators earn, qualify, and scale.
+            <h3 className="text-xl font-bold text-[var(--color-text)] mb-2">Pay-As-You-Save (PAYS)</h3>
+            <p className="text-sm text-[var(--color-muted-custom)] leading-relaxed">
+              Vessel owners and cooperatives require $0 upfront capital. Concessionary financing is repaid directly out of monthly fuel cost savings.
             </p>
           </div>
 
-          {/* 4 Big Animated Metric Cards */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 w-full">
-            {[
-              { value: <CountUpMetric prefix="₱" endValue={1.2} decimals={1} suffix="B" />, label: "Total Capital Facilitated", sub: "+₱48M this quarter" },
-              { value: <CountUpMetric endValue={48} />, label: "Vessels Financed", sub: "Across 12 routes" },
-              { value: <CountUpMetric endValue={1240} />, label: "Tonnes CO₂ Avoided", sub: "vs. diesel baseline" },
-              { value: <CountUpMetric endValue={12} />, label: "Partner Banks & Lenders", sub: "LandBank, DBP, PCFC, PhilGuarantee" },
-            ].map(({ value, label, sub }) => (
-              <Card key={label} className="p-6 group hover:-translate-y-1 transition-all duration-300 border-[var(--color-border-custom)] shadow-sm hover:shadow-md bg-[var(--color-surface)]">
-                <div className="font-display text-[2.2rem] md:text-[2.8rem] font-extrabold text-[var(--color-accent-custom)] leading-none mb-2">{value}</div>
-                <p className="text-[var(--color-text)] text-sm font-semibold font-body leading-tight mb-1">{label}</p>
-                <p className="text-[var(--color-muted-custom)] text-xs font-body">{sub}</p>
-              </Card>
-            ))}
+          <div className="bg-[var(--color-surface)] p-6 rounded-2xl border border-[var(--color-border-custom)] shadow-sm">
+            <div className="p-3 bg-[var(--color-accent-light)] text-[var(--color-accent-custom)] w-fit rounded-xl mb-4">
+              <DollarSign className="w-6 h-6" />
+            </div>
+            <h3 className="text-xl font-bold text-[var(--color-text)] mb-2">Carbon Credit Yield</h3>
+            <p className="text-sm text-[var(--color-muted-custom)] leading-relaxed">
+              Every zero-emission nautical mile logged by IoT hardware is cryptographically verified to generate audited carbon offset credits.
+            </p>
           </div>
 
-          {/* Live Activity Feed + CTA */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+          <div className="bg-[var(--color-surface)] p-6 rounded-2xl border border-[var(--color-border-custom)] shadow-sm">
+            <div className="p-3 bg-[var(--color-blue)]/10 text-[var(--color-blue)] w-fit rounded-xl mb-4">
+              <ShieldCheck className="w-6 h-6" />
+            </div>
+            <h3 className="text-xl font-bold text-[var(--color-text)] mb-2">Bankable IoT Risk Verification</h3>
+            <p className="text-sm text-[var(--color-muted-custom)] leading-relaxed">
+              Lenders receive real-time visibility into vessel health, energy consumption, and route compliance, de-risking default probabilities.
+            </p>
+          </div>
+        </div>
 
-            {/* Live Activity Feed */}
-            <Card className="p-6 border-[var(--color-border-custom)] shadow-sm bg-[var(--color-surface)]">
-              <div className="flex items-center gap-2 mb-5 pb-4 border-b border-[var(--color-border-custom)]/50">
-                <span className="text-[var(--color-text)] font-display font-bold">Recent Activity</span>
-              </div>
-              <div className="space-y-4">
-                {[
-                  { coop: "Batangas Bay Ferry Coop", action: "Loan Approved", amount: "₱12.4M", time: "2 hrs ago", color: "text-[var(--color-success)]" },
-                  { coop: "Visayas Green Maritime", action: "Score Updated → 714", amount: "₱8.9M", time: "5 hrs ago", color: "text-[var(--color-accent-custom)]" },
-                  { coop: "Mindanao Blue Shipping", action: "Application Submitted", amount: "₱6.2M", time: "1 day ago", color: "text-[var(--color-warning)]" },
-                  { coop: "Palawan Sea Routes Coop", action: "ESG Report Generated", amount: "18 tCO₂ saved", time: "2 days ago", color: "text-[var(--color-teal)]" },
-                ].map(({ coop, action, amount, time, color }) => (
-                  <div key={coop} className="flex items-start justify-between gap-3 pb-4 border-b border-[var(--color-border-custom)]/30 last:border-0 last:pb-0">
-                    <div className="flex items-start gap-3">
-                      <div className="w-8 h-8 rounded-full bg-[var(--color-surface-2)] flex items-center justify-center flex-shrink-0 mt-0.5 border border-[var(--color-border-custom)]">
-                        <Ship className="w-4 h-4 text-[var(--color-muted-custom)]" />
-                      </div>
-                      <div>
-                        <p className="text-[var(--color-text)] text-sm font-semibold font-body">{coop}</p>
-                        <p className={`text-xs font-medium ${color}`}>{action}</p>
-                      </div>
-                    </div>
-                    <div className="text-right flex-shrink-0">
-                      <p className="text-[var(--color-text)] text-sm font-bold font-display">{amount}</p>
-                      <p className="text-[var(--color-muted-custom)] text-xs">{time}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div className="pt-4 mt-2">
-                <Link href="#" className="text-xs text-[var(--color-accent-custom)] hover:text-[var(--color-accent-mid)] transition-colors font-medium">
-                  View full activity log →
-                </Link>
-              </div>
-            </Card>
+        {/* Interactive Fintech Calculator */}
+        <FintechCalculator />
+      </section>
 
-            {/* CTA Card */}
-            <Card className="p-8 flex flex-col justify-between border-[var(--color-border-custom)] shadow-sm bg-[var(--color-surface)]">
+      {/* ─────────────────────────── PRODUCT 3: MARINE-AI ─────────────────────────── */}
+      <section id="marine-ai" className="py-20 px-6 max-w-7xl mx-auto fade-in-section opacity-0 translate-y-8 transition-all duration-1000">
+        <div className="mb-10 text-center md:text-left">
+          <div className="flex flex-wrap items-center gap-3 mb-3 justify-center md:justify-start">
+            <Badge className="bg-amber-500/10 text-amber-600 border border-amber-500/20 rounded-full px-3.5 py-1 text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5">
+              <Award className="w-4 h-4 text-amber-500" />
+              National AI Hackathon 2026
+            </Badge>
+            <Badge className="bg-[var(--color-blue)]/10 text-[var(--color-blue)] border border-[var(--color-blue)]/20 rounded-full px-3.5 py-1 text-xs font-semibold uppercase tracking-wider">
+              Product 3 Showcase
+            </Badge>
+          </div>
+          <h2 className="text-3xl md:text-5xl font-extrabold text-[var(--color-text)] tracking-tight mb-4">
+            Marine-AI Advisory System
+          </h2>
+          <p className="text-base md:text-lg text-[var(--color-muted-custom)] max-w-3xl">
+            A retrofittable IoT sensor gateway and AI bridge display. Three parallel AI modules converge on a single captain display showing live waypoint routes, optimal throttle settings, and predictive maintenance alerts.
+          </p>
+        </div>
+
+        {/* 3 AI Engines Breakdown Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          <div className="bg-[var(--color-surface)] p-6 rounded-2xl border border-[var(--color-border-custom)] shadow-sm">
+            <div className="p-3 bg-[var(--color-accent-light)] text-[var(--color-accent-custom)] w-fit rounded-xl mb-4">
+              <Zap className="w-6 h-6" />
+            </div>
+            <h3 className="text-xl font-bold text-[var(--color-text)] mb-2">1. Speed & Throttle Optimizer</h3>
+            <p className="text-sm text-[var(--color-muted-custom)] leading-relaxed">
+              XGBoost hydrodynamic model maps hull resistance against real-time sea conditions to advise captains on the exact throttle setting for maximum range.
+            </p>
+          </div>
+
+          <div className="bg-[var(--color-surface)] p-6 rounded-2xl border border-[var(--color-border-custom)] shadow-sm">
+            <div className="p-3 bg-[var(--color-blue)]/10 text-[var(--color-blue)] w-fit rounded-xl mb-4">
+              <Compass className="w-6 h-6" />
+            </div>
+            <h3 className="text-xl font-bold text-[var(--color-text)] mb-2">2. Geodesic Route Planner</h3>
+            <p className="text-sm text-[var(--color-muted-custom)] leading-relaxed">
+              Combines geodesy navigation with gradient-boosted sea-state, wind, wave, and current forecasting to compute optimal waypoint tracks.
+            </p>
+          </div>
+
+          <div className="bg-[var(--color-surface)] p-6 rounded-2xl border border-[var(--color-border-custom)] shadow-sm">
+            <div className="p-3 bg-[var(--color-teal)]/10 text-[var(--color-teal)] w-fit rounded-xl mb-4">
+              <Cpu className="w-6 h-6" />
+            </div>
+            <h3 className="text-xl font-bold text-[var(--color-text)] mb-2">3. PCA Anomaly Maintenance</h3>
+            <p className="text-sm text-[var(--color-muted-custom)] leading-relaxed">
+              PCA linear autoencoder and robust z-score anomaly detector flags motor bearing wear, vibration spikes, and thermal degradation before failures occur.
+            </p>
+          </div>
+        </div>
+
+        {/* Live Marine-AI Telemetry Console */}
+        <MarineAiConsole />
+      </section>
+
+      {/* ─────────────────────────── REDESIGNED DYNAMIC SYSTEM ARCHITECTURE ─────────────────────────── */}
+      <section id="architecture" className="py-24 px-6 max-w-7xl mx-auto fade-in-section opacity-0 translate-y-8 transition-all duration-1000">
+        <div className="text-center mb-16">
+          <Badge className="bg-[var(--color-accent-light)] text-[var(--color-accent-custom)] border border-[var(--color-accent-custom)]/30 rounded-full px-3.5 py-1 text-xs font-semibold uppercase tracking-wider mb-3">
+            Interactive Workflow Architecture
+          </Badge>
+          <h2 className="text-3xl md:text-5xl font-extrabold text-[var(--color-text)] tracking-tight mb-4">
+            How The 3 Products Work Together
+          </h2>
+          <p className="text-base md:text-lg text-[var(--color-muted-custom)] max-w-2xl mx-auto">
+            Explore the synchronized data and capital pipeline connecting vessel hardware, bridge AI, and ESG green finance.
+          </p>
+        </div>
+
+        {/* Interactive Step Switcher Bar */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-10 max-w-4xl mx-auto">
+          {[
+            { step: 1, title: "1. E-Ferry Retrofit", subtitle: "Hardware Installation", color: "var(--color-accent-custom)" },
+            { step: 2, title: "2. Marine-AI Bridge", subtitle: "Telemetry & Advisory", color: "var(--color-teal)" },
+            { step: 3, title: "3. Solmate Fintech", subtitle: "PAYS & Carbon Yield", color: "var(--color-blue)" }
+          ].map((item) => (
+            <button
+              key={item.step}
+              onClick={() => setActiveStep(item.step as any)}
+              className={cn(
+                "w-full sm:w-1/3 p-4 rounded-2xl border text-left transition-all duration-300 relative overflow-hidden flex items-center justify-between",
+                activeStep === item.step
+                  ? "bg-[var(--color-surface)] border-[var(--color-accent-custom)] shadow-lg"
+                  : "bg-[var(--color-surface-2)]/60 border-[var(--color-border-custom)] hover:bg-[var(--color-surface)]"
+              )}
+            >
               <div>
-                <div className="w-12 h-12 rounded-xl bg-[var(--color-surface-2)] border border-[var(--color-border-custom)] flex items-center justify-center mb-6">
-                  <Landmark className="w-6 h-6 text-[var(--color-accent-custom)]" />
-                </div>
-                <h3 className="font-display text-2xl font-bold text-[var(--color-text)] mb-3">For Financial Institutions</h3>
-                <p className="text-[var(--color-muted-custom)] font-body leading-relaxed mb-6">
-                  Access a curated, pre-vetted pipeline of E-Ferry conversion loans — complete with 90-day telemetry history, verified DSCR projections, and tagged ESG quota contributions.
-                </p>
-                <ul className="space-y-3 mb-8">
-                  {["Verified bankability scores on every applicant", "Live DSCR backed by actual revenue data", "ESG quota tagging per disbursed loan"].map((item) => (
-                    <li key={item} className="flex items-start gap-3 text-sm text-[var(--color-text)] font-body">
-                      <div className="mt-1 w-4 h-4 rounded-full bg-[var(--color-accent-light)] flex items-center justify-center flex-shrink-0">
-                        <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent-custom)]" />
-                      </div>
-                      <span className="leading-tight">{item}</span>
-                    </li>
-                  ))}
-                </ul>
+                <span className="font-extrabold text-sm text-[var(--color-text)] block">{item.title}</span>
+                <span className="text-xs text-[var(--color-muted-custom)]">{item.subtitle}</span>
               </div>
-              <Link href="/login" className={cn(buttonVariants(), "w-full sm:w-max px-8 bg-[var(--color-accent-custom)] hover:bg-[var(--color-accent-mid)] text-white font-bold text-sm shadow-sm transition-all duration-300 border-none")}>
-                Access the Credit Portal →
-              </Link>
-            </Card>
-          </div>
+              <div
+                className={cn(
+                  "w-8 h-8 rounded-full font-bold text-xs flex items-center justify-center transition-all",
+                  activeStep === item.step
+                    ? "bg-[var(--color-accent-custom)] text-white shadow-md"
+                    : "bg-[var(--color-surface-2)] text-[var(--color-muted-custom)] border border-[var(--color-border-custom)]"
+                )}
+              >
+                {item.step}
+              </div>
+            </button>
+          ))}
         </div>
-      </section>
 
-
-
-
-      {/* ─────────────────────────── PRODUCT: E-FERRY ─────────────────────────── */}
-      <section id="product" className="py-[clamp(80px,10vw,140px)] px-6 fade-in-section opacity-0 translate-y-8 transition-all duration-1000 ease-out delay-100 relative">
-        <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[var(--color-border-custom)] to-transparent" />
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-[var(--color-accent-custom)] mb-2">
-              Our Flagship Product
-            </p>
-            <h2 className="font-display text-[clamp(2rem,4vw,3.2rem)] font-bold text-[var(--color-text)]">
-              The E-FERRY System
-            </h2>
-            <p className="text-[var(--color-muted-custom)] mt-3 max-w-2xl mx-auto leading-relaxed font-body">
-              A fully integrated hardware and software ecosystem designed to modernize inter-island transport with zero emissions, real-time telemetry, and uncompromising safety.
-            </p>
-          </div>
-
-          <div className="mb-24">
-            <PropulsionDiagram />
-          </div>
-
-          <div className="space-y-24">
-            {/* Feature 1: The Vessel */}
-            <div className="flex flex-col md:flex-row items-center gap-12">
-              <div className="w-full md:w-1/2 flex justify-center">
-                <div className="relative w-full max-w-lg aspect-video rounded-2xl overflow-hidden border border-[var(--color-border-custom)] shadow-xl group bg-[var(--color-surface-2)]">
-                  <img src="/charge.png" alt="E-FERRY Vessel" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                </div>
-              </div>
-              <div className="w-full md:w-1/2 space-y-6">
-                <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-[var(--color-accent-custom)] to-[#9A3412] shadow-lg shadow-[var(--color-accent-custom)]/20 border border-white/10 mb-2 relative overflow-hidden group">
-                  <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-white/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  <Ship className="w-7 h-7 text-white drop-shadow-md relative z-10 group-hover:scale-110 transition-transform duration-500" />
-                </div>
-                <h3 className="font-display text-2xl md:text-3xl font-bold text-[var(--color-text)]">
-                  Next-Generation Electric Vessel
+        {/* Dynamic Interactive Pipeline Diagram Card */}
+        <div className="bg-[var(--color-surface)] border border-[var(--color-border-custom)] rounded-3xl p-8 md:p-12 shadow-xl relative overflow-hidden">
+          {activeStep === 1 && (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center animate-in fade-in duration-500">
+              <div className="space-y-4">
+                <Badge className="bg-[var(--color-accent-light)] text-[var(--color-accent-custom)] font-mono text-xs uppercase px-3 py-1">
+                  Step 1 • Vessel Electrification Hardware
+                </Badge>
+                <h3 className="text-2xl md:text-3xl font-extrabold text-[var(--color-text)]">
+                  Modular Battery & Electric Motor Retrofit
                 </h3>
-                <p className="text-[var(--color-muted-custom)] leading-relaxed font-body">
-                  The E-FERRY replaces traditional, heavily polluting diesel engines with a state-of-the-art electric propulsion system. Built with composite materials for weight reduction and hydrodynamically optimized hulls, it delivers a smooth, silent, and zero-emission ride for passengers.
+                <p className="text-sm text-[var(--color-muted-custom)] leading-relaxed">
+                  Traditional passenger bangkas and ferries receive modular IP68 liquid-cooled LFP battery packs and brushless electric outboard or inboard drives. Zero hull rebuilding required.
                 </p>
-                <ul className="space-y-3 font-body">
-                  {["Zero carbon emissions during operation", "Significant reduction in noise and vibration", "Lower maintenance costs compared to diesel equivalents"].map((item, i) => (
-                    <li key={i} className="flex items-start gap-3">
-                      <div className="mt-1 w-5 h-5 rounded-full bg-[var(--color-accent-light)] flex items-center justify-center flex-shrink-0">
-                        <div className="w-2 h-2 rounded-full bg-[var(--color-teal)]" />
-                      </div>
-                      <span className="text-sm font-medium text-[var(--color-text)]">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
 
-            {/* Feature 2: The System */}
-            <div className="flex flex-col md:flex-row-reverse items-center gap-12">
-              <div className="w-full md:w-1/2 flex justify-center">
-                <div className="relative w-full max-w-lg aspect-video rounded-2xl overflow-hidden border border-[var(--color-border-custom)] shadow-xl group bg-[var(--color-surface-2)]">
-                  <img src="/system.png" alt="Solmate System" className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700" />
-                </div>
-              </div>
-              <div className="w-full md:w-1/2 space-y-6">
-                <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-[var(--color-accent-custom)] to-[#9A3412] shadow-lg shadow-[var(--color-accent-custom)]/20 border border-white/10 mb-2 relative overflow-hidden group">
-                  <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-white/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  <Activity className="w-7 h-7 text-white drop-shadow-md relative z-10 group-hover:scale-110 transition-transform duration-500" />
-                </div>
-                <h3 className="font-display text-2xl md:text-3xl font-bold text-[var(--color-text)]">
-                  Solmate Telemetry & Control
-                </h3>
-                <p className="text-[var(--color-muted-custom)] leading-relaxed font-body">
-                  Every E-FERRY is connected to our centralized Solmate platform. IoT sensors continuously stream critical data—from battery state-of-charge and motor temperature to GPS location and passenger manifest—ensuring peak operational efficiency and absolute passenger safety.
-                </p>
-                <ul className="space-y-3 font-body">
-                  {["Predictive maintenance alerts based on motor telemetry", "Automated compliance reporting for maritime authorities"].map((item, i) => (
-                    <li key={i} className="flex items-start gap-3">
-                      <div className="mt-1 w-5 h-5 rounded-full bg-[var(--color-accent-light)] flex items-center justify-center flex-shrink-0">
-                        <div className="w-2 h-2 rounded-full bg-[var(--color-teal)]" />
-                      </div>
-                      <span className="text-sm font-medium text-[var(--color-text)]">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ─────────────────────────── ABOUT US ─────────────────────────── */}
-      <section id="about-us" className="py-[clamp(80px,10vw,140px)] px-6 fade-in-section opacity-0 translate-y-8 transition-all duration-1000 ease-out delay-100 bg-[var(--color-surface-2)]/50 border-t border-[var(--color-border-custom)]">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-[var(--color-accent-custom)] mb-2">
-              Our Core Pillars
-            </p>
-            <h2 className="font-display text-[clamp(2rem,4vw,3.2rem)] font-bold text-[var(--color-text)]">
-              Transport. Energy. Finance.
-            </h2>
-            <p className="text-[var(--color-muted-custom)] mt-3 max-w-2xl mx-auto leading-relaxed font-body mb-12">
-              Accelerating the Philippines&apos; transition to a sustainable blue economy through maritime engineering, renewable energy, and financial technology.
-            </p>
-
-            {/* Vision & Mission Block */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-16 text-left items-stretch">
-              <div className="relative rounded-2xl border border-[var(--color-accent-custom)]/20 bg-gradient-to-br from-[var(--color-accent-custom)]/5 to-transparent p-8 group hover:-translate-y-1 transition-all duration-300 flex flex-col h-full">
-                <div className="inline-block bg-[var(--color-surface)] px-4 py-1 border border-[var(--color-accent-custom)]/20 rounded-full mb-4 self-start">
-                  <span className="text-[var(--color-accent-custom)] font-bold text-xs uppercase tracking-widest font-body">Our Vision</span>
-                </div>
-                <h3 className="font-display text-2xl font-bold text-[var(--color-text)] mb-3 mt-2">
-                  A Decarbonized Blue Economy
-                </h3>
-                <p className="text-[var(--color-muted-custom)] font-body leading-relaxed text-sm">
-                  Orchestrating the transition to a fully decarbonized, data-driven maritime ecosystem. Zero-emission inter-island transport must become the standard.
-                </p>
-              </div>
-
-              <div className="relative rounded-2xl border border-[var(--color-accent-custom)]/20 bg-gradient-to-br from-[var(--color-accent-custom)]/5 to-transparent p-8 group hover:-translate-y-1 transition-all duration-300 flex flex-col h-full">
-                <div className="inline-block bg-[var(--color-surface)] px-4 py-1 border border-[var(--color-accent-custom)]/20 rounded-full mb-4 self-start">
-                  <span className="text-[var(--color-accent-custom)] font-bold text-xs uppercase tracking-widest font-body">Our Mission</span>
-                </div>
-                <h3 className="font-display text-2xl font-bold text-[var(--color-text)] mb-3 mt-2">
-                  Deploying the Infrastructure
-                </h3>
-                <p className="text-[var(--color-muted-custom)] font-body leading-relaxed text-sm">
-                  Bridging the gap between legacy maritime transport and institutional climate finance. We deliver the hardware and verification tools to deploy scalable green fleets today.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {[
-              {
-                icon: <Ship className="w-8 h-8 text-[var(--color-accent-custom)]" />,
-                bgClass: "bg-[var(--color-accent-custom)]/10",
-                title: "Transportation Innovation",
-                description: "Deploying zero-emission E-FERRY vessels to modernize inter-island transit, improving passenger safety and comfort."
-              },
-              {
-                icon: <Sun className="w-8 h-8 text-emerald-500" />,
-                bgClass: "bg-emerald-500/10",
-                title: "Renewable Energy Access",
-                description: "Harvesting clean power directly on the water. Our hybrid solar-wind controllers eliminate reliance on polluting diesel fuels."
-              },
-              {
-                icon: <Landmark className="w-8 h-8 text-amber-500" />,
-                bgClass: "bg-amber-500/10",
-                title: "Inclusive Financing",
-                description: "Using verified vessel telemetry to de-risk lending, bridging the gap between ferry cooperatives and institutional capital."
-              }
-            ].map(({ icon, bgClass, title, description }) => (
-              <Card key={title} className="bg-[var(--color-surface)] border border-[var(--color-border-custom)] shadow-sm hover:shadow-xl hover:-translate-y-2 hover:border-[var(--color-accent-custom)]/50 transition-all duration-300 group cursor-pointer flex flex-col h-full min-h-[320px]">
-                <CardHeader className="flex flex-col items-center text-center pt-8 pb-4">
-                  <div className={`w-16 h-16 rounded-full ${bgClass} flex items-center justify-center mb-6 transition-transform duration-500 group-hover:scale-110`}>
-                    {icon}
+                <div className="space-y-3 pt-2">
+                  <div className="flex items-center gap-3 text-sm text-[var(--color-text)] font-semibold">
+                    <CheckCircle2 className="w-5 h-5 text-[var(--color-accent-custom)]" />
+                    Installs in under 7 days per vessel
                   </div>
-                  <CardTitle className="text-xl font-display font-bold text-[var(--color-text)] group-hover:text-[var(--color-accent-custom)] transition-colors duration-300">{title}</CardTitle>
-                </CardHeader>
-                <CardContent className="text-center flex-grow px-6 pb-8">
-                  <p className="text-[var(--color-muted-custom)] font-body text-sm leading-relaxed">{description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                  <div className="flex items-center gap-3 text-sm text-[var(--color-text)] font-semibold">
+                    <CheckCircle2 className="w-5 h-5 text-[var(--color-accent-custom)]" />
+                    Integrated Marine IoT sensor gateway pre-wired
+                  </div>
+                  <div className="flex items-center gap-3 text-sm text-[var(--color-text)] font-semibold">
+                    <CheckCircle2 className="w-5 h-5 text-[var(--color-accent-custom)]" />
+                    Dual CCS2 fast charging port connection
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-[var(--color-surface-2)] p-6 rounded-2xl border border-[var(--color-border-custom)] space-y-4">
+                <span className="text-xs font-mono uppercase text-[var(--color-muted-custom)] block">Hardware Telemetry Stream</span>
+                <div className="flex justify-between items-center p-3 bg-[var(--color-surface)] rounded-xl border border-[var(--color-border-custom)] font-mono text-xs">
+                  <span>Battery Cell Voltage Delta:</span>
+                  <span className="text-[var(--color-teal)] font-bold">12 mV (Normal)</span>
+                </div>
+                <div className="flex justify-between items-center p-3 bg-[var(--color-surface)] rounded-xl border border-[var(--color-border-custom)] font-mono text-xs">
+                  <span>Motor Temp / Inverter Current:</span>
+                  <span className="text-[var(--color-teal)] font-bold">38°C / 140A</span>
+                </div>
+                <div className="flex justify-between items-center p-3 bg-[var(--color-surface)] rounded-xl border border-[var(--color-border-custom)] font-mono text-xs">
+                  <span>GPS / IMU Telemetry Frame:</span>
+                  <span className="text-[var(--color-accent-custom)] font-bold">2.5 Hz Encrypted Log</span>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeStep === 2 && (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center animate-in fade-in duration-500">
+              <div className="space-y-4">
+                <Badge className="bg-[var(--color-teal)]/10 text-[var(--color-teal)] font-mono text-xs uppercase px-3 py-1">
+                  Step 2 • Bridge Intelligence & Captain Advisory
+                </Badge>
+                <h3 className="text-2xl md:text-3xl font-extrabold text-[var(--color-text)]">
+                  3 Parallel AI Engines In Command
+                </h3>
+                <p className="text-sm text-[var(--color-muted-custom)] leading-relaxed">
+                  The Marine-AI IoT gateway processes speed hydrodynamics, sea-state weather forecasting, and PCA autoencoder anomaly detection to give captains optimal speed and route advisories.
+                </p>
+
+                <div className="space-y-3 pt-2">
+                  <div className="flex items-center gap-3 text-sm text-[var(--color-text)] font-semibold">
+                    <CheckCircle2 className="w-5 h-5 text-[var(--color-teal)]" />
+                    Deterministic rule-based safety cutoffs enforce captain authority
+                  </div>
+                  <div className="flex items-center gap-3 text-sm text-[var(--color-text)] font-semibold">
+                    <CheckCircle2 className="w-5 h-5 text-[var(--color-teal)]" />
+                    XGBoost speed engine saves 18.4% battery power per trip
+                  </div>
+                  <div className="flex items-center gap-3 text-sm text-[var(--color-text)] font-semibold">
+                    <CheckCircle2 className="w-5 h-5 text-[var(--color-teal)]" />
+                    Claude API natural-language captain advisory phrasing
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-[var(--color-surface-2)] p-6 rounded-2xl border border-[var(--color-border-custom)] space-y-4">
+                <span className="text-xs font-mono uppercase text-[var(--color-muted-custom)] block">Bridge AI Output Frame</span>
+                <div className="flex justify-between items-center p-3 bg-[var(--color-surface)] rounded-xl border border-[var(--color-border-custom)] font-mono text-xs">
+                  <span>Recommended Throttle:</span>
+                  <span className="text-[var(--color-accent-custom)] font-bold">72% (Optimal Range)</span>
+                </div>
+                <div className="flex justify-between items-center p-3 bg-[var(--color-surface)] rounded-xl border border-[var(--color-border-custom)] font-mono text-xs">
+                  <span>Sea State Climatology:</span>
+                  <span className="text-[var(--color-teal)] font-bold">Wave 0.8m / Wind 14 Kts</span>
+                </div>
+                <div className="flex justify-between items-center p-3 bg-[var(--color-surface)] rounded-xl border border-[var(--color-border-custom)] font-mono text-xs">
+                  <span>Anomaly Status:</span>
+                  <span className="text-[var(--color-teal)] font-bold">PASS (Score 0.04)</span>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeStep === 3 && (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center animate-in fade-in duration-500">
+              <div className="space-y-4">
+                <Badge className="bg-[var(--color-blue)]/10 text-[var(--color-blue)] font-mono text-xs uppercase px-3 py-1">
+                  Step 3 • Capital Structuring & ESG Monetization
+                </Badge>
+                <h3 className="text-2xl md:text-3xl font-extrabold text-[var(--color-text)]">
+                  Pay-As-You-Save & Bankable Carbon Credits
+                </h3>
+                <p className="text-sm text-[var(--color-muted-custom)] leading-relaxed">
+                  Cryptographically signed telemetry logs feed bank and ESG fund portals. Fuel savings automatically service concessionary debt, while zero-emission miles yield audited carbon offset credits.
+                </p>
+
+                <div className="space-y-3 pt-2">
+                  <div className="flex items-center gap-3 text-sm text-[var(--color-text)] font-semibold">
+                    <CheckCircle2 className="w-5 h-5 text-[var(--color-blue)]" />
+                    $0 upfront capital required for fleet operators
+                  </div>
+                  <div className="flex items-center gap-3 text-sm text-[var(--color-text)] font-semibold">
+                    <CheckCircle2 className="w-5 h-5 text-[var(--color-blue)]" />
+                    AAA bankable credit rating backed by IoT telemetry
+                  </div>
+                  <div className="flex items-center gap-3 text-sm text-[var(--color-text)] font-semibold">
+                    <CheckCircle2 className="w-5 h-5 text-[var(--color-blue)]" />
+                    Net positive monthly cashflow from Day 1
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-[var(--color-surface-2)] p-6 rounded-2xl border border-[var(--color-border-custom)] space-y-4">
+                <span className="text-xs font-mono uppercase text-[var(--color-muted-custom)] block">Fintech Settlement Summary</span>
+                <div className="flex justify-between items-center p-3 bg-[var(--color-surface)] rounded-xl border border-[var(--color-border-custom)] font-mono text-xs">
+                  <span>Monthly Fuel Cost Savings:</span>
+                  <span className="text-[var(--color-teal)] font-bold font-mono">+$19,000 / mo</span>
+                </div>
+                <div className="flex justify-between items-center p-3 bg-[var(--color-surface)] rounded-xl border border-[var(--color-border-custom)] font-mono text-xs">
+                  <span>PAYS Loan Debt Repayment:</span>
+                  <span className="text-[var(--color-warning)] font-bold font-mono">-$10,180 / mo</span>
+                </div>
+                <div className="flex justify-between items-center p-3 bg-[var(--color-surface)] rounded-xl border border-[var(--color-border-custom)] font-mono text-xs">
+                  <span>Verified Carbon Offset Yield:</span>
+                  <span className="text-[var(--color-teal)] font-bold font-mono">+$3,600 / mo</span>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
-      {/* ─────────────────────────── FOOTER ─────────────────────────── */}
-      <footer className="bg-[var(--color-bg)] py-14 px-6 border-t border-[var(--color-border-custom)] fade-in-section opacity-0 translate-y-8 transition-all duration-1000 ease-out">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="text-center md:text-left">
-            <div className="flex items-center gap-2 justify-center md:justify-start mb-2">
-              <Anchor className="w-5 h-5 text-[var(--color-accent-custom)]" />
-              <span className="text-[var(--color-text)] font-bold text-lg tracking-tight">
-                Solmate
-              </span>
-            </div>
-            <p className="text-[var(--color-muted-custom)] text-sm max-w-xs leading-relaxed font-body">
-              The digital infrastructure layer for bankable, ESG-compliant
-              E-Ferry conversions across the Philippine archipelago.
+      {/* ─────────────────────────── INTERACTIVE CONTACT / DEMO REQUEST ─────────────────────────── */}
+      <section id="contact" className="py-20 px-6 max-w-4xl mx-auto fade-in-section opacity-0 translate-y-8 transition-all duration-1000">
+        <div className="bg-[var(--color-surface)] border border-[var(--color-border-custom)] rounded-3xl p-8 md:p-12 shadow-xl relative overflow-hidden backdrop-blur-2xl">
+          <div className="text-center mb-8">
+            <Badge className="bg-[var(--color-accent-light)] text-[var(--color-accent-custom)] border border-[var(--color-accent-custom)]/30 rounded-full px-3.5 py-1 text-xs font-semibold uppercase tracking-wider mb-3">
+              Request Platform Access
+            </Badge>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--color-text)] tracking-tight mb-3">
+              Schedule A Vessel Feasibility Audit
+            </h2>
+            <p className="text-sm md:text-base text-[var(--color-muted-custom)] max-w-xl mx-auto">
+              Whether you operate a ferry fleet, manage a municipality port, or deploy ESG capital, connect with our marine technology team.
             </p>
           </div>
 
-          <div className="text-center md:text-right font-body">
-            <p className="text-[var(--color-muted-custom)] text-xs">
-              © 2026 Solmate Technologies, Inc. All rights reserved.
-            </p>
-            <p className="text-[var(--color-muted-custom)]/70 text-xs mt-1">
-              Regulated maritime fintech. All data encrypted in transit and at
-              rest.
-            </p>
+          <form onSubmit={handleContactSubmit} className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--color-muted-custom)] mb-2">
+                  Full Name
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="Capt. Juan Dela Cruz"
+                  className="w-full bg-[var(--color-surface-2)] border border-[var(--color-border-custom)] rounded-xl px-4 py-3 text-sm text-[var(--color-text)] focus:border-[var(--color-accent-custom)] focus:outline-none transition-colors"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--color-muted-custom)] mb-2">
+                  Work Email
+                </label>
+                <input
+                  type="email"
+                  required
+                  placeholder="juan@maritime-coop.ph"
+                  className="w-full bg-[var(--color-surface-2)] border border-[var(--color-border-custom)] rounded-xl px-4 py-3 text-sm text-[var(--color-text)] focus:border-[var(--color-accent-custom)] focus:outline-none transition-colors"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--color-muted-custom)] mb-2">
+                  Organization / Fleet
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="Batangas Ferry Transport Coop"
+                  className="w-full bg-[var(--color-surface-2)] border border-[var(--color-border-custom)] rounded-xl px-4 py-3 text-sm text-[var(--color-text)] focus:border-[var(--color-accent-custom)] focus:outline-none transition-colors"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--color-muted-custom)] mb-2">
+                  Interest Category
+                </label>
+                <select
+                  value={contactRole}
+                  onChange={(e) => setContactRole(e.target.value)}
+                  className="w-full bg-[var(--color-surface-2)] border border-[var(--color-border-custom)] rounded-xl px-4 py-3 text-sm text-[var(--color-text)] focus:border-[var(--color-accent-custom)] focus:outline-none transition-colors"
+                >
+                  <option value="operator">Product 1: Vessel Retrofit Audit</option>
+                  <option value="institution">Product 2: ESG Green Financing & Bonds</option>
+                  <option value="marineai">Product 3: Marine-AI Gateway Demo</option>
+                  <option value="full">Full Ecosystem Integration</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--color-muted-custom)] mb-2">
+                Project Details & Vessel Specs
+              </label>
+              <textarea
+                rows={3}
+                placeholder="Details on vessel count, current daily fuel consumption, and route length..."
+                className="w-full bg-[var(--color-surface-2)] border border-[var(--color-border-custom)] rounded-xl px-4 py-3 text-sm text-[var(--color-text)] focus:border-[var(--color-accent-custom)] focus:outline-none transition-colors"
+              />
+            </div>
+
+            {contactSubmitted && (
+              <div className="p-4 bg-emerald-500/15 border border-emerald-500/30 rounded-xl text-emerald-600 text-sm font-semibold flex items-center justify-center gap-2">
+                <CheckCircle2 className="w-5 h-5" />
+                Thank you! Your feasibility audit request has been sent. Our marine engineering team will respond within 24 hours.
+              </div>
+            )}
+
+            <Button
+              type="submit"
+              className="w-full bg-[var(--color-accent-custom)] hover:bg-[var(--color-accent-mid)] text-white font-extrabold text-base py-4 rounded-xl transition-all shadow-md border-none flex items-center justify-center gap-2"
+            >
+              <Send className="w-5 h-5" />
+              Submit Request
+            </Button>
+          </form>
+        </div>
+      </section>
+
+      {/* ─────────────────────────── REDESIGNED CORPORATE FOOTER ─────────────────────────── */}
+      <footer className="border-t border-[var(--color-border-custom)] bg-[var(--color-surface)] pt-16 pb-12 px-6 text-sm text-[var(--color-muted-custom)]">
+        <div className="max-w-7xl mx-auto">
+          {/* Top Footer 4 Columns Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-[var(--color-border-custom)]">
+            {/* Col 1: Corporate Brand & Overview */}
+            <div className="space-y-4">
+              <img src="/solmate.png" alt="Solmate Logo" className="h-10 w-auto object-contain" />
+              <p className="text-xs leading-relaxed text-[var(--color-muted-custom)]">
+                Pioneering zero-emission maritime technologies for inter-island transportation, vessel retrofitting, and institutional ESG finance.
+              </p>
+              <div className="flex flex-col gap-2 pt-1">
+                <div className="inline-flex items-center gap-2 bg-amber-500/10 text-amber-700 px-3 py-1 rounded-full text-xs font-semibold border border-amber-500/20 w-fit">
+                  <Award className="w-3.5 h-3.5 text-amber-600" />
+                  Ready, Spark, Charge 2026 1st Runner-Up (P1 & P2)
+                </div>
+                <div className="inline-flex items-center gap-2 bg-blue-500/10 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold border border-blue-500/20 w-fit">
+                  <Award className="w-3.5 h-3.5 text-blue-600" />
+                  National AI Hackathon (Product 3)
+                </div>
+              </div>
+            </div>
+
+            {/* Col 2: Product Portfolio */}
+            <div className="space-y-3">
+              <h4 className="font-bold text-xs uppercase tracking-wider text-[var(--color-text)] font-mono">
+                Product Portfolio
+              </h4>
+              <ul className="space-y-2 text-xs">
+                <li>
+                  <a href="#retrofit" className="hover:text-[var(--color-accent-custom)] transition-colors">
+                    Product 1: E-Ferry Retrofit Service
+                  </a>
+                </li>
+                <li>
+                  <a href="#fintech" className="hover:text-[var(--color-accent-custom)] transition-colors">
+                    Product 2: Green Fintech & PAYS Financing
+                  </a>
+                </li>
+                <li>
+                  <a href="#marine-ai" className="hover:text-[var(--color-accent-custom)] transition-colors">
+                    Product 3: Marine-AI Advisory System
+                  </a>
+                </li>
+                <li>
+                  <a href="#contact" className="hover:text-[var(--color-accent-custom)] transition-colors">
+                    Vessel Feasibility Audit
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Col 3: Technology & AI Architecture */}
+            <div className="space-y-3">
+              <h4 className="font-bold text-xs uppercase tracking-wider text-[var(--color-text)] font-mono">
+                Technology & Architecture
+              </h4>
+              <ul className="space-y-2 text-xs">
+                <li>XGBoost Speed Hydrodynamics Engine</li>
+                <li>Geodesic Climatology Route Planner</li>
+                <li>PCA Autoencoder Anomaly Detection</li>
+                <li>Captain Safety Guardrails</li>
+              </ul>
+            </div>
+
+            {/* Col 4: Open Source & Contact */}
+            <div className="space-y-3">
+              <h4 className="font-bold text-xs uppercase tracking-wider text-[var(--color-text)] font-mono">
+                Open Source & Resources
+              </h4>
+              <ul className="space-y-2 text-xs">
+                <li>
+                  <a
+                    href="https://github.com/JustineSalinas/MARINE-AI---National-AI-Hackathon---AI-Fest"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[var(--color-accent-custom)] font-semibold hover:underline flex items-center gap-1"
+                  >
+                    GitHub Hackathon Repo <ExternalLink className="w-3 h-3" />
+                  </a>
+                </li>
+                <li>MIT Open Source License</li>
+                <li>Clean Energy & Blue Economy Track</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Bottom Footer Bar */}
+          <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+            <div className="text-[var(--color-muted-custom)]">
+              © {new Date().getFullYear()} Solmate Technologies. All rights reserved.
+            </div>
+            <div className="flex items-center gap-6 text-[var(--color-muted-custom)]">
+              <span className="hover:text-[var(--color-text)] cursor-pointer">Privacy Policy</span>
+              <span className="hover:text-[var(--color-text)] cursor-pointer">Terms of Service</span>
+              <span className="hover:text-[var(--color-text)] cursor-pointer">ESG Compliance Statement</span>
+            </div>
           </div>
         </div>
       </footer>
