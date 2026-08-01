@@ -249,14 +249,16 @@ export default function LandingPage() {
                 Ready, Spark, Charge Hackathon 2026 1st Runner-Up
               </h3>
 
-              <p className="text-base md:text-lg text-[var(--color-muted-custom)] leading-relaxed max-w-3xl">
-                Recognized for pioneering the Solmate E-Ferry Modular Retrofit Service & Green Fintech Platform, enabling clean zero-emission maritime transportation.
-              </p>
-
-              <div className="flex flex-wrap items-center gap-4 pt-2 text-xs font-mono text-[var(--color-muted-custom)]">
+              <div className="flex flex-wrap items-center gap-3 pt-2 text-xs font-mono text-[var(--color-muted-custom)]">
                 <span className="flex items-center gap-1.5 text-[var(--color-accent-custom)] font-semibold">
                   <CheckCircle2 className="w-4 h-4" /> Products 1 & 2 Recognized
                 </span>
+                <span>•</span>
+                <span>Clean Energy Track</span>
+                <span>•</span>
+                <span>Sustainable Transport</span>
+                <span>•</span>
+                <span>Renewable Energy & Fintech Integration</span>
               </div>
             </div>
 
@@ -288,7 +290,7 @@ export default function LandingPage() {
                   <div>
                     <span className="text-amber-400 text-xs font-mono font-bold block mb-1">TEAM CELEBRATION</span>
                     <span className="text-white text-sm md:text-base font-bold drop-shadow-md">
-                      Solmate Marine Engineering Team at Hackathon Finale
+                      Solmate Team at Hackathon Finale
                     </span>
                   </div>
                 </div>
@@ -836,7 +838,8 @@ export default function LandingPage() {
               </h4>
               <ul className="space-y-2 text-xs">
                 <li>MIT Open Source License</li>
-                <li>Clean Energy & Blue Economy Track</li>
+                <li>Clean Energy & Sustainable Transport Track</li>
+                <li>Renewable Energy & Fintech Integration</li>
                 <li>ISO 14064 Carbon Accounting Standard</li>
               </ul>
             </div>
