@@ -237,7 +237,7 @@ export default function LandingPage() {
           {/* Award Photo Spotlight Banner */}
           <div className="mt-16 bg-[var(--color-surface)] border border-[var(--color-border-custom)] rounded-3xl p-6 md:p-8 shadow-xl overflow-hidden text-left relative">
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-              <div className="md:col-span-7 space-y-4">
+              <div className="md:col-span-6 space-y-4">
                 <div className="flex items-center gap-2">
                   <Badge className="bg-amber-500/10 text-amber-700 border border-amber-500/20 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5">
                     <Award className="w-4 h-4 text-amber-600" />
@@ -262,16 +262,32 @@ export default function LandingPage() {
                 </div>
               </div>
 
-              <div className="md:col-span-5 relative group overflow-hidden rounded-2xl border border-[var(--color-border-custom)] shadow-lg">
-                <img
-                  src="/award.jpg"
-                  alt="Ready, Spark, Charge 2026 1st Runner-Up Award"
-                  className="w-full h-64 md:h-72 object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                  <span className="text-white text-xs font-semibold drop-shadow-md">
-                    Ready, Spark, Charge Hackathon 2026 Award Ceremony
-                  </span>
+              {/* Side-by-Side Award Photos */}
+              <div className="md:col-span-6 grid grid-cols-2 gap-3">
+                <div className="relative group overflow-hidden rounded-2xl border border-[var(--color-border-custom)] shadow-md">
+                  <img
+                    src="/award.jpg"
+                    alt="Ready, Spark, Charge 2026 Award Photo 1"
+                    className="w-full h-56 md:h-64 object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
+                    <span className="text-white text-[0.7rem] font-semibold drop-shadow-md">
+                      Award Ceremony Photo 1
+                    </span>
+                  </div>
+                </div>
+
+                <div className="relative group overflow-hidden rounded-2xl border border-[var(--color-border-custom)] shadow-md">
+                  <img
+                    src="/award2.jpg"
+                    alt="Ready, Spark, Charge 2026 Award Photo 2"
+                    className="w-full h-56 md:h-64 object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
+                    <span className="text-white text-[0.7rem] font-semibold drop-shadow-md">
+                      Award Ceremony Photo 2
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
