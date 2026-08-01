@@ -239,13 +239,13 @@ export default function LandingPage() {
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
               <div className="md:col-span-6 space-y-4">
                 <div className="flex items-center gap-2">
-                  <Badge className="bg-amber-500/10 text-amber-700 border border-amber-500/20 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5">
+                  <Badge className="bg-amber-500/10 text-amber-700 border border-amber-500/20 rounded-full px-3.5 py-1 text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5">
                     <Award className="w-4 h-4 text-amber-600" />
                     Official Award Recognition
                   </Badge>
                 </div>
 
-                <h3 className="text-2xl md:text-3xl font-extrabold text-[var(--color-text)] tracking-tight">
+                <h3 className="text-2xl md:text-3xl font-extrabold text-[var(--color-text)] tracking-tight leading-snug">
                   Ready, Spark, Charge Hackathon 2026 1st Runner-Up
                 </h3>
 
@@ -253,7 +253,7 @@ export default function LandingPage() {
                   Recognized for pioneering the Solmate E-Ferry Modular Retrofit Service & Green Fintech Platform, enabling clean zero-emission maritime transportation.
                 </p>
 
-                <div className="flex items-center gap-4 pt-2 text-xs font-mono text-[var(--color-muted-custom)]">
+                <div className="flex flex-wrap items-center gap-4 pt-2 text-xs font-mono text-[var(--color-muted-custom)]">
                   <span className="flex items-center gap-1.5 text-[var(--color-accent-custom)] font-semibold">
                     <CheckCircle2 className="w-4 h-4" /> Products 1 & 2 Recognized
                   </span>
@@ -264,26 +264,26 @@ export default function LandingPage() {
 
               {/* Side-by-Side Award Photos */}
               <div className="md:col-span-6 grid grid-cols-2 gap-3">
-                <div className="relative group overflow-hidden rounded-2xl border border-[var(--color-border-custom)] shadow-md">
+                <div className="relative group overflow-hidden rounded-2xl border border-[var(--color-border-custom)] shadow-md aspect-[4/3]">
                   <img
                     src="/award.jpg"
                     alt="Ready, Spark, Charge 2026 Award Photo 1"
-                    className="w-full h-56 md:h-64 object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
                     <span className="text-white text-[0.7rem] font-semibold drop-shadow-md">
                       Award Ceremony Photo 1
                     </span>
                   </div>
                 </div>
 
-                <div className="relative group overflow-hidden rounded-2xl border border-[var(--color-border-custom)] shadow-md">
+                <div className="relative group overflow-hidden rounded-2xl border border-[var(--color-border-custom)] shadow-md aspect-[4/3]">
                   <img
                     src="/award2.jpg"
                     alt="Ready, Spark, Charge 2026 Award Photo 2"
-                    className="w-full h-56 md:h-64 object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
                     <span className="text-white text-[0.7rem] font-semibold drop-shadow-md">
                       Award Ceremony Photo 2
                     </span>
@@ -298,9 +298,15 @@ export default function LandingPage() {
       {/* ─────────────────────────── PRODUCT 1: E-FERRY RETROFIT ─────────────────────────── */}
       <section id="retrofit" className="py-20 px-6 max-w-7xl mx-auto fade-in-section opacity-0 translate-y-8 transition-all duration-1000">
         <div className="mb-10 text-center md:text-left">
-          <Badge className="bg-[var(--color-accent-light)] text-[var(--color-accent-custom)] border border-[var(--color-accent-custom)]/30 rounded-full px-5 py-2 text-xs md:text-sm font-semibold uppercase tracking-wider mb-3 whitespace-nowrap inline-block">
-            Product 1 Showcase • Ready, Spark, Charge Hackathon 2026 1st Runner-Up
-          </Badge>
+          <div className="flex flex-wrap items-center gap-2.5 mb-3 justify-center md:justify-start">
+            <Badge className="bg-[var(--color-accent-light)] text-[var(--color-accent-custom)] border border-[var(--color-accent-custom)]/30 rounded-full px-3.5 py-1 text-xs font-semibold uppercase tracking-wider">
+              Product 1 Showcase
+            </Badge>
+            <Badge className="bg-amber-500/10 text-amber-700 border border-amber-500/20 rounded-full px-3.5 py-1 text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5">
+              <Award className="w-3.5 h-3.5 text-amber-600" />
+              Ready, Spark, Charge Hackathon 2026 1st Runner-Up
+            </Badge>
+          </div>
           <h2 className="text-3xl md:text-5xl font-extrabold text-[var(--color-text)] tracking-tight mb-4">
             Solmate E-Ferry Retrofit Service
           </h2>
@@ -349,9 +355,15 @@ export default function LandingPage() {
       {/* ─────────────────────────── PRODUCT 2: GREEN FINTECH ─────────────────────────── */}
       <section id="fintech" className="py-20 px-6 max-w-7xl mx-auto fade-in-section opacity-0 translate-y-8 transition-all duration-1000">
         <div className="mb-10 text-center md:text-left">
-          <Badge className="bg-emerald-500/10 text-[var(--color-teal)] border border-[var(--color-teal)]/30 rounded-full px-5 py-2 text-xs md:text-sm font-semibold uppercase tracking-wider mb-3 whitespace-nowrap inline-block">
-            Product 2 Showcase • Ready, Spark, Charge Hackathon 2026 1st Runner-Up
-          </Badge>
+          <div className="flex flex-wrap items-center gap-2.5 mb-3 justify-center md:justify-start">
+            <Badge className="bg-emerald-500/10 text-[var(--color-teal)] border border-[var(--color-teal)]/30 rounded-full px-3.5 py-1 text-xs font-semibold uppercase tracking-wider">
+              Product 2 Showcase
+            </Badge>
+            <Badge className="bg-amber-500/10 text-amber-700 border border-amber-500/20 rounded-full px-3.5 py-1 text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5">
+              <Award className="w-3.5 h-3.5 text-amber-600" />
+              Ready, Spark, Charge Hackathon 2026 1st Runner-Up
+            </Badge>
+          </div>
           <h2 className="text-3xl md:text-5xl font-extrabold text-[var(--color-text)] tracking-tight mb-4">
             Solmate Green Fintech Platform
           </h2>
