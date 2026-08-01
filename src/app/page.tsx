@@ -242,7 +242,6 @@ export default function LandingPage() {
                   <Award className="w-4 h-4 text-amber-600" />
                   Official Award Recognition
                 </Badge>
-                <span className="text-xs font-mono text-[var(--color-muted-custom)]">• Clean Energy Track</span>
               </div>
 
               <h3 className="text-3xl md:text-4xl font-extrabold text-[var(--color-text)] tracking-tight leading-tight">
