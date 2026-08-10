@@ -154,20 +154,17 @@ export default function LandingPage() {
           <div className="flex flex-col md:flex-row justify-center items-center gap-4 mb-8 max-w-5xl mx-auto w-full">
             <div className="w-full md:w-auto bg-amber-500/10 text-amber-800 border border-amber-500/25 rounded-2xl px-6 py-2.5 text-xs md:text-sm font-semibold uppercase tracking-wider flex items-center justify-center gap-2 whitespace-nowrap shadow-sm">
               <Award className="w-4 h-4 text-amber-600 shrink-0" />
-              <span>Ready, Spark, Charge Hackathon 2026 1st Runner-Up (Products 1 & 2)</span>
+              <span>National Ready, Spark, Charge Hackathon 2026 1st Runner-Up (Products 1 & 2)</span>
             </div>
 
             <div className="w-full md:w-auto bg-blue-500/10 text-blue-800 border border-blue-500/25 rounded-2xl px-6 py-2.5 text-xs md:text-sm font-semibold uppercase tracking-wider flex items-center justify-center gap-2 whitespace-nowrap shadow-sm">
               <Award className="w-4 h-4 text-blue-600 shrink-0" />
-              <span>National AI Hackathon (Product 3)</span>
+              <span>National AI Hackathon 2026 1st Runner-Up (Product 3)</span>
             </div>
           </div>
 
-          <h1 className="font-display text-[clamp(2.5rem,5.5vw,5.5rem)] font-extrabold text-[var(--color-text)] leading-[1.08] tracking-[-0.03em] mb-6 drop-shadow-sm max-w-4xl mx-auto">
-            Pioneering Zero-Emission & <br className="hidden md:block" />
-            <span className="text-[var(--color-accent-custom)]">
-              Intelligent Maritime Solutions
-            </span>
+          <h1 className="font-display text-[clamp(2rem,4.2vw,4rem)] font-extrabold text-[var(--color-text)] leading-tight tracking-[-0.03em] mb-6 drop-shadow-sm max-w-6xl mx-auto whitespace-nowrap md:whitespace-normal">
+            Clean & <span className="text-[var(--color-accent-custom)]">Smart Maritime Solutions</span>
           </h1>
 
           <p className="font-body text-lg md:text-xl leading-relaxed text-[var(--color-muted-custom)] max-w-3xl mx-auto mb-10">
@@ -245,52 +242,118 @@ export default function LandingPage() {
               </div>
 
               <h3 className="text-3xl md:text-4xl font-extrabold text-[var(--color-text)] tracking-tight leading-tight">
-                Ready, Spark, Charge Hackathon 2026 1st Runner-Up
+                National Hackathon Recognition & Award Highlights
               </h3>
 
               <div className="flex flex-wrap items-center gap-3 pt-2 text-xs font-mono text-[var(--color-muted-custom)]">
                 <span className="flex items-center gap-1.5 text-[var(--color-accent-custom)] font-semibold">
-                  <CheckCircle2 className="w-4 h-4" /> Products 1 & 2 Recognized
+                  <CheckCircle2 className="w-4 h-4" /> All Solmate Products Recognized as National 1st Runner-Up
                 </span>
                 <span>•</span>
-                <span>Clean Energy Track</span>
+                <span>National AI Hackathon 2026 (AI Fest)</span>
                 <span>•</span>
-                <span>Sustainable Transport</span>
-                <span>•</span>
-                <span>Renewable Energy & Fintech Integration</span>
+                <span>National Ready, Spark, Charge Hackathon 2026</span>
               </div>
             </div>
 
-            {/* Spacious Side-by-Side Award Photos */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="relative group overflow-hidden rounded-2xl border border-[var(--color-border-custom)] shadow-lg h-72 md:h-96">
-                <img
-                  src="/award.jpg"
-                  alt="Ready, Spark, Charge 2026 Award Photo 1"
-                  className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-5">
+            {/* Award Recognition Grids */}
+            <div className="space-y-10">
+              {/* National AI Hackathon 2026 (Product 3: Marine-AI) */}
+              <div className="border-t border-[var(--color-border-custom)] pt-8">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
                   <div>
-                    <span className="text-amber-400 text-xs font-mono font-bold block mb-1">AWARD CEREMONY</span>
-                    <span className="text-white text-sm md:text-base font-bold drop-shadow-md">
-                      1st Runner-Up Trophy & Certificate Presentation
+                    <span className="text-blue-600 text-xs font-mono font-bold uppercase tracking-wider block mb-1">
+                      PRODUCT 3 • MARINE-AI ADVISORY SYSTEM
                     </span>
+                    <h4 className="text-2xl font-bold text-[var(--color-text)]">
+                      National AI Hackathon 2026 — 1st Runner-Up
+                    </h4>
+                  </div>
+                  <Badge className="bg-blue-500/10 text-blue-700 border border-blue-500/20 rounded-full px-3.5 py-1 text-xs font-semibold uppercase w-fit">
+                    AI Fest 2026 Finale
+                  </Badge>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="relative group overflow-hidden rounded-2xl border border-[var(--color-border-custom)] shadow-lg h-72 md:h-96">
+                    <img
+                      src="/aifest.jpg"
+                      alt="National AI Fest Award Ceremony Photo"
+                      className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-5">
+                      <div>
+                        <span className="text-amber-400 text-xs font-mono font-bold block mb-1">NATIONAL AI FEST CEREMONY</span>
+                        <span className="text-white text-sm md:text-base font-bold drop-shadow-md">
+                          Marine-AI 1st Runner-Up Trophy & Certificate Awarding
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="relative group overflow-hidden rounded-2xl border border-[var(--color-border-custom)] shadow-lg h-72 md:h-96">
+                    <img
+                      src="/FB_IMG_1785929766641.jpg"
+                      alt="National AI Hackathon Marine AI Team Photo"
+                      className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-5">
+                      <div>
+                        <span className="text-amber-400 text-xs font-mono font-bold block mb-1">STAGE CELEBRATION</span>
+                        <span className="text-white text-sm md:text-base font-bold drop-shadow-md">
+                          Solmate Marine-AI Team Stage Recognition
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <div className="relative group overflow-hidden rounded-2xl border border-[var(--color-border-custom)] shadow-lg h-72 md:h-96">
-                <img
-                  src="/award2.jpg"
-                  alt="Ready, Spark, Charge 2026 Award Photo 2"
-                  className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-5">
+              {/* National Ready, Spark, Charge Hackathon 2026 (Products 1 & 2) */}
+              <div className="border-t border-[var(--color-border-custom)] pt-8">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
                   <div>
-                    <span className="text-amber-400 text-xs font-mono font-bold block mb-1">TEAM CELEBRATION</span>
-                    <span className="text-white text-sm md:text-base font-bold drop-shadow-md">
-                      Solmate Team at Hackathon Finale
+                    <span className="text-amber-600 text-xs font-mono font-bold uppercase tracking-wider block mb-1">
+                      PRODUCTS 1 & 2 • RETROFIT & GREEN FINTECH
                     </span>
+                    <h4 className="text-2xl font-bold text-[var(--color-text)]">
+                      National Ready, Spark, Charge Hackathon 2026 — 1st Runner-Up
+                    </h4>
+                  </div>
+                  <Badge className="bg-amber-500/10 text-amber-700 border border-amber-500/20 rounded-full px-3.5 py-1 text-xs font-semibold uppercase w-fit">
+                    National Clean Energy Track
+                  </Badge>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="relative group overflow-hidden rounded-2xl border border-[var(--color-border-custom)] shadow-lg h-72 md:h-96">
+                    <img
+                      src="/award.jpg"
+                      alt="Ready, Spark, Charge 2026 Award Photo 1"
+                      className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-5">
+                      <div>
+                        <span className="text-amber-400 text-xs font-mono font-bold block mb-1">AWARD CEREMONY</span>
+                        <span className="text-white text-sm md:text-base font-bold drop-shadow-md">
+                          1st Runner-Up Trophy & Certificate Presentation
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="relative group overflow-hidden rounded-2xl border border-[var(--color-border-custom)] shadow-lg h-72 md:h-96">
+                    <img
+                      src="/award2.jpg"
+                      alt="Ready, Spark, Charge 2026 Award Photo 2"
+                      className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-5">
+                      <div>
+                        <span className="text-amber-400 text-xs font-mono font-bold block mb-1">TEAM CELEBRATION</span>
+                        <span className="text-white text-sm md:text-base font-bold drop-shadow-md">
+                          Solmate Team at Hackathon Finale
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -308,7 +371,7 @@ export default function LandingPage() {
             </Badge>
             <Badge className="bg-amber-500/10 text-amber-700 border border-amber-500/20 rounded-full px-3.5 py-1 text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5">
               <Award className="w-3.5 h-3.5 text-amber-600" />
-              Ready, Spark, Charge Hackathon 2026 1st Runner-Up
+              National Ready, Spark, Charge Hackathon 2026 1st Runner-Up
             </Badge>
           </div>
           <h2 className="text-3xl md:text-5xl font-extrabold text-[var(--color-text)] tracking-tight mb-4">
@@ -365,7 +428,7 @@ export default function LandingPage() {
             </Badge>
             <Badge className="bg-amber-500/10 text-amber-700 border border-amber-500/20 rounded-full px-3.5 py-1 text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5">
               <Award className="w-3.5 h-3.5 text-amber-600" />
-              Ready, Spark, Charge Hackathon 2026 1st Runner-Up
+              National Ready, Spark, Charge Hackathon 2026 1st Runner-Up
             </Badge>
           </div>
           <h2 className="text-3xl md:text-5xl font-extrabold text-[var(--color-text)] tracking-tight mb-4">
@@ -419,7 +482,7 @@ export default function LandingPage() {
           <div className="flex flex-wrap items-center gap-3 mb-3 justify-center md:justify-start">
             <Badge className="bg-amber-500/10 text-amber-600 border border-amber-500/20 rounded-full px-3.5 py-1 text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5">
               <Award className="w-4 h-4 text-amber-500" />
-              National AI Hackathon 2026
+              National AI Hackathon 2026 1st Runner-Up
             </Badge>
             <Badge className="bg-[var(--color-blue)]/10 text-[var(--color-blue)] border border-[var(--color-blue)]/20 rounded-full px-3.5 py-1 text-xs font-semibold uppercase tracking-wider">
               Product 3 Showcase
@@ -779,11 +842,11 @@ export default function LandingPage() {
               <div className="flex flex-col gap-2 pt-1">
                 <div className="inline-flex items-center gap-2 bg-amber-500/10 text-amber-700 px-3 py-1 rounded-full text-xs font-semibold border border-amber-500/20 w-fit">
                   <Award className="w-3.5 h-3.5 text-amber-600" />
-                  Ready, Spark, Charge Hackathon 2026 1st Runner-Up (P1 & P2)
+                  National Ready, Spark, Charge Hackathon 2026 1st Runner-Up (P1 & P2)
                 </div>
                 <div className="inline-flex items-center gap-2 bg-blue-500/10 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold border border-blue-500/20 w-fit">
                   <Award className="w-3.5 h-3.5 text-blue-600" />
-                  National AI Hackathon (Product 3)
+                  National AI Hackathon 2026 1st Runner-Up (Product 3)
                 </div>
               </div>
             </div>

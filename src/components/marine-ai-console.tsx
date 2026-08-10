@@ -99,7 +99,7 @@ export function MarineAiConsole() {
             <div className="flex items-center gap-3 mb-2">
               <Badge className="bg-amber-500/15 text-amber-400 border border-amber-400/30 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5">
                 <Award className="w-3.5 h-3.5 text-amber-400" />
-                National AI Hackathon 2026
+                National AI Hackathon 2026 1st Runner-Up
               </Badge>
               <Badge className="bg-[var(--color-accent-custom)]/15 text-[var(--color-accent-custom)] border border-[var(--color-accent-custom)]/30 rounded-full px-2.5 py-0.5 text-xs font-mono">
                 Product 3 • Marine-AI
